@@ -1,0 +1,34 @@
+<?php
+class UserModel extends DB
+{
+  public $table = "ps_users";
+
+  public function GetAllUser()
+  {
+    $sql = "SELECT id, admin, username, fullName, mobile, email, avatar, registeredAt ,verify FROM ps_users";
+    return $this->pdo_query($sql);
+  }
+  public function CheckLogin($username, $password)
+  {
+    $password = md5($password);
+    $sql = "SELECT id, username, avatar, fullName, admin FROM ps_users WHERE (username='$username' OR email='$username' OR mobile='$username') AND passwordHash='$password' LIMIT 1";
+    return $this->pdo_query_one($sql);
+  }
+  public function GetUserById($username = 0, $email = 0, $mobile = 0, $cond = 1)
+  {
+    $sql = "select * from ps_users where (username = '$username' OR email = '$email' OR mobile = '$mobile') AND $cond";
+    return $this->pdo_query_one($sql);
+  }
+  public function InsertUser($data)
+  {
+    return $this->insert($this->table, $data);
+  }
+  public function UpdateUserBy($data, $cond)
+  {
+    return $this->update($this->table, $data, $cond);
+  }
+  public function DeleteUserById($cond)
+  {
+    return  $this->delete($this->table, $cond);
+  }
+}

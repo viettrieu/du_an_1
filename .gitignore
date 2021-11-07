@@ -1,2 +1,6 @@
 .history
 .history/*
+vendor
+vendor/*
+mvc/core/DB.php
+mvc/Bridge.php
