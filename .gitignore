@@ -2,5 +2,5 @@
 .history/*
 vendor
 vendor/*
-# mvc/core/DB.php
-# mvc/Bridge.php
+mvc/core/DB.php
+mvc/Bridge.php
