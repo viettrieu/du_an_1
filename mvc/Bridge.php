@@ -1,6 +1,6 @@
 <?php
-define("SITE_URL", "https://ps17048.com/PHP_FPOLY/ASM_MVC");
-define("ADMIN_URL", "https://ps17048.com/PHP_FPOLY/ASM_MVC/admin");
+define("SITE_URL", "https://ps17048.com/PHP_FPOLY/du_an_1/");
+define("ADMIN_URL", "https://ps17048.com/PHP_FPOLY/du_an_1/admin");
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 // Process URL from browser

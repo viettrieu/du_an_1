@@ -1,6 +1,7 @@
 <?php
 
 use Core\HandleForm;
+use Core\loginfb;
 
 class Login extends Controller
 {
@@ -40,7 +41,8 @@ class Login extends Controller
     $this->view("page-full", [
       "Page" => "login",
       "Title" => "Đăng nhập",
-      "Errors" => $errors
+      "Errors" => $errors,
+      "fb" => loginfb::login()
     ]);
   }
 }

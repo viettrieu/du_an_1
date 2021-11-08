@@ -1,3 +1,10 @@
+<?php
+var_dump($data["fb"]);
+var_dump($_SESSION['infofb']);
+// // var_dump($_SESSION['facebook_access_token']);
+// unset($_SESSION['facebook_access_token']);
+// unset($_SESSION['infofb'])
+?>
 <div class="row page-wrapper" style="justify-content: center">
   <div class="col medium-8 small-12 large-5">
     <?php foreach ($data["Errors"] as $error) :

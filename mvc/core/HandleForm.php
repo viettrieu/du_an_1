@@ -52,7 +52,7 @@ class HandleForm
    * @param string $type
    * @return bool
    */
-  private static function validate(mixed $value, string $type): bool
+  private static function validate($value, string $type): bool
   {
     switch ($type) {
       case 'required':
