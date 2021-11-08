@@ -7,9 +7,7 @@ class loginfb
     public static function login()
     {
         $fb = new \Facebook\Facebook([
-            'app_id' => '249747897187446',
-            'app_secret' => 'eb8c15a323038b973ee5bf2a020244ff',
-            'default_graph_version' => 'v2.10',
+
             //'default_access_token' => '{access-token}', // optional
         ]);
 
