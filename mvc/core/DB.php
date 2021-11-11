@@ -4,7 +4,7 @@ class DB
     public $conn;
     function __construct()
     {
-        $dburl = "mysql:host=ps17048.com:3366;dbname=ps17048;charset=utf8";
+        $dburl = "mysql:host=localhost;dbname=bansach;charset=utf8";
         $username = 'root';
         $password = '';
         $this->conn = new PDO($dburl, $username, $password);
