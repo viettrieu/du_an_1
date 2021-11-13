@@ -1,7 +1,7 @@
 <?php
 
 use Core\HandleForm;
-
+use Core\Helper;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -50,30 +50,14 @@ class Forgot extends Controller
                             'created_at' => date('Y-m-d H:i:s', time())
                         ]);
 
-                        //Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
-                        $mail->isSMTP();                                            //Send using SMTP
-                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'baondgps16885@fpt.edu.vn';                     //SMTP username
-                        $mail->Password   = 'gecztawxiwvnjphf';                               //SMTP password
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                    
-                        //Recipients
-                        $mail->setFrom('no-reply@giabao.com', 'Gia bao');
-                        $mail->addAddress($email);               //Name is optional
-                        $mail->addReplyTo('no-reply@giabao.com', 'Gia bao');
-                    
-                        //Content
-                        $mail->isHTML(true);                                  //Set email format to HTML
-                        $mail->Subject = 'Khôi phục mật khẩu';
-                        $mail->Body    = '
-                            Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
-                            <a href="http://localhost/du_an_1/recovery?token='.$token.'">http://localhost/du_an_1/recovery?token='.$token.'</a>
-                        ';
-                    
-                        $mail->send();
+                        $email_data = [];
+                        $email_data['Subject'] = 'Khôi phục mật khẩu';
+                        $email_data['Page'] = '
+                        Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
+                        <a href="http://localhost/du_an_1/recovery?token='.$token.'">http://localhost/du_an_1/recovery?token='.$token.'</a>';
+
+                        Helper::sendMail($email_data);
+                                                
                         $errors[] = ["status" => "OK", "message" => " Hãy kiểm tra email của bạn"];
                     } catch (Exception $e) {
                         $errors[] = ["status" => "ERROR", "message" => " Đã xảy ra lỗi vui lòng thử lại"];
