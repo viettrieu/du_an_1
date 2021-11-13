@@ -143,8 +143,6 @@ class HandleForm
     if ($file['error'] > 0) {
       return [false, 'File error!'];
     }
-    $destination_path = getcwd() . DIRECTORY_SEPARATOR;
-    $target =  $destination_path . $target;
     $baseName = isset($baseName) ?  $temporary[0] : $baseName;
     $sourcePath = $file['tmp_name'];
     if ($newWidth !== 0) {
