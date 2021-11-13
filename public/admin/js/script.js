@@ -479,6 +479,7 @@ function GetQLeditor() {
 $("#create_category").submit(GetQLeditor);
 $("#edit_category").submit(GetQLeditor);
 $("#edit_tag").submit(GetQLeditor);
+$("#create_tag").submit(GetQLeditor);
 $("#create_product").submit(GetQLeditor);
 $("#edit_product").submit(GetQLeditor);
 $("#create_author").submit(GetQLeditor);
