@@ -481,6 +481,8 @@ $("#edit_category").submit(GetQLeditor);
 $("#edit_tag").submit(GetQLeditor);
 $("#create_product").submit(GetQLeditor);
 $("#edit_product").submit(GetQLeditor);
+$("#create_author").submit(GetQLeditor);
+$("#edit_author").submit(GetQLeditor);
 $("#product_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/product/delete", "sản phẩm");
 });
