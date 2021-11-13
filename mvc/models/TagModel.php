@@ -1,21 +1,21 @@
 <?php
 class TagModel extends DB
 {
-    public $table = "ps_tag";
+    public $table = "tag";
     public function GetAllTag()
     {
-        $sql = "SELECT ps_tag.id, ps_tag.title, DATE_FORMAT(ps_tag.published, '%e/%c/%Y') AS'published', COUNT(product_tag.tagId) AS 'luot' FROM ps_tag LEFT JOIN product_tag ON product_tag.tagId = ps_tag.id GROUP BY ps_tag.id";
+        $sql = "SELECT tag.id, tag.title, DATE_FORMAT(tag.published, '%e/%c/%Y') AS'published', COUNT(book_tag.tagId) AS 'luot' FROM tag LEFT JOIN book_tag ON book_tag.tagId = tag.id GROUP BY tag.id";
         return $this->pdo_query($sql);
     }
     public function GetTagById($id)
     {
-        $sql = "SELECT * FROM ps_tag WHERE id = $id";
+        $sql = "SELECT * FROM tag WHERE id = $id";
         return $this->pdo_query_one($sql);
     }
     public function GetTagByProduct($id)
     {
-        $sql = "SELECT id, title FROM ps_tag
-        INNER JOIN product_tag ON tagId = ps_tag.id
+        $sql = "SELECT id, title FROM tag
+        INNER JOIN book_tag ON tagId = tag.id
         WHERE productId = $id";
         return $this->pdo_query($sql);
     }

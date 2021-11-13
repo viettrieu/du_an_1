@@ -1,21 +1,21 @@
 <?php
 class CategoryModel extends DB
 {
-    public $table = "ps_category";
+    public $table = "category";
     public function GetAllCategory()
     {
-        $sql = "SELECT ps_category.id, ps_category.title, DATE_FORMAT(ps_category.published, '%e/%c/%Y') AS'published', COUNT(product_category.categoryId) AS 'luot' FROM ps_category LEFT JOIN product_category ON product_category.categoryId = ps_category.id GROUP BY ps_category.id";
+        $sql = "SELECT category.id, category.title, DATE_FORMAT(category.published, '%e/%c/%Y') AS'published', COUNT(book_category.categoryId) AS 'luot' FROM category LEFT JOIN book_category ON book_category.categoryId = category.id GROUP BY category.id";
         return $this->pdo_query($sql);
     }
     public function GetCategorById($id)
     {
-        $sql = "SELECT * FROM ps_category WHERE id = $id";
+        $sql = "SELECT * FROM category WHERE id = $id";
         return $this->pdo_query_one($sql);
     }
     public function GetCategoryByProduct($id)
     {
-        $sql = "SELECT id, title FROM ps_category
-        INNER JOIN product_category ON categoryId = ps_category.id
+        $sql = "SELECT id, title FROM category
+        INNER JOIN book_category ON categoryId = category.id
         WHERE productId = $id";
         return $this->pdo_query($sql);
     }

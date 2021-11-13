@@ -43,7 +43,6 @@ class Login extends Controller
       "Page" => "login",
       "Title" => "Đăng nhập",
       "Errors" => $errors,
-      // "fb" => loginfb::login()
     ]);
   }
 }
