@@ -2,9 +2,10 @@
 class DB
 {
     public $conn;
+
     function __construct()
     {
-        $dburl = "mysql:host=ps17048.com:3366;dbname=ps17048;charset=utf8";
+        $dburl = "mysql:host=localhost;dbname=bansach;charset=utf8";
         $username = 'root';
         $password = '';
         $this->conn = new PDO($dburl, $username, $password);
@@ -82,6 +83,44 @@ class DB
         $statement = $this->conn->prepare($sql);
         $statement->execute(array($username, $password));
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function all($table)
+    {
+        $sql = "SELECT * FROM $table";
+        return $this->pdo_query($sql);
+    }
+
+    public function allBy($table, $cond = '')
+    {
+        $condQuery = '';
+
+        if (!empty($cond)) {
+            if (is_array($cond)) {
+                $condQuery = 'WHERE ' . implode('=', $cond);
+            } else {
+                $condQuery = 'WHERE ' . $cond;
+            }
+        }
+
+        $sql = "SELECT * FROM $table $condQuery";
+        return $this->pdo_query($sql);
+    }
+
+    public function firstBy($table, $cond = '')
+    {
+        $condQuery = '';
+
+        if (!empty($cond)) {
+            if (is_array($cond)) {
+                $condQuery = 'WHERE ' . implode('=', $cond);
+            } else {
+                $condQuery = 'WHERE ' . $cond;
+            }
+        }
+
+        $sql = "SELECT * FROM $table $condQuery";
+        return $this->pdo_query_one($sql);
     }
 
     public function lastInsertId()

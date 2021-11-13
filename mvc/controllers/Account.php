@@ -19,6 +19,7 @@ class Account extends Controller
       $this->UserById = $this->User->GetUserById($userlg["username"]);
     }
   }
+
   function SayHi()
   {
     $errors = array();
