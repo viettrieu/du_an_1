@@ -17,6 +17,10 @@
                                 phẩm
                                 mới</span></a>
                     </li>
+                    <li class="<?php if ($data["Page"] == "author") echo "active"; ?>">
+                        <a href="<?= ADMIN_URL; ?>/author"><i class="fas fa-boxes"></i><span>Danh sách tác giả</span></a>
+                    </li>
+
                     <li class="<?php if ($data["Page"] == "create-author") echo "active"; ?>">
                         <a href="<?= ADMIN_URL; ?>/author/create"><i class="fas fa-parachute-box"></i><span>Tạo tác giả
                             </span></a>

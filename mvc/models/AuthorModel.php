@@ -7,7 +7,7 @@ class AuthorModel extends DB
         $sql = "SELECT author.id, author.title, DATE_FORMAT(author.published, '%e/%c/%Y') AS'published', COUNT(book_author.authorId) AS 'luot' FROM author LEFT JOIN book_author ON book_author.authorId = author.id GROUP BY author.id";
         return $this->pdo_query($sql);
     }
-    public function GetAuthorrById($id)
+    public function GetAuthorById($id)
     {
         $sql = "SELECT * FROM author WHERE id = $id";
         return $this->pdo_query_one($sql);
