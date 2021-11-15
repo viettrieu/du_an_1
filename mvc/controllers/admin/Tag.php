@@ -75,12 +75,13 @@ class Tag extends Controller
       "Tag" => $this->ListTag->GetTagById($id),
     ]);
   }
-  function Delete()
+  function Delete($id = 0)
   {
-    $id = $_POST['id'];
     $cond = "id = '$id'";
     $result =  $this->ListTag->DeleteTagById($cond);
-    echo json_encode($result);
+    if ($result) {
+      echo json_encode($result);
+    }
     exit();
   }
 }

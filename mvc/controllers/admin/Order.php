@@ -50,7 +50,4 @@ class Order extends Controller
       "Items" => $this->Orders->GetOrderItemById($id),
     ]);
   }
-  function Delete()
-  {
-  }
 }

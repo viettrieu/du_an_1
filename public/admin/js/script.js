@@ -483,10 +483,13 @@ $("#create_category").submit(GetQLeditor);
 $("#edit_category").submit(GetQLeditor);
 $("#create_tag").submit(GetQLeditor);
 $("#edit_tag").submit(GetQLeditor);
+$("#create_tag").submit(GetQLeditor);
 $("#create_product").submit(GetQLeditor);
 $("#edit_product").submit(GetQLeditor);
 $("#create_coupon").submit(GetQLeditor);
 $("#edit_coupon").submit(GetQLeditor);
+$("#create_author").submit(GetQLeditor);
+$("#edit_author").submit(GetQLeditor);
 $("#product_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/product/delete", "sản phẩm");
 });
@@ -504,6 +507,9 @@ $("#reviews_list").on("click", ".delete", function (e) {
 });
 $("#coupon_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/coupon/delete", "Coupon");
+});
+$("#author_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/author/delete", "Tác giả");
 });
 $("#reviews_list").on("click", ".accept", function (e) {
   e.preventDefault();
