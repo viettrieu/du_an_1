@@ -167,13 +167,16 @@
     </li>
   </ul>
 </div>
-<?php if (!isset($_SESSION['cart'])) {
-  $_SESSION['cart'] = [];
+<?php
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = ['item' => [], 'coupon' => []];
 } ?>
 <script>
 <?php
-  $listCart = $_SESSION['cart'];
+  $listCart = $_SESSION['cart']['item'];
+  $coupon = $_SESSION['cart']['coupon'];
   echo "let cart = " . json_encode($listCart) . ";";
+  echo "let coupon = " . json_encode($coupon) . ";";
   echo "let SITE_URL = '" . SITE_URL . "';"; ?>
 </script>
 <script src="<?= SITE_URL ?>/public/js/owl.carousel.js"></script>

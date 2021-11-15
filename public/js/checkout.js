@@ -17,15 +17,45 @@ function displayCheckout() {
             </tr>`;
   }
   document.getElementById("show-checkout").innerHTML = output;
-  let sum = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
-  document.querySelector(".subtotal").innerHTML = formatCash(sum);
-  document.querySelector(".total").innerHTML = formatCash(sum);
+  let subTotal = getSubTotal();
+  let discount = getDiscount(subTotal);
+  let total = getTotal(subTotal, discount);
+  document.querySelector(".subtotal").innerHTML = formatCash(subTotal);
+  document.querySelector(".total").innerHTML = formatCash(total);
+  $(".cart-subtotal").after(showCoupon(discount));
   if (cart.length == 0) {
     document.querySelector(".yproduct").style.display = "none";
     document.querySelector(".nproduct").style.display = "flex";
   }
 }
 displayCheckout();
+function getSubTotal() {
+  let sum = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+  return sum;
+}
+function getDiscount(subTotal) {
+  let sum = 0;
+  if (coupon["code"]) {
+    sum = (coupon["discount"] / 100) * subTotal;
+  }
+  return sum;
+}
+function showCoupon(discount) {
+  let info = ``;
+  if (coupon["code"]) {
+    info = `<tr class="cart-discount">
+    <th>Coupon: ${coupon["code"]}</th>
+    <td>-<span class="discount">${formatCash(discount)}</span>
+      <sup>đ</sup> <a href="" id="remove-coupon">[xóa]</a>
+    </td>
+  </tr>`;
+  }
+  return info;
+}
+function getTotal(subTotal, discount) {
+  let sum = subTotal - discount;
+  return sum;
+}
 document
   .getElementById("current-position")
   .addEventListener("click", getCurrentPosition);

@@ -46,7 +46,12 @@ function displayCart() {
     document.querySelector(".yproduct").style.display = "none";
     document.querySelector(".nproduct").style.display = "flex";
   }
-  subTotal();
+  let subTotal = getSubTotal();
+  let discount = getDiscount(subTotal);
+  let total = getTotal(subTotal, discount);
+  document.querySelector(".subtotal").innerHTML = formatCash(subTotal);
+  document.querySelector(".total").innerHTML = formatCash(total);
+  $(".cart-subtotal").after(showCoupon(discount));
 }
 displayCart();
 
@@ -71,15 +76,44 @@ function removeItemFromCartAll(e) {
           document.querySelector(".nproduct").style.display = "flex";
         }
       }, 500);
-      subTotal();
+      let subTotal = getSubTotal();
+      let discount = getDiscount(subTotal);
+      let total = getTotal(subTotal, discount);
+      document.querySelector(".subtotal").innerHTML = formatCash(subTotal);
+      document.querySelector(".total").innerHTML = formatCash(total);
+      if ($(".discount").length > 0) {
+        $(".discount").html(formatCash(discount));
+      }
       getCount();
     },
   });
 }
-function subTotal() {
+function getSubTotal() {
   let sum = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
-  document.querySelector(".subtotal").innerHTML = formatCash(sum);
-  document.querySelector(".total").innerHTML = formatCash(sum);
+  return sum;
+}
+function getDiscount(subTotal) {
+  let sum = 0;
+  if (coupon["code"]) {
+    sum = (coupon["discount"] / 100) * subTotal;
+  }
+  return sum;
+}
+function showCoupon(discount) {
+  let info = ``;
+  if (coupon["code"]) {
+    info = `<tr class="cart-discount">
+    <th>Coupon: ${coupon["code"]}</th>
+    <td>-<span class="discount">${formatCash(discount)}</span>
+      <sup>đ</sup> <a href="" id="remove-coupon">[xóa]</a>
+    </td>
+  </tr>`;
+  }
+  return info;
+}
+function getTotal(subTotal, discount) {
+  let sum = subTotal - discount;
+  return sum;
 }
 function setCountForItem(name, count) {
   for (let i in cart) {
@@ -118,7 +152,14 @@ function changeQuantity(e) {
       cart = data;
       let sum = value * getPrice;
       setPrice.innerHTML = formatCash(String(sum));
-      subTotal();
+      let subTotal = getSubTotal();
+      let discount = getDiscount(subTotal);
+      let total = getTotal(subTotal, discount);
+      document.querySelector(".subtotal").innerHTML = formatCash(subTotal);
+      document.querySelector(".total").innerHTML = formatCash(total);
+      if ($(".discount").length > 0) {
+        $(".discount").html(formatCash(discount));
+      }
       getCount();
     },
   });
@@ -157,10 +198,50 @@ function buttonMinusPlus(e, number) {
       cart = data;
       let sum = value * getPrice;
       setPrice.innerHTML = formatCash(String(sum));
-      subTotal();
+      let subTotal = getSubTotal();
+      let discount = getDiscount(subTotal);
+      let total = getTotal(subTotal, discount);
+      document.querySelector(".subtotal").innerHTML = formatCash(subTotal);
+      document.querySelector(".total").innerHTML = formatCash(total);
+      if ($(".discount").length > 0) {
+        $(".discount").html(formatCash(discount));
+      }
       getCount();
       button[0].disabled = false;
       button[1].disabled = false;
     },
   });
 }
+$("#add_coupon").submit(function (e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  $.ajax({
+    url: SITE_URL + "/cart/checkcoupon",
+    type: "POST",
+    data: formData,
+    dataType: "JSON",
+    success: function (data) {
+      coupon = data["coupon"];
+      let subTotal = getSubTotal();
+      let discount = getDiscount(subTotal);
+      let total = getTotal(subTotal, discount);
+      let info = data["info"][0];
+      let status = info["status"] == "ERROR" ? "alert-danger" : "alert-success";
+      let alert = `<div class="alert ${status} alert-dismissible fade show" role="alert">
+      ${info["message"]}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">×</span>
+     </button>
+   </div>`;
+      $("#info").html(alert);
+      if (info["status"] == "OK") {
+        $(".coupon").remove();
+        $(".cart-subtotal").after(showCoupon(discount));
+        document.querySelector(".total").innerHTML = formatCash(total);
+      }
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
+  });
+});

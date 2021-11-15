@@ -41,12 +41,12 @@
         <div class="input-group">
           <input id="mobile" name="mobile" type="tel" value="<?= $mobile; ?>" size="30" required
             pattern="(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})">
-          <button type="button" class="button primary" id="btnsubmit" onclick="onPhoneAuth()">
+          <!-- <button type="button" class="button primary" id="btnsubmit" onclick="onPhoneAuth()">
             Nhận OTP
-          </button>
+          </button> -->
         </div>
       </div>
-      <div class="form-control otp none">
+      <!-- <div class="form-control otp none">
         <label for="phone">
           Vui Lòng Nhập Mã Xác Minh
           <span class="required">*</span>
@@ -57,7 +57,7 @@
             Xác minh
           </button>
         </div>
-      </div>
+      </div> -->
       <div class="form-control">
         <label for="address">
           Địa chỉ nhận hàng<span class="required">*</span>

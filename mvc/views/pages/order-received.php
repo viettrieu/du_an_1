@@ -37,6 +37,16 @@ $items = $data["Items"];
             </strong>
           </td>
         </tr>
+        <?php if (isset($order['coupon'])) : ?>
+        <tr class="cart-discount">
+          <th>Coupon: <?= $order['coupon']; ?></th>
+          <td> <strong>
+              <span class="discount">-<?= number_format($order['discount'], 0, ',', '.'); ?></span>
+              <sup>đ</sup>
+              <strong>
+          </td>
+        </tr>
+        <?php endif ?>
         <tr class="shipping-totals shipping">
           <th>Phí vận chuyển</th>
           <td data-title="Shipping">

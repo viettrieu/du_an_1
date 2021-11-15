@@ -3,35 +3,34 @@ class CartModel extends DB
 {
     public function addTheCart($productId, $quantity)
     {
-        if (in_array($productId, array_column($_SESSION['cart'], 'id'))) {
-            $index =  array_search($productId, array_column($_SESSION['cart'], 'id'));
-            $_SESSION['cart'][$index]['quantity'] += $quantity;
+        if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+            $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+            $_SESSION['cart']['item'][$index]['quantity'] += $quantity;
         } else {
-            $query = "SELECT ps_product.id , ps_product.thumbnail , ps_product.title , ps_product.price FROM ps_product WHERE id = $productId";
-            $cartItem = $this->pdo_query($query);
-            $cartItem[0]['quantity'] = $quantity;
-            $row = $cartItem[0];
-            array_push($_SESSION['cart'], $row);
+            $query = "SELECT book.id , book.thumbnail , book.title , book.price FROM book WHERE id = $productId";
+            $cartItem = $this->pdo_query_one($query);
+            $cartItem['quantity'] = $quantity;
+            array_push($_SESSION['cart']['item'], $cartItem);
         }
-        $listCart = $_SESSION['cart'];
+        $listCart = $_SESSION['cart']['item'];
         return $listCart;
     }
     public function removeTheCart($productId)
     {
-        if (in_array($productId, array_column($_SESSION['cart'], 'id'))) {
-            $index =  array_search($productId, array_column($_SESSION['cart'], 'id'));
-            array_splice($_SESSION['cart'], $index, 1);
-            $listCart = $_SESSION['cart'];
+        if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+            $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+            array_splice($_SESSION['cart']['item'], $index, 1);
+            $listCart = $_SESSION['cart']['item'];
         }
         echo json_encode($listCart);
         exit();
     }
     function changeQuantity($productId, $quantity)
     {
-        if (in_array($productId, array_column($_SESSION['cart'], 'id'))) {
-            $index =  array_search($productId, array_column($_SESSION['cart'], 'id'));
-            $_SESSION['cart'][$index]['quantity'] = $quantity;
-            $listCart = $_SESSION['cart'];
+        if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+            $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+            $_SESSION['cart']['item'][$index]['quantity'] = $quantity;
+            $listCart = $_SESSION['cart']['item'];
         }
         echo json_encode($listCart);
         exit();

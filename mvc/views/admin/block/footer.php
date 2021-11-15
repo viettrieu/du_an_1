@@ -32,5 +32,8 @@
 <!-- sweetalert2 JS -->
 <script src="<?= SITE_URL ?>/public/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
 
+<!-- voucher_codes JS -->
+<script src="<?= SITE_URL ?>/public/admin/js/voucher_codes.js"></script>
+
 <!-- Custom JS -->
 <script src="<?= SITE_URL ?>/public/admin/js/script.js"></script>

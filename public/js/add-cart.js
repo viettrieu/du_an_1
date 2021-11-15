@@ -22,6 +22,7 @@ for (let i = 0; i < addCart.length; i++) {
       data: postForm,
       dataType: "json",
       success: function (data) {
+        console.log(data);
         cart = data;
         getCount();
         displayMiniCart();

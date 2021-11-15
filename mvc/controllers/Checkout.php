@@ -8,17 +8,21 @@ class Checkout extends Controller
   public $CartModel;
   public $User;
   public $Order;
+  public $Coupon;
 
   function __construct()
   {
     $this->CartModel = $this->model("CartModel");
     $this->User = $this->model("UserModel");
     $this->Order = $this->model("OrderModel");
+    $this->Coupon = $this->model("CouponModel");
   }
   function SayHi()
   {
     $errors = array();
-    if (!isset($_SESSION['user']) && count($_SESSION['cart']) > 0) {
+    $listCart = $_SESSION['cart']['item'];
+    $coupon = $_SESSION['cart']['coupon'];
+    if (!isset($_SESSION['user']) && count($listCart) > 0) {
       $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
       $_SESSION['errors'] = ["status" => "ERROR", "message" => "Vui lòng đăng nhập để tiếp tục thanh toán"];
       header("Location: " . SITE_URL . "/login&refurl=" . base64_encode($actual_link));
@@ -27,13 +31,14 @@ class Checkout extends Controller
     if (isset($_SESSION['user'])) {
       $UserById = $this->User->GetUserById($_SESSION['user']['username']);
     }
-
     $request = json_decode(json_encode($_POST));
     if (isset($request->create_order)) {
       $subtotal = 0;
-      foreach ($_SESSION['cart'] as $values) {
+      foreach ($listCart as $values) {
         $subtotal +=  $values['quantity'] *  $values['price'];
       }
+      $discount = isset($coupon['discount']) ?  $coupon['discount'] / 100 * $subtotal : 0;
+      $total = $subtotal - $discount;
       $errors = HandleForm::validations([
         [$request->fullName, 'required', 'Vui lòng nhập họ và tên'],
         [$request->mobile, 'mobile', 'Vui lòng điền đúng số điện thoại'],
@@ -47,22 +52,22 @@ class Checkout extends Controller
       $content =  HandleForm::rip_tags($request->comments);
       $bankcode  =  HandleForm::rip_tags($request->bankcode);
       $data = array(
+        "userId" => (int)$UserById["id"],
+        "idCoupon" => isset($coupon['id']) ? (int)$coupon['id'] : NULL,
         "fullName" => $fullName,
         "mobile" => $mobile,
         "email" => $email,
         "address" => $address,
         "transaction" => $transaction,
         "content" => $content,
-        "subTotal" => (float)$subtotal,
-        "total" => (float)$subtotal,
+        "subTotal" => $subtotal,
+        "discount" => $discount,
+        "total" => $total,
       );
-      if (isset($_SESSION['user'])) {
-        $data["userId"] = $UserById["id"];
-      }
       if (count($errors) == 0) {
         $this->Order->InsertOrder($data);
         $orderId  = $this->Order->lastInsertId();
-        foreach ($_SESSION['cart'] as $values) {
+        foreach ($listCart as $values) {
           $item = array(
             "orderId" => $orderId,
             "productId" => $values['id'],
@@ -74,7 +79,7 @@ class Checkout extends Controller
         setcookie("orderId", base64_encode($orderId), time() + (5 * 60), "/");
         $data["orderId"] = $orderId;
         $data["date"] = date("d/m/Y");
-        $data["Page"] = $_SESSION['cart'];
+        $data["Page"] = $listCart;
         $data['transaction'] = Helper::PaymentMethods($data['transaction']);
         Helper::sendTelegram($data);
         ob_start();
@@ -91,8 +96,8 @@ class Checkout extends Controller
         if ($transaction == "bacs" || $transaction == "credit") {
           $data = array("status" => 2);
           $cond = "id = '$orderId'";
-          $this->Order->UpdateOrderBy($data, $cond);
-          $VNpayData = Helper::VNpayCreatePayment($orderId, $subtotal, $bankcode);
+          $this->Order->UpdateOrderBy($data, 'id = ' . (int)$orderId);
+          $VNpayData = Helper::VNpayCreatePayment($orderId, $total, $bankcode);
           $VNpayData = json_decode($VNpayData,  true);
           header("Location: " . $VNpayData["data"]);
           exit();
@@ -125,6 +130,10 @@ class Checkout extends Controller
       $status = $this->Order->GetOrderStatus("id= " . $order['status']);
       $order['status'] = $status[0]["status"];
       $order['transaction'] = Helper::PaymentMethods($order['transaction']);
+      if (isset($order['idCoupon'])) {
+        $coupon = $this->Coupon->GetCoupon('id = ' . (int)$order['idCoupon']);
+        $order["coupon"] = $coupon['code'];
+      }
       $this->view("page-full", [
         "Page" => "order-received",
         "Title" => "Chi tiết đơn hàng",

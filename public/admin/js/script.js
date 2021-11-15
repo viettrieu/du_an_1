@@ -86,7 +86,7 @@ Version      : 1.0
 
   if ($(".datetimepicker").length > 0) {
     $(".datetimepicker").datetimepicker({
-      format: "DD-MM-YYYY",
+      format: "YYYY-MM-DD",
       icons: {
         up: "fas fa-angle-up",
         down: "fas fa-angle-down",
@@ -374,9 +374,6 @@ function deleteItem(element, action, item) {
   let title = element.closest("tr").find(".title").text();
   title = title ? title : "#" + id;
   var dtRow = element.parents("tr");
-  var postForm = {
-    id,
-  };
   Swal.fire({
     title: `Xóa ${item}`,
     html: `Bạn có muốn xoá ${item} <b>${title}</b>`,
@@ -388,6 +385,11 @@ function deleteItem(element, action, item) {
     cancelButtonText: "Không",
     showLoaderOnConfirm: true,
     preConfirm: () => {
+      return fetch(ADMIN_URL + action + "/" + id)
+        .then((response) => response.json())
+        .catch((error) => {
+          Swal.showValidationMessage(`${item} Khóa ngoại`);
+        });
       return $.ajax({
         type: "POST",
         url: ADMIN_URL + action,
@@ -399,6 +401,7 @@ function deleteItem(element, action, item) {
     allowOutsideClick: () => !Swal.isLoading(),
   }).then((result) => {
     if (result.isConfirmed) {
+      console.log(result.value);
       if (result.value == 1) {
         var table = $(".datatable").DataTable();
         table.row(dtRow).remove().draw(false);
@@ -478,9 +481,12 @@ function GetQLeditor() {
 }
 $("#create_category").submit(GetQLeditor);
 $("#edit_category").submit(GetQLeditor);
+$("#create_tag").submit(GetQLeditor);
 $("#edit_tag").submit(GetQLeditor);
 $("#create_product").submit(GetQLeditor);
 $("#edit_product").submit(GetQLeditor);
+$("#create_coupon").submit(GetQLeditor);
+$("#edit_coupon").submit(GetQLeditor);
 $("#product_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/product/delete", "sản phẩm");
 });
@@ -495,6 +501,9 @@ $("#tag_list").on("click", ".delete", function (e) {
 });
 $("#reviews_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/review/delete", "Đánh giá");
+});
+$("#coupon_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/coupon/delete", "Coupon");
 });
 $("#reviews_list").on("click", ".accept", function (e) {
   e.preventDefault();
@@ -542,3 +551,10 @@ window.setTimeout(function () {
       $(this).remove();
     });
 }, 3000);
+function generateCoupon() {
+  let coupon = voucher_codes.generate({
+    length: 6,
+    charset: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  });
+  $("#code").val(coupon[0]);
+}
