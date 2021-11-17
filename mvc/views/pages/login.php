@@ -1,6 +1,6 @@
 <?php
-var_dump($data["fb"]);
-var_dump($_SESSION['infofb']);
+// var_dump($data["fb"]);
+// var_dump($_SESSION['infofb']);
 // // var_dump($_SESSION['facebook_access_token']);
 // unset($_SESSION['facebook_access_token']);
 // unset($_SESSION['infofb'])
@@ -31,7 +31,7 @@ var_dump($_SESSION['infofb']);
         </button>
       </div>
       <p class="lost-password">
-        <a href="#lost-password">Quên mật khẩu?</a>
+        <a href="forgot">Quên mật khẩu?</a>
       </p>
     </form>
     <div class="contact-icon text-center">

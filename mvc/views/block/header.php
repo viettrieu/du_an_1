@@ -1,13 +1,4 @@
-<div class="page-loading">
-  <div class="preloader-content">
-    <div class="preloader-img">
-      <img alt="Preloader images" src="<?= SITE_URL ?>/public/img/logo.png" />
-    </div>
-    <div class="preloader-icon">
-      <img alt="Preloader icon" src="<?= SITE_URL ?>/public/img/circles.svg" />
-    </div>
-  </div>
-</div>
+
 <header id="header" class="header">
   <div id="header-main" class="header-main flex-row container-large">
     <div class="flex-col hide-for-medium flex-left">
@@ -34,8 +25,7 @@
         <li><a href="<?= SITE_URL ?>/contact" class="<?php if ($data["Page"] == 'contact') echo 'active'; ?>">Liên
             hệ</a>
         </li>
-      </ul>
-      <ul class="nav top-bar-nav">
+        <ul class="nav top-bar-nav">
         <li>
           <a href="<?= SITE_URL ?>/login">
             <i class="fas fa-search"></i>
@@ -55,6 +45,8 @@
           </a>
         </li>
       </ul>
+      </ul>
+      
     </div>
     <div class="flex-col show-for-medium flex-right">
       <a href="#" class="menu-mobi">

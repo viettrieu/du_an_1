@@ -10,6 +10,7 @@ class App
     {
 
         $arr = $this->UrlProcess();
+        
 
         // Controller
         $urlCheck = '';
@@ -53,15 +54,17 @@ class App
             }
             unset($arr[1]);
         }
-
+       
         // Params
         $this->params = $arr ? array_values($arr) : [];
 
         call_user_func_array([$this->controller, $this->action], $this->params);
     }
+    
 
     function UrlProcess()
     {
+       
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
         }

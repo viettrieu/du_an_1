@@ -54,6 +54,11 @@ class HandleForm
    */
   private static function validate($value, string $type): bool
   {
+    $typeValue = explode(':', $type);
+    if(count($typeValue) === 2) {
+      $type = $typeValue[0];
+    }
+    
     switch ($type) {
       case 'required':
         return !empty($value);
@@ -93,6 +98,12 @@ class HandleForm
         return !empty($value) && strtotime($value) === strtotime('now');
       case 'future':
         return !empty($value) && strtotime($value) > strtotime('now');
+      case 'min':
+        return strlen($value) >= intval($typeValue[1]);
+      case 'max':
+        return strlen($value) <= intval($typeValue[1]);
+      case 'confirmed':
+        return $value == $typeValue[1];
       default:
         return false;
     }
