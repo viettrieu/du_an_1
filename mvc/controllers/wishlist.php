@@ -10,6 +10,7 @@ class wishlist extends Controller
     $this->wishlist = $this->model("WishlistModel");
     $this->user = $this->model("UserModel");
     $this->product = $this->model("ProductModel");
+    $this->product = $this->model("WishlistModel");
 
     if (!isset($_SESSION["user"])) {
       header("Location: " . SITE_URL . "/login");

@@ -15,7 +15,8 @@ class Forgot extends Controller
     {
         $this->User = $this->model("UserModel");
         $this->PwReset = $this->model('PasswordResetModel');
-
+        // print_r($this->User);
+        // die();
         if (isset($_SESSION['user'])) {
             header("Location: " . SITE_URL . "/account");
             exit();
@@ -37,6 +38,8 @@ class Forgot extends Controller
             $email = HandleForm::rip_tags($request->email);
             if (count($errors) == 0) {
                 $result  = $this->User->GetUserByEmail($email);
+                // print_r($result);
+                // die();
                 if (!$result) {
                     $errors[] = ["status" => "ERROR", "message" => "Người dùng không tồn tại"];
                 } else {
@@ -51,6 +54,8 @@ class Forgot extends Controller
                         ]);
 
                         $email_data = [];
+                        $email_data['Email'] = $result['email'];
+                        $email_data['FullName'] = $result['fullName'];
                         $email_data['Subject'] = 'Khôi phục mật khẩu';
                         $email_data['Page'] = '
                         Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>

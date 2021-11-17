@@ -91,37 +91,37 @@ class DB
         return $this->pdo_query($sql);
     }
 
-    public function allBy($table, $cond = '')
-    {
-        $condQuery = '';
+    // public function allBy($table, $cond = '')
+    // {
+    //     $condQuery = '';
 
-        if (!empty($cond)) {
-            if (is_array($cond)) {
-                $condQuery = 'WHERE ' . implode('=', $cond);
-            } else {
-                $condQuery = 'WHERE ' . $cond;
-            }
-        }
+    //     if (!empty($cond)) {
+    //         if (is_array($cond)) {
+    //             $condQuery = 'WHERE ' . implode('=', $cond);
+    //         } else {
+    //             $condQuery = 'WHERE ' . $cond;
+    //         }
+    //     }
 
-        $sql = "SELECT * FROM $table $condQuery";
-        return $this->pdo_query($sql);
-    }
+    //     $sql = "SELECT * FROM $table $condQuery";
+    //     return $this->pdo_query($sql);
+    // }
 
-    public function firstBy($table, $cond = '')
-    {
-        $condQuery = '';
+    // public function firstBy($table, $cond = '')
+    // {
+    //     $condQuery = '';
 
-        if (!empty($cond)) {
-            if (is_array($cond)) {
-                $condQuery = 'WHERE ' . implode('=', $cond);
-            } else {
-                $condQuery = 'WHERE ' . $cond;
-            }
-        }
+    //     if (!empty($cond)) {
+    //         if (is_array($cond)) {
+    //             $condQuery = 'WHERE ' . implode('=', $cond);
+    //         } else {
+    //             $condQuery = 'WHERE ' . $cond;
+    //         }
+    //     }
 
-        $sql = "SELECT * FROM $table $condQuery";
-        return $this->pdo_query_one($sql);
-    }
+    //     $sql = "SELECT * FROM $table $condQuery";
+    //     return $this->pdo_query_one($sql);
+    // }
 
     public function lastInsertId()
     {

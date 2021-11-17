@@ -29,7 +29,7 @@
       </div>
     </form>
     <?php } else { ?>
-      <div class="alert alert-success">
+      <div class="text-center" style="background-color:#00FF00;border-radius:10px;padding:10px;color:#000;font-weight:bold;">
         Thay Đổi Mật Khẩu Thành Công
       </div>
       <div class="text-center" style="margin-top: 1rem">
