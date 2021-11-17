@@ -10,7 +10,6 @@ class wishlist extends Controller
     $this->wishlist = $this->model("WishlistModel");
     $this->user = $this->model("UserModel");
     $this->product = $this->model("ProductModel");
-    $this->product = $this->model("WishlistModel");
 
     if (!isset($_SESSION["user"])) {
       header("Location: " . SITE_URL . "/login");
@@ -21,16 +20,18 @@ class wishlist extends Controller
   function SayHi()
   {
     $user = $_SESSION['user'];
-    $wishlist_items = $this->wishlist->allBy('wishlist', ['userId', $user['id']]);
-    $uniqueIds = array_map(function($item) {
+    $user['userId'] = $user['id'];
+    $sql = "SELECT * FROM wishlist WHERE `userId` = '".$user['id']."'";
+    $wishlist_items = $this->wishlist->pdo_query($sql, $user);
+    $uniqueIds = array_map(function($item) { 
       return $item['productId'];
     }, $wishlist_items);
 
     $uniqueIds = array_unique($uniqueIds);
-
     $items = array_map(function($id) use($wishlist_items) {
       
-      $ar = $this->product->firstBy('book', ['id', $id]);
+      $sql = "SELECT * FROM book WHERE `id` = $id";
+      $ar = $this->product->pdo_query($sql);
       $ar['quantity'] = count(array_filter($wishlist_items, function($item) use ($id) {
         return $item['productId'] == $id;
       }));
