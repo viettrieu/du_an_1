@@ -20,7 +20,6 @@ class Recovery extends Controller
 
     public function SayHi()
     {
-        var_dump($_SESSION['errors']);
         $errors = array();
         $request = json_decode(json_encode($_POST));
 
