@@ -183,6 +183,13 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/js/main.js"></script>
 <script src="<?= SITE_URL ?>/public/js/add-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>
+<script>
+  $(window).on('load', function() {
+    setTimeout(() => {
+      $('.reloader').fadeOut();
+    }, 3000);
+  })
+</script>
 <?php if ($data["Page"] == "faq") : ?>
 <script>
 (function($) {

@@ -5,9 +5,11 @@ class Home extends Controller
     function __construct()
     {
         $this->ListProduct = $this->model("ProductModel");
+        
     }
     function SayHi()
     {
+        
         $this->view("page-full", [
             "Page" => "home",
             "Title" => "Trang chủ",

@@ -3438,3 +3438,27 @@ button.close {
   color: #fff;
   transition: 0.3s ease;
 }
+
+.reloader{
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  /* margin: 0 auto; */
+  z-index: 999;
+  background-color: #f5f7f6;
+  top: 0;
+  left: 0
+}
+
+.reloader > .reloader-wraper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.reloader-wraper>img{
+  width: 90px;
+  height:auto;
+}

@@ -31,4 +31,10 @@ class UserModel extends DB
   {
     return  $this->delete($this->table, $cond);
   }
+
+  public function GetUserByEmail($email, $select = '*')
+  {
+    $sql = "select $select from users where email = '$email'";
+    return $this->pdo_query_one($sql);    
+  }
 }
