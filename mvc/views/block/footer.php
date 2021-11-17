@@ -169,12 +169,12 @@
 </div>
 <?php
 if (!isset($_SESSION['cart'])) {
-  $_SESSION['cart'] = ['item' => [], 'coupon' => []];
+  $_SESSION['cart'] = ['item' => []];
 } ?>
 <script>
 <?php
   $listCart = $_SESSION['cart']['item'];
-  $coupon = $_SESSION['cart']['coupon'];
+  $coupon = isset($_SESSION['cart']['coupon']) ? $_SESSION['cart']['coupon'] : [];
   echo "let cart = " . json_encode($listCart) . ";";
   echo "let coupon = " . json_encode($coupon) . ";";
   echo "let SITE_URL = '" . SITE_URL . "';"; ?>
