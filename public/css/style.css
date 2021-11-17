@@ -5,9 +5,6 @@
   --secondary-color: #eebf00;
   --border: #e5e5e5;
 }
-.page-loading {
-  display: none !important;
-}
 *,
 ::before,
 ::after {
@@ -2902,7 +2899,7 @@ transform: scale(1.5);
   transition: opacity 0.25s ease, visibility 0s ease;
 }
 .page-loading {
-  background-color: #fff;
+  background-color: #f5f7f6;
   height: 100vh;
   width: 100%;
   display: -webkit-box;
@@ -2935,9 +2932,8 @@ transform: scale(1.5);
   font-size: 0.875em;
   margin: 0 auto;
 }
-.page-loading .preloader-icon svg {
-  font-size: 0.875em;
-  max-width: 3em;
+.page-loading .preloader-icon img {
+  max-width: 7em;
 }
 .loaded .page-loading {
   opacity: 0;
@@ -3439,7 +3435,7 @@ button.close {
   transition: 0.3s ease;
 }
 
-.reloader{
+.reloader {
   position: fixed;
   height: 100vh;
   width: 100%;
@@ -3447,10 +3443,10 @@ button.close {
   z-index: 999;
   background-color: #f5f7f6;
   top: 0;
-  left: 0
+  left: 0;
 }
 
-.reloader > .reloader-wraper{
+.reloader > .reloader-wraper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3458,7 +3454,7 @@ button.close {
   height: 100%;
 }
 
-.reloader-wraper>img{
+.reloader-wraper > img {
   width: 90px;
-  height:auto;
+  height: auto;
 }

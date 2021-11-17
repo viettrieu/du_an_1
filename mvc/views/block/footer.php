@@ -49,6 +49,16 @@
   </div>
 </div>
 <div class="cart-side-overlay"></div>
+<div class="page-loading">
+  <div class="preloader-content">
+    <div class="preloader-img">
+      <img alt="Preloader images" src="https://auteur.g5plus.net/wp-content/uploads/2019/01/logo-black.png">
+    </div>
+    <div class="preloader-icon">
+      <img alt="Preloader icon" src="<?= SITE_URL ?>/public/img/loader-img.gif">
+    </div>
+  </div>
+</div>
 <footer id="footer">
   <div class="row">
     <div class="col medium-6 small-12 large-3">
@@ -183,13 +193,6 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/js/main.js"></script>
 <script src="<?= SITE_URL ?>/public/js/add-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>
-<script>
-  $(window).on('load', function() {
-    setTimeout(() => {
-      $('.reloader').fadeOut();
-    }, 3000);
-  })
-</script>
 <?php if ($data["Page"] == "faq") : ?>
 <script>
 (function($) {
