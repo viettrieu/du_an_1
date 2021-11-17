@@ -31,7 +31,7 @@
         </button>
       </div>
       <p class="lost-password">
-        <a href="forgot">Quên mật khẩu?</a>
+        <a href="<?= SITE_URL ?>/forgot">Quên mật khẩu?</a>
       </p>
     </form>
     <div class="contact-icon text-center">

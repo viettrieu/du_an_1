@@ -38,19 +38,14 @@ class Forgot extends Controller
             $email = HandleForm::rip_tags($request->email);
             if (count($errors) == 0) {
                 $result  = $this->User->GetUserByEmail($email);
-                // print_r($result);
-                // die();
                 if (!$result) {
                     $errors[] = ["status" => "ERROR", "message" => "Người dùng không tồn tại"];
                 } else {
-                    $mail = new PHPMailer(true);
-                    $token = md5(time().rand(0, 9999));
-
+                    $token = md5(time() . rand(0, 9999));
                     try {
                         $this->PwReset->insert('password_reset', [
                             'token' => $token,
                             'email' => $email,
-                            'created_at' => date('Y-m-d H:i:s', time())
                         ]);
 
                         $email_data = [];
@@ -59,14 +54,14 @@ class Forgot extends Controller
                         $email_data['Subject'] = 'Khôi phục mật khẩu';
                         $email_data['Page'] = '
                         Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
-                        <a href="http://localhost/du_an_1/recovery?token='.$token.'">http://localhost/du_an_1/recovery?token='.$token.'</a>';
+                        <a href="http://localhost/du_an_1/recovery?email=' . base64_encode($result['email']) . '&token=' . $token . '">http://localhost/du_an_1/recovery?token=' . $token . '</a>';
 
                         Helper::sendMail($email_data);
-                                                
+
                         $errors[] = ["status" => "OK", "message" => " Hãy kiểm tra email của bạn"];
                     } catch (Exception $e) {
                         $errors[] = ["status" => "ERROR", "message" => " Đã xảy ra lỗi vui lòng thử lại"];
-                    }                    
+                    }
                 }
             }
         }

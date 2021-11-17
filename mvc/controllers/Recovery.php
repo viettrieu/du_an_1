@@ -2,10 +2,6 @@
 
 use Core\HandleForm;
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
 class Recovery extends Controller
 {
     public $User;
@@ -24,50 +20,44 @@ class Recovery extends Controller
 
     public function SayHi()
     {
-        $errors = isset($_SESSION['errors']) ?  array($_SESSION['errors']) :  array();
-        unset($_SESSION['errors']);
-        $request_uri = $_SERVER['REQUEST_URI'];
+        var_dump($_SESSION['errors']);
+        $errors = array();
         $request = json_decode(json_encode($_POST));
-        $is_success = false;
 
-        if(strpos($request_uri, '?token=') === false) {
+        if (empty($_GET['token'])) {
             header("Location: " . SITE_URL . "/");
-            exit();            
+            exit();
         }
-
-        //Chuyển chuỗi thành mảng
-        $token = explode('=', $request_uri)[1];
+        $token = $_GET['token'];
         $is_valid = $this->PwReset->checkValidToken($token);
-
-        if(!$is_valid) {
+        if (!$is_valid) {
             header("Location: " . SITE_URL . "/");
-            exit();  
+            exit();
         }
-
         if (isset($request->recovery_password)) {
             $errors = HandleForm::validations([
                 [$request->new_password, 'required', 'Vui lòng nhập mật khẩu mới của bạn'],
                 [$request->password_confirm, 'required', 'Vui lòng nhập lại mật khẩu bạn'],
                 [$request->new_password, 'min:6', 'Mật Khẩu Mới Tối Thiểu Phải Có 6 Ký Tự'],
                 [$request->new_password, 'max:15', 'Mật Khẩu Mới Không Được Quá 15 Ký Tự'],
-                [$request->password_confirm, 'confirmed:'.$request->new_password, 'Nhập Lại Mật Khẩu Phải Khớp Với Nhau'],
+                [$request->password_confirm, 'confirmed:' . $request->new_password, 'Nhập Lại Mật Khẩu Phải Khớp Với Nhau'],
             ]);
-
             $email = $is_valid['email'];
-            $this->User->UpdateUserBy([
-                'passwordHash' => md5($request->new_password)
-            ], "email = '$email'");
-
-            $this->PwReset->delete('password_reset', "email = '$email'", 1000);
-
-            $is_success = true;
+            if (count($errors) == 0) {
+                $this->User->UpdateUserBy([
+                    'passwordHash' => md5($request->new_password)
+                ], "email = '$email'");
+                $this->PwReset->delete('password_reset', "email = '$email'");
+                $_SESSION['errors'] = ["status" => "OK", "message" => "Tài khoản có '$email' đã đổi pass thành công"];
+                header("Location: " . SITE_URL . "/login");
+                exit();
+            }
         }
 
         $this->view("page-full", [
             "Page" => "recovery_password",
             "Title" => "Khôi Phục Mật Khẩu",
             "Errors" => $errors,
-            "IsSuccess" => $is_success
         ]);
     }
 }
