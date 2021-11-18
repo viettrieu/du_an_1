@@ -1,13 +1,17 @@
 <?php
 
 use Core\HandleForm;
+use Core\loginfb;
+use Core\Zalologin;
 
 class Register extends Controller
 {
   public $User;
+  public $SocialAuthModel;
   function __construct()
   {
     $this->User = $this->model("UserModel");
+    $this->SocialAuthModel = $this->model("SocialAuthModel");
     if (isset($_SESSION['user'])) {
       header("Location: " . SITE_URL . "/account");
       exit();
@@ -31,6 +35,8 @@ class Register extends Controller
       $mobile = HandleForm::rip_tags($request->mobile);
       $email = HandleForm::rip_tags($request->email);
       $password = HandleForm::rip_tags($request->password);
+      $fullName = HandleForm::rip_tags($request->fullName);
+      $avatar = HandleForm::rip_tags($request->avatar);
       $user = $this->User->GetUserById($username, $email, $mobile);
       if ($user) {
         if ($user['username'] == $username)
@@ -44,11 +50,16 @@ class Register extends Controller
         "username" => $username,
         "mobile" => $mobile,
         "email" => $email,
+        "fullName" => $fullName,
+        "avatar" => $avatar,
       );
       if (count($errors) == 0) {
         $md5password = md5($password);
         $data["passwordHash"] = $md5password;
         $this->User->InsertUser($data);
+        $IdUser = $this->User->lastInsertId();
+        $this->SocialAuthModel->insert('social_auth', ["userId" => $IdUser, "fb_token" => $_SESSION['fb_user']["id"]]);
+        unset($_SESSION['fb_user']);
         $_SESSION['user'] = $this->User->CheckLogin($username, $password);
         header("Location: " . SITE_URL . "/account");
       }
@@ -57,6 +68,7 @@ class Register extends Controller
       "Page" => "register",
       "Title" => "Đăng ký",
       "Errors" => $errors,
+      "FBLoginUrl" => loginfb::fb_login_url(),
     ]);
   }
 }

@@ -1,10 +1,3 @@
-<?php
-// var_dump($data["fb"]);
-// var_dump($_SESSION['infofb']);
-// // var_dump($_SESSION['facebook_access_token']);
-// unset($_SESSION['facebook_access_token']);
-// unset($_SESSION['infofb'])
-?>
 <div class="row page-wrapper" style="justify-content: center">
   <div class="col medium-8 small-12 large-5">
     <?php foreach ($data["Errors"] as $error) :
@@ -38,7 +31,8 @@
       <h6>Hoặc đăng nhập bằng:</h6>
       <ul class="social-media">
         <li>
-          <a class="facebook" href="https://www.facebook.com/share.php?u={{url}}&amp;title={{title}}" target="blank">
+          <a class="facebook"
+            onclick="window.open('<?= $data['FBLoginUrl']; ?>', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
             <i class="fab fa-facebook-f"></i>
           </a>
         </li>

@@ -1,7 +1,8 @@
 <?php
 
 use Core\HandleForm;
-// use Core\loginfb;
+use Core\loginfb;
+use Core\Zalologin;
 
 class Login extends Controller
 {
@@ -14,7 +15,7 @@ class Login extends Controller
       exit();
     }
   }
-  
+
   function SayHi()
   {
     $errors = isset($_SESSION['errors']) ?  array($_SESSION['errors']) :  array();
@@ -43,6 +44,7 @@ class Login extends Controller
       "Page" => "login",
       "Title" => "Đăng nhập",
       "Errors" => $errors,
+      "FBLoginUrl" => loginfb::fb_login_url(),
     ]);
   }
 }
