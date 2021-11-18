@@ -4,7 +4,7 @@ class OrderModel extends DB
     public $table = "detailed_order";
     public function GetAllOrder()
     {
-        $sql = "SELECT detailed_order.id, avatar, detailed_order.fullName, username, detailed_order.mobile, detailed_order.email, DATE_FORMAT(published, '%e/%c/%Y') AS'published', detailed_order.status, order_status.status AS 'textStatus', total FROM detailed_order LEFT JOIN ps_users on detailed_order.userId = ps_users.id INNER JOIN order_status on detailed_order.status = order_status.id";
+        $sql = "SELECT detailed_order.id, avatar, detailed_order.fullName, username, detailed_order.mobile, detailed_order.email, DATE_FORMAT(published, '%e/%c/%Y') AS'published', detailed_order.status, order_status.status AS 'textStatus', total FROM detailed_order LEFT JOIN users on detailed_order.userId = users.id INNER JOIN order_status on detailed_order.status = order_status.id";
         return $this->pdo_query($sql);
     }
     public function GetOrderById($id)

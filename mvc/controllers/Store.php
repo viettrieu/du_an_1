@@ -119,16 +119,12 @@ class Store extends Controller
 
     function Search()
     {
-
-        $actual_link = $_SERVER["REQUEST_URI"];
-        $url_components = parse_url($actual_link);
-        parse_str($url_components['query'], $params);
-        $key = HandleForm::rip_tags($params["s"]);
-        $this->page = isset($params["page"]) ? HandleForm::rip_tags($params["page"]) : 1;
+        $key = HandleForm::rip_tags($_GET["s"]);
+        $this->page = isset($_GET["page"]) ? HandleForm::rip_tags($_GET["page"]) : 1;
         $this->offset = ($this->page - 1) * $this->perPage;
-        $totalProduct = $this->ListProduct->GetByTaxonomy($params["s"], "search");
+        $totalProduct = $this->ListProduct->GetByTaxonomy($key, "search");
         $base_url = SITE_URL . "/store/search?s=$key";
-        $ListProduct = $this->ListProduct->GetByTaxonomy($params["s"], "search", $this->offset, $this->perPage);
+        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", $this->offset, $this->perPage);
         $this->view("page-left", [
             "Page" => "store",
             "Title" => "Từ khóa: " . $key,

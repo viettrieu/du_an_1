@@ -47,14 +47,11 @@
                     foreach ($listCoupon as $coupon) { ?>
                   <tr>
                     <td class="id"><?= $coupon['id']; ?></td>
-                    <td>
-                      <h2 class="table-avatar">
-                        <span class="title"><?= $coupon['code']; ?></span>
-                      </h2>
-                    </td>
+                    <td><?= $coupon['code']; ?></td>
                     <td><?= $coupon['discount']; ?></td>
-                    <td><?= $coupon['usageLimit']; ?></td>
-                    <td><?= $coupon['expiryDate']; ?></td>
+                    <td><?= $coupon['usages']; ?>/<?= $coupon['usageLimit'] == NULL ? "∞" : $coupon['usageLimit']; ?>
+                    </td>
+                    <td><?= $coupon['expiryDate'] == NULL ? "∞" : $coupon['expiryDate']; ?></td>
                     <td class="text-right">
                       <a href="<?= ADMIN_URL ?>/coupon/edit/<?= $coupon['id']; ?>"
                         class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>

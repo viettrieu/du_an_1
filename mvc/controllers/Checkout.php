@@ -20,9 +20,9 @@ class Checkout extends Controller
   function SayHi()
   {
     $errors = array();
+    // unset($_SESSION['cart']);
     $listCart = $_SESSION['cart']['item'];
-    $coupon = $_SESSION['cart']['coupon'];
-    if (!isset($_SESSION['user']) && count($listCart) > 0) {
+    if (!isset($_SESSION['user'])) {
       $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
       $_SESSION['errors'] = ["status" => "ERROR", "message" => "Vui lòng đăng nhập để tiếp tục thanh toán"];
       header("Location: " . SITE_URL . "/login&refurl=" . base64_encode($actual_link));
@@ -37,13 +37,24 @@ class Checkout extends Controller
       foreach ($listCart as $values) {
         $subtotal +=  $values['quantity'] *  $values['price'];
       }
-      $discount = isset($coupon['discount']) ?  $coupon['discount'] / 100 * $subtotal : 0;
-      $total = $subtotal - $discount;
       $errors = HandleForm::validations([
         [$request->fullName, 'required', 'Vui lòng nhập họ và tên'],
         [$request->mobile, 'mobile', 'Vui lòng điền đúng số điện thoại'],
         [$request->address, 'required', 'Vui lòng nhập địa chỉ'],
       ]);
+      if (isset($_SESSION['cart']['coupon'])) {
+        $coupon = $this->Coupon->GetCoupon('id = ' . (int)$_SESSION['cart']['coupon']['id']);
+        if ($coupon['usages'] >= $coupon['usageLimit'] && $coupon['usageLimit'] > 0) {
+          $errors[] = ["status" => "ERROR", "message" => "Coupon đã hết lượt sử dụng"];
+          unset($_SESSION['cart']['coupon']);
+        }
+        if (strtotime($coupon['expiryDate']) < strtotime('now') && $coupon['expiryDate'] !=  NULL) {
+          $errors[] = ["status" => "ERROR", "message" => "Coupon giá hết hạn"];
+          unset($_SESSION['cart']['coupon']);
+        }
+      }
+      $discount = isset($coupon['discount']) ?  $coupon['discount'] / 100 * $subtotal : 0;
+      $total = $subtotal - $discount;
       $fullName =  HandleForm::rip_tags($request->fullName);
       $mobile =  HandleForm::rip_tags($request->mobile);
       $email =  HandleForm::rip_tags($request->email);
@@ -67,6 +78,7 @@ class Checkout extends Controller
       if (count($errors) == 0) {
         $this->Order->InsertOrder($data);
         $orderId  = $this->Order->lastInsertId();
+        $this->Coupon->UpdateCoupon(['usages' => $coupon['usages'] + 1], 'id = ' . (int)$coupon['id']);
         foreach ($listCart as $values) {
           $item = array(
             "orderId" => $orderId,
@@ -95,7 +107,6 @@ class Checkout extends Controller
         unset($_SESSION['cart']);
         if ($transaction == "bacs" || $transaction == "credit") {
           $data = array("status" => 2);
-          $cond = "id = '$orderId'";
           $this->Order->UpdateOrderBy($data, 'id = ' . (int)$orderId);
           $VNpayData = Helper::VNpayCreatePayment($orderId, $total, $bankcode);
           $VNpayData = json_decode($VNpayData,  true);

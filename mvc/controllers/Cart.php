@@ -47,13 +47,17 @@ class Cart extends Controller
   {
     $code = $_POST['coupon_code'];
     $errors = array();
-    $coupon = $this->listCoupon->GetCoupon('code = ' . $code);
+    $coupon = $this->listCoupon->GetCoupon("code = '" . $code . "'");
     if ($coupon == NULL) {
       $errors[] = ["status" => "ERROR", "message" => "Coupon không tồn tại"];
     } else {
-      $errors = HandleForm::validations([
-        [$coupon['expiryDate'], 'future', 'Mã giảm giá hết hạn'],
-      ]);
+      if ($coupon['usages'] >= $coupon['usageLimit'] && $coupon['usageLimit'] > 0) {
+        $errors[] = ["status" => "ERROR", "message" => "Coupon đã hết lượt sử dụng"];
+      }
+      if (strtotime($coupon['expiryDate']) < strtotime('now') && $coupon['expiryDate'] !=  NULL) {
+        $errors[] = ["status" => "ERROR", "message" => "Coupon giá hết hạn"];
+        unset($_SESSION['cart']['coupon']);
+      }
     }
     if (count($errors) == 0) {
       $errors[] = ["status" => "OK", "message" => "Coupon đã được áp dụng"];
