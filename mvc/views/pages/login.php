@@ -40,10 +40,8 @@
           </a>
         </li>
         <li>
-          <a class="linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{url}}&amp;title={{title}}&amp;source={{source}}"
-            target="blank">
-            <i class="fab fa-linkedin-in"></i>
+          <a class="linkedin" href="<?= SITE_URL; ?>/socialauth/gmail" target="blank">
+            <i class="fab fa-google"></i>
           </a>
         </li>
         <li>
