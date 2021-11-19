@@ -73,9 +73,14 @@ class Register extends Controller
               'social_auth',
               ["userId" => $IdUser, "fb_token" => $social_user["id"]]
             );
+          } elseif ($social == "gmail") {
+            $this->SocialAuthModel->insert(
+              'social_auth',
+              ["userId" => $IdUser, "gmail_token" => $social_user["id"]]
+            );
           }
         }
-        unset($_COOKIE['social_user']);
+        setcookie("social_user", "", time() - 3600);
         $_SESSION['user'] = $this->User->CheckLogin($username, $password);
         header("Location: " . SITE_URL . "/account");
       }

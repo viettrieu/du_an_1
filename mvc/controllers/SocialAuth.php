@@ -1,6 +1,7 @@
 <?php
 
 use Core\loginfb;
+use Core\LoginMail;
 use Core\Zalologin;
 
 class SocialAuth extends Controller
@@ -34,6 +35,16 @@ class SocialAuth extends Controller
       exit();
     }
     $column = 'zalo_token';
+    $this->Check($user, $column);
+  }
+  function Gmail()
+  {
+    $user = LoginMail::login();
+    if (!isset($user)) {
+      header('Location: ' . LoginMail::loginUrl());
+      exit();
+    }
+    $column = 'gmail_token';
     $this->Check($user, $column);
   }
   private function Check($user, $column)
