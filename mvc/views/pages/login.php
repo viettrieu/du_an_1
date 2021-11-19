@@ -31,11 +31,12 @@
       <h6>Hoặc đăng nhập bằng:</h6>
       <ul class="social-media" id="socialauth">
         <li>
-          <a class="facebook" href="https://ps17048.com/du_an_1/socialauth/facebook"> <i class="fab fa-facebook-f"></i>
+          <a class="facebook" href="<?= SITE_URL; ?>/socialauth/facebook"> <i class="fab fa-facebook-f"></i>
           </a>
         </li>
         <li>
-          <a class="twitter" href="https://ps17048.com/du_an_1/socialauth/zalo"> <i class="fab fa-twitter"></i>
+          <a class="" href="<?= SITE_URL; ?>/socialauth/zalo"> <img
+              src="https://cdn1.iconfinder.com/data/icons/logos-brands-in-colors/2500/zalo-seeklogo.com-512.png" alt="">
           </a>
         </li>
         <li>
