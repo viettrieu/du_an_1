@@ -1,13 +1,23 @@
 <?php
-$fbuser = $_SESSION['fb_user'];
-$name = isset($_POST['username']) ? $_POST['username'] : $fbuser['name'];
-$email = isset($_POST['email']) ? $_POST['email'] : $fbuser['email'];
-$avatar = isset($fbuser['avatar']) ? $fbuser['avatar'] : '';
-$username;
+
+$social_user = $data['SocialUser'];
+$username = isset($_POST['username']) ? $_POST['username'] : $social_user['username']  ?? '';
+$email = isset($_POST['email']) ? $_POST['email'] : $social_user['email']  ?? '';
+$avatar = isset($social_user['avatar']) ? $social_user['avatar'] : '';
+$fullName = isset($social_user['name']) ? $social_user['name'] : '';
+$social = isset($social_user['social']) ? $social_user['social'] : '';
 
 ?>
 <div class="row page-wrapper" style="justify-content: center">
   <div class="col medium-8 small-12 large-5">
+    <?php if ($social) : ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+      Đang được liên kết với tài khoản <?= $social ?>: <strong><?= $social_user['name'] ?></strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <?php endif ?>
     <?php foreach ($data["Errors"] as $error) :
       $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
     ?>
@@ -32,7 +42,8 @@ $username;
       <input class="form-control" id="re_password" name="re_password" type="password" value="" required
         placeholder="Nhập lại mật khẩu *" autocomplete="off" />
       <input class="form-control" id="avatar" name="avatar" type="hidden" value="<?= $avatar; ?>" />
-      <input class="form-control" id="fullName" name="fullName" type="hidden" value="<?= $name; ?>" />
+      <input class="form-control" id="fullName" name="fullName" type="hidden" value="<?= $fullName; ?>" />
+      <input class="form-control" id="social" name="social" type="hidden" value="<?= $social; ?>" />
       <div class="text-center" style="margin-top: 1rem">
         <button type="submit" value="Submit" name="reg_user" class="button primary">
           ĐĂNG KÝ
@@ -41,15 +52,16 @@ $username;
     </form>
     <div class="contact-icon text-center">
       <h6>Hoặc đăng ký bằng:</h6>
-      <ul class="social-media">
+      <ul class="social-media" id="socialauth">
         <li>
           <a class="facebook"
-            onclick="window.open('<?= $data['FBLoginUrl']; ?>', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
+            onclick="window.open('https://ps17048.com/du_an_1/socialauth/facebook', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
             <i class="fab fa-facebook-f"></i>
           </a>
         </li>
         <li>
-          <a class="twitter" href="https://twitter.com/intent/tweet?status={{title}}+{{url}}" target="blank">
+          <a class="twitter"
+            onclick="window.open('https://ps17048.com/du_an_1/socialauth/zalo', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
             <i class="fab fa-twitter"></i>
           </a>
         </li>

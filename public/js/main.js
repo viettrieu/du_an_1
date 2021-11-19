@@ -201,7 +201,7 @@ function formatCash(str) {
     });
 }
 window.setTimeout(function () {
-  $(".alert.alert-success")
+  $(".alert.alert-success.fade")
     .fadeTo(500, 0)
     .slideUp(500, function () {
       $(this).remove();
@@ -214,4 +214,48 @@ $(".close").click(function () {
     .slideUp(500, function () {
       $(this).remove();
     });
+});
+
+const popupCenter = ({ url, title, w, h }) => {
+  // Fixes dual-screen position                             Most browsers      Firefox
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : window.screenY;
+
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width;
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height;
+
+  const systemZoom = width / window.screen.availWidth;
+  const left = (width - w) / 2 / systemZoom + dualScreenLeft;
+  const top = (height - h) / 2 / systemZoom + dualScreenTop;
+  const newWindow = window.open(
+    url,
+    title,
+    `
+    scrollbars=yes,
+    width=${w / systemZoom},
+    height=${h / systemZoom},
+    top=${top},
+    left=${left}
+    `
+  );
+
+  // if (window.focus) newWindow.focus();
+};
+$(document).ready(function () {
+  $("#socialauth a").click(function (e) {
+    e.preventDefault();
+    const url = $(this).attr("href");
+    console.log(url);
+    popupCenter({ url: url, title: "xtf", w: 500, h: 500 });
+  });
 });

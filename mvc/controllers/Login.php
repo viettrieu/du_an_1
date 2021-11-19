@@ -1,8 +1,6 @@
 <?php
 
 use Core\HandleForm;
-use Core\loginfb;
-use Core\Zalologin;
 
 class Login extends Controller
 {
@@ -44,7 +42,6 @@ class Login extends Controller
       "Page" => "login",
       "Title" => "Đăng nhập",
       "Errors" => $errors,
-      "FBLoginUrl" => loginfb::fb_login_url(),
     ]);
   }
 }

@@ -2,29 +2,28 @@
 
 namespace Core;
 
+require_once "./mvc/core/config.php";
 class loginfb
 {
     public static function configFB()
     {
         $fb = new \Facebook\Facebook([
-            'app_id' => '',
-            'app_secret' => '',
+            'app_id' => FB_APP_ID,
+            'app_secret' => FB_APP_SECRET,
             'default_graph_version' => 'v5.0',
             //'default_access_token' => '{access-token}', // optional
         ]);
         return $fb;
     }
-    public static function fb_login_url()
+    public static function loginUrl()
     {
         $helper = self::configFB()->getRedirectLoginHelper();
         $permissions = ['email']; //optional
-        $fb_login_url = $helper->getLoginUrl('https://ps17048.com/du_an_1/socialauth', $permissions);
+        $fb_login_url = $helper->getLoginUrl(FB_CALLBACK_URL, $permissions);
         return $fb_login_url;
     }
     public static function login()
     {
-        $match = [];
-        // session_destroy();
         $fb = self::configFB();
         $helper = $fb->getRedirectLoginHelper();
 
@@ -66,9 +65,10 @@ class loginfb
                 $fb_user_name = $fb_user->getProperty('name');
                 $fb_user_email = $fb_user->getProperty('email');
                 $fb_user_pic = $picture['url'];
-                $_SESSION['fb_user'] = ['id' => $fb_user_id, 'name' => $fb_user_name, 'email' => $fb_user_email, 'avatar' => $fb_user_pic];
+                $social_user =  ['social' => 'facebook', 'id' => $fb_user_id, 'name' => $fb_user_name, 'email' => $fb_user_email, 'avatar' => $fb_user_pic];
+                setcookie("social_user", base64_encode(json_encode($social_user)), time() + (5 * 60), "/");
                 unset($_SESSION['facebook_access_token']);
-                return $_SESSION['fb_user'];
+                return $social_user;
                 exit;
             } catch (\Facebook\Exceptions\FacebookResponseException $e) {
                 echo 'Facebook API Error: ' . $e->getMessage();

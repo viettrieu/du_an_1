@@ -137,10 +137,8 @@ class Helper
     ///////////////////
     $inputData = array();
     $returnData = array();
-    $actual_link = $_SERVER["REQUEST_URI"];
-    $url_components = parse_url($actual_link);
-    parse_str($url_components['query'], $params);
-    foreach ($params as $key => $value) {
+    $data = $_REQUEST;
+    foreach ($data as $key => $value) {
       if (substr($key, 0, 4) == "vnp_") {
         $inputData[$key] = $value;
       }
@@ -175,7 +173,7 @@ class Helper
           //$order["Amount"] == $vnp_Amount
           {
             if ($order["status"] != NULL && $order["status"] == 2) {
-              if ($params['vnp_ResponseCode'] == '00') {
+              if ($inputData['vnp_ResponseCode'] == '00') {
                 $returnData['RspCode'] = '00';
                 $returnData['Message'] = 'Confirm Success';
               } else {
@@ -209,11 +207,11 @@ class Helper
     if ($totalPages <= 1) return "";
     $links = "<nav class='pagination'><ul class='page-numbers nav-pagination links text-center'>";
     if ($page > 1) {
-      $first = "<li><a class='page-number' href='{$base_url}&page=1'>
+      $first = "<li><a class='page-number' href='{$base_url}?page=1'>
       << </a>
   </li>";
       $page_prev = $page - 1;
-      $prev = "<li><a class='page-number' href='{$base_url}&page={$page_prev}'>
+      $prev = "<li><a class='page-number' href='{$base_url}?page={$page_prev}'>
       < </a>
   </li>";
       $links .= $first . $prev;
@@ -226,17 +224,31 @@ class Helper
       if ($i == $page) {
         $str = "<li><span class='page-number current'>{$i}<span></li>";
       } else {
-        $str = "<li><a class='page-number' href='{$base_url}&page={$i}'> {$i} </a></li>";
+        $str = "<li><a class='page-number' href='{$base_url}?page={$i}'> {$i} </a></li>";
       }
       $links .= $str;
     }
     if ($page < $totalPages) {
       $page_next = $page + 1;
-      $next = "<li><a class='page-number' href='{$base_url}&page={$page_next}'> > </a></li>";
-      $last = "<li><a class='page-number' href='{$base_url}&page={$totalPages}'> >> </a></li>";
+      $next = "<li><a class='page-number' href='{$base_url}?page={$page_next}'> > </a></li>";
+      $last = "<li><a class='page-number' href='{$base_url}?page={$totalPages}'> >> </a></li>";
       $links .= $next . $last;
     }
     $links .= "</ul> </nav>";
     return $links;
+  }
+  public static function to_slug($str)
+  {
+    $str = trim(mb_strtolower($str));
+    $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
+    $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
+    $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
+    $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
+    $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
+    $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
+    $str = preg_replace('/(đ)/', 'd', $str);
+    $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
+    $str = preg_replace('/([\s]+)/', '-', $str);
+    return $str;
   }
 }

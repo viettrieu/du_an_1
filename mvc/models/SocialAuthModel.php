@@ -1,9 +1,9 @@
 <?php
 class SocialAuthModel extends DB
 {
-  public function Get($fb_token = 0)
+  public function Get($cond)
   {
-    $sql = "select userId from social_auth where fb_token = '$fb_token'";
+    $sql = "select userId from social_auth where $cond";
     return $this->pdo_query_value($sql);
   }
   public function Check($id)

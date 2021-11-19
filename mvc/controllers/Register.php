@@ -1,8 +1,7 @@
 <?php
 
 use Core\HandleForm;
-use Core\loginfb;
-use Core\Zalologin;
+use Core\Helper;
 
 class Register extends Controller
 {
@@ -21,6 +20,10 @@ class Register extends Controller
   {
     $errors = array();
     $request = json_decode(json_encode($_POST));
+    if (isset($_COOKIE['social_user'])) {
+      $social_user = json_decode(base64_decode($_COOKIE['social_user']), true);
+      $social_user['username'] = Helper::to_slug($social_user['name']);
+    }
     if (isset($request->reg_user)) {
       $errors = HandleForm::validations([
         [$request->username, 'required', 'Vui lòng nhập vào username'],
@@ -37,6 +40,7 @@ class Register extends Controller
       $password = HandleForm::rip_tags($request->password);
       $fullName = HandleForm::rip_tags($request->fullName);
       $avatar = HandleForm::rip_tags($request->avatar);
+      $social = HandleForm::rip_tags($request->social);
       $user = $this->User->GetUserById($username, $email, $mobile);
       if ($user) {
         if ($user['username'] == $username)
@@ -58,8 +62,20 @@ class Register extends Controller
         $data["passwordHash"] = $md5password;
         $this->User->InsertUser($data);
         $IdUser = $this->User->lastInsertId();
-        $this->SocialAuthModel->insert('social_auth', ["userId" => $IdUser, "fb_token" => $_SESSION['fb_user']["id"]]);
-        unset($_SESSION['fb_user']);
+        if (isset($social)) {
+          if ($social == "zalo") {
+            $this->SocialAuthModel->insert(
+              'social_auth',
+              ["userId" => $IdUser, "zalo_token" => $social_user["id"]]
+            );
+          } elseif ($social == "facebook") {
+            $this->SocialAuthModel->insert(
+              'social_auth',
+              ["userId" => $IdUser, "fb_token" => $social_user["id"]]
+            );
+          }
+        }
+        unset($_COOKIE['social_user']);
         $_SESSION['user'] = $this->User->CheckLogin($username, $password);
         header("Location: " . SITE_URL . "/account");
       }
@@ -68,7 +84,7 @@ class Register extends Controller
       "Page" => "register",
       "Title" => "Đăng ký",
       "Errors" => $errors,
-      "FBLoginUrl" => loginfb::fb_login_url(),
+      "SocialUser" => isset($social_user) ? $social_user : '',
     ]);
   }
 }
