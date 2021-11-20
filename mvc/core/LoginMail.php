@@ -10,7 +10,7 @@ class LoginMail
 {
     public static function configLoginMail()
     {
-        $KEY_FILE_LOCATION = __DIR__ . './gmail.json';
+        $KEY_FILE_LOCATION = __DIR__ . '/gmail.json';
         $client = new Client();
         $client->setApplicationName("Hello Analytics Reporting");
         $client->setAuthConfig($KEY_FILE_LOCATION);
