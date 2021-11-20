@@ -80,9 +80,10 @@ class Register extends Controller
             );
           }
         }
-        setcookie("social_user", "", time() - 3600);
+        setcookie('social_user', '', time() - 3600, '/');
         $_SESSION['user'] = $this->User->CheckLogin($username, $password);
         header("Location: " . SITE_URL . "/account");
+        exit();
       }
     }
     $this->view("page-full", [
