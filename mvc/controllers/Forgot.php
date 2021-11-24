@@ -54,7 +54,7 @@ class Forgot extends Controller
                         $email_data['Subject'] = 'Khôi phục mật khẩu';
                         $email_data['Page'] = '
                         Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
-                        <a href="http://localhost/du_an_1/recovery?email=' . base64_encode($result['email']) . '&token=' . $token . '">http://localhost/du_an_1/recovery?token=' . $token . '</a>';
+                        <a href="' . SITE_URL . '/recovery?email=' . base64_encode($result['email']) . '&token=' . $token . '">' . SITE_URL . '/recovery?token=' . $token . '</a>';
 
                         Helper::sendMail($email_data);
 
