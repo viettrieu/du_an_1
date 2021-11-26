@@ -4,12 +4,12 @@ use Core\HandleForm;
 
 class Cart extends Controller
 {
-  public $CartModel;
-  public $listCoupon;
+  public $Coupon;
+  public $Product;
   function __construct()
   {
-    $this->listCoupon = $this->model("CouponModel");
-    $this->CartModel = $this->model("CartModel");
+    $this->Coupon = $this->model("CouponModel");
+    $this->Product = $this->model("ProductModel");
   }
   function SayHi()
   {
@@ -24,30 +24,79 @@ class Cart extends Controller
   {
     $productId = $_POST['productId'];
     $quantity = $_POST['quantity'];
-    $cc = $this->CartModel->addTheCart($productId, $quantity);
-    echo json_encode($cc);
-    return false;
+    if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+      $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+      $_SESSION['cart']['item'][$index]['quantity'] += $quantity;
+    } else {
+      $cartItem = $this->Product->GetProductById($productId);
+      $cartItem = array(
+        'id' =>  $cartItem['id'],
+        'thumbnail' => $cartItem['thumbnail'],
+        'title' => $cartItem['title'],
+        'price' => $cartItem['price'],
+        'quantity' => $quantity,
+      );
+      array_push($_SESSION['cart']['item'], $cartItem);
+    }
+    $_SESSION['cart']['subTotal'] = $this->GetCartSubTotal();
+    $_SESSION['cart']['weight'] = $this->GetCartWeight();
+    $listCart = $_SESSION['cart']['item'];
+    echo json_encode($listCart);
+    exit();
   }
   function removeTheCart()
   {
     $productId = $_POST['productId'];
-    $cc = $this->CartModel->removeTheCart($productId);
-    echo json_encode($cc);
-    return false;
+    if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+      $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+      array_splice($_SESSION['cart']['item'], $index, 1);
+      $_SESSION['cart']['subTotal'] = $this->GetCartSubTotal();
+      $_SESSION['cart']['weight'] = $this->GetCartWeight();
+      $listCart = $_SESSION['cart']['item'];
+    }
+    echo json_encode($listCart);
+    exit();
   }
   function changeQuantity()
   {
     $productId = $_POST['productId'];
     $quantity = $_POST['quantity'];
-    $cc = $this->CartModel->changeQuantity($productId, $quantity);
-    echo json_encode($cc);
-    return false;
+    if (in_array($productId, array_column($_SESSION['cart']['item'], 'id'))) {
+      $index =  array_search($productId, array_column($_SESSION['cart']['item'], 'id'));
+      $_SESSION['cart']['item'][$index]['quantity'] = $quantity;
+      $_SESSION['cart']['subTotal'] = $this->GetCartSubTotal();
+      $_SESSION['cart']['weight'] = $this->GetCartWeight();
+      $listCart = $_SESSION['cart']['item'];
+    }
+    echo json_encode($listCart);
+    exit();
+  }
+  function GetCartWeight()
+  {
+    $listCart = $_SESSION['cart']['item'];
+    $weight = 0;
+    foreach ($listCart as $values) {
+      $weight +=  $values['quantity'] *  200;
+    }
+    return $weight;
+  }
+  function GetCartSubTotal()
+  {
+    $listCart = $_SESSION['cart']['item'];
+    $subTotal = 0;
+    foreach ($listCart as $values) {
+      $subTotal +=  $values['quantity'] *  $values['price'];
+    }
+    if (isset($_SESSION['cart']['coupon']) && count($_SESSION['cart']['coupon']) > 0) {
+      $subTotal -=  ($_SESSION['cart']['coupon']["discount"] / 100) * $subTotal;
+    }
+    return $subTotal;
   }
   function checkCoupon()
   {
     $code = $_POST['coupon_code'];
     $errors = array();
-    $coupon = $this->listCoupon->GetCoupon("code = '" . $code . "'");
+    $coupon = $this->Coupon->GetCoupon("code = '" . $code . "'");
     if ($coupon == NULL) {
       $errors[] = ["status" => "ERROR", "message" => "Coupon không tồn tại"];
     } else {
@@ -61,6 +110,7 @@ class Cart extends Controller
     }
     if (count($errors) == 0) {
       $errors[] = ["status" => "OK", "message" => "Coupon đã được áp dụng"];
+      $_SESSION['cart']['subTotal'] = $this->GetCartSubTotal();
       $_SESSION['cart']['coupon'] = ['id' => $coupon['id'], 'code' => $code, 'discount' => $coupon['discount']];
     } else {
       $_SESSION['cart']['coupon'] = [];

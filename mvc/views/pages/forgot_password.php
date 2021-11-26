@@ -10,17 +10,17 @@
     <?php foreach ($data["Errors"] as $error) :
       $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
     ?>
-    <div class="alert <?= $class ?> alert-dismissible fade show" role="alert">
-      <?= $error["message"] ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
+      <div class="alert <?= $class ?> alert-dismissible" role="alert">
+        <?= $error["message"] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
     <?php endforeach ?>
-    <form action="" method="post" id="recovery-form">
-      <input class="form-control" id="email" name="email" type="email"
-        value="<?= htmlspecialchars($_POST['email'] ?? ''); ?>" required
-        placeholder="Nhập Email Của Bạn" >
+    <form action="" method="post" id="recovery-form" class="needs-validation" novalidate>
+      <div class="form-group">
+        <input class="form-control" id="email" name="email" type="email" value="<?= htmlspecialchars($_POST['email'] ?? ''); ?>" required placeholder="Nhập Email Của Bạn">
+      </div>
       <div class="text-center" style="margin-top: 1rem">
         <button type="submit" form="recovery-form" value="Submit" name="recovery_password" class="button primary">
           Lấy Lại Mật Khẩu

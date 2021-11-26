@@ -11,7 +11,7 @@ function displayMiniCart() {
       <a href="${SITE_URL}/store/product/${
       cart[i].id
     }" class="product-thumbnail">
-        <img src="${SITE_URL + cart[i].thumbnail}" />
+        <img src="${SITE_URL}/${cart[i].thumbnail}" />
       </a>
       <div class="text">
         <a href="${SITE_URL}/store/product/${cart[i].id}" class="product-name">

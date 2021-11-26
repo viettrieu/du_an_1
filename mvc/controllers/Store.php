@@ -97,7 +97,7 @@ class Store extends Controller
             exit();
         }
         $product =  $this->ListProduct->GetProductById($id);
-        $this->ListProduct->CountViewById($id);
+        // $this->ListProduct->CountViewById($id);
         $UserById = "";
         if (isset($_SESSION['user'])) {
             $UserById = $this->User->GetUserById($_SESSION['user']['username']);
@@ -111,7 +111,7 @@ class Store extends Controller
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
             "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
-            "SumView" => $this->ListProduct->SumViewById($id),
+            // "SumView" => $this->ListProduct->SumViewById($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
 
         ]);

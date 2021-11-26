@@ -1,6 +1,7 @@
 <?php
 $order = $data["Order"];
 $items = $data["Items"];
+$transport = $data["Transport"];
 ?>
 <div class="row page-wrapper row-divided yproduct">
   <div class="col medium-12 small-12 large-7 cart-totals">
@@ -51,7 +52,7 @@ $items = $data["Items"];
           <th>Phí vận chuyển</th>
           <td data-title="Shipping">
             <strong>
-              <span>0 </span>
+              <span><?= number_format($order['shipping'], 0, ',', '.'); ?></span>
               <sup>đ</sup>
             </strong>
           </td>
@@ -76,7 +77,9 @@ $items = $data["Items"];
       <p><strong>Họ và tên:</strong> <?= $order['fullName'] ?></p>
       <p><strong>Số điện thoại:</strong> <?= $order['mobile'] ?></p>
       <p><strong>Email:</strong> <?= $order['email'] ?></p>
-      <p><strong>Địa chỉ:</strong> <?= $order['address'] ?></p>
+      <p><strong>Địa chỉ:</strong>
+        <?= $transport['address'] . ", " . $transport['ward'] . ", " . $transport['district'] . ", " . $transport['province'] ?>
+      </p>
     </div>
   </div>
   <div class="col medium-12 small-12 large-5">

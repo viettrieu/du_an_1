@@ -40,9 +40,9 @@ class Coupon extends Controller
         "code" => $code,
         "summary" => $summary,
         "discount" => $discount,
-        "expiryDate" => $expiryDate,
-        "usageLimit" => $usageLimit,
       );
+      $data["expiryDate"] = !empty($expiryDate) ? $expiryDate : NULL;
+      $data["usageLimit"]  = !empty($usageLimit) ? (int)$usageLimit : NULL;
       if (count($errors) == 0) {
         $InsertCoupon = $this->listCoupon->InsertCoupon($data);
         if ($InsertCoupon) {
@@ -80,9 +80,9 @@ class Coupon extends Controller
         "code" => $code,
         "summary" => $summary,
         "discount" => (int)$discount,
-        "expiryDate" => $expiryDate,
-        "usageLimit" => (int)$usageLimit,
       );
+      $data["expiryDate"] = !empty($expiryDate) ? $expiryDate : NULL;
+      $data["usageLimit"]  = !empty($usageLimit) ? (int)$usageLimit : NULL;
       if (count($errors) == 0) {
         $UpdateCoupon = $this->listCoupon->UpdateCoupon($data, "id = " . $id);
         if ($UpdateCoupon) {
@@ -108,18 +108,5 @@ class Coupon extends Controller
     }
 
     exit();
-  }
-  function check($id = 0)
-  {
-    $errors = array();
-    $coupon = $this->listCoupon->GetCoupon($id);
-    if ($coupon == NULL) {
-      $errors[] = ["status" => "ERROR", "message" => "Coupon không tồn tại"];
-    } else {
-      $errors = HandleForm::validations([
-        [$coupon['expiryDate'], 'future', 'Mã giảm giá hết hạn'],
-      ]);
-    }
-    var_dump($errors);
   }
 }

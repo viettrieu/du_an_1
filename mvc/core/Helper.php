@@ -11,8 +11,8 @@ class Helper
 
   public static function sendTelegram($data)
   {
-    $chatID = '-654155324';
-    $token = 'bot2051598148:AAFpNKs20IOge86bhIrrPr1eJsOwUIf-LRM';
+    $chatID = '-702325711';
+    $token = 'bot2129085748:AAFJbpweBEngncg8psfE-wdIyDMoU1JKvPE';
     $url = "https://api.telegram.org/" . $token . "/sendMessage?parse_mode=html&chat_id=" . $chatID;
     $message = "<b>Đơn hàng mới <i>#" . $data['orderId'] . "</i></b>
     \nTổng: " . $data['total'] . " VNĐ

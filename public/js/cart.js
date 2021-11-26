@@ -5,7 +5,7 @@ function displayCart() {
     output += `<tr class="cart-item" data-id="${cart[i].id}">
     <td class="product-thumbnail">
     <a href="${SITE_URL}/store/product/${cart[i].id}">
-        <img width="90" height="90" src="${SITE_URL + cart[i].thumbnail}" />
+        <img width="90" height="90" src="${SITE_URL}/${cart[i].thumbnail}" />
       </a>
     </td>
     <td class="product-name">

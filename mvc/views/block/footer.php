@@ -193,6 +193,7 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/js/main.js"></script>
 <script src="<?= SITE_URL ?>/public/js/add-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>
+<script src="<?= SITE_URL ?>/public/plugins/select2/js/select2.min.js"></script>
 <?php if ($data["Page"] == "faq") : ?>
 <script>
 (function($) {
@@ -241,7 +242,7 @@ $("#imageUpload").change(function() {
 <?php endif; ?>
 <?php if ($data["Page"] == "checkout") : ?>
 <script src="<?= SITE_URL ?>/public/js/checkout.js"></script>
-<div id="rcccont"></div>
+<!-- <div id="rcccont"></div>
 <script defer
   src="https://maps.googleapis.com/maps/api/js?libraries=places&language=VI&key=AIzaSyAgdtD_CW1TRe-fgeDzEMcJUxNlkvpjQmA&callback=initMap">
 </script>
@@ -258,5 +259,5 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-</script>
+</script> -->
 <?php endif; ?>

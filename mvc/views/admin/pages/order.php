@@ -20,8 +20,7 @@
       <div class="col-sm-12">
         <div class="card card-table">
           <div class="card-body">
-
-            <div class="table-responsive">
+            <div class="table-responsive" id="order_list">
               <table class="table table-stripped table-hover datatable">
                 <thead class="thead-light">
                   <tr>
@@ -62,14 +61,14 @@
                     <td><span class="badge bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
                     </td>
                     <td class="text-right">
-                      <a href="edit-expenses.html" class="btn btn-sm btn-white text-success mr-2"><i
-                          class="far fa-edit mr-1"></i> Edit</a>
-                      <a href="<?= ADMIN_URL ?>/order/vieworder/<?= $order['id']; ?>"
-                        class="btn btn-sm btn-white text-primary mr-2"><i class="far fa-eye mr-1"></i>View</a>
+                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-success mr-2 transport"><i
+                          class="fas fa-shipping-fast"></i>
+                        Đăng đơn hàng lên GHTK</a>
+                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i
+                          class="far fa-eye mr-1"></i>View</a>
                       <div class="dropdown dropdown-action" style=" display: inline-block; ">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                             class="fas fa-ellipsis-h"></i></a>
-
                         <div class="dropdown-menu dropdown-menu-right">
                           <?php foreach ($data["Status"] as $status) : ?>
                           <?php if ($status["id"] == $order['status']) continue; ?>
@@ -90,6 +89,18 @@
 
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="quickview" class="modal custom-modal fade bd-example-modal-lg" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
       </div>
     </div>
   </div>

@@ -564,3 +564,63 @@ function generateCoupon() {
   });
   $("#code").val(coupon[0]);
 }
+
+$("#order_list").on("click", ".transport", function (e) {
+  return GHTK($(this), "/transport/createShipmentOrder");
+});
+
+function GHTK(element, action) {
+  let id = element.closest("tr").find(".id").text();
+  Swal.fire({
+    title: `Đăng đơn hàng`,
+    html: `Đơn hàng <b>${id}</b> của bạn đã được gửi lên hệ thống GHTK`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Xóa",
+    cancelButtonText: "Không",
+    showLoaderOnConfirm: true,
+    preConfirm: () => {
+      return $.ajax({
+        url: ADMIN_URL + action + "/" + id,
+        dataType: "JSON",
+        success: (data) => {
+          console.log(data);
+          if (!data["success"]) {
+            Swal.showValidationMessage(`${data["message"]}`);
+          } else {
+            return data;
+          }
+        },
+      });
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (result.value["success"] == true) {
+        Swal.fire({
+          title: "Thành công",
+          html: `Đơn hàng ${id} của bạn đã được gửi lên hệ thống GHTK`,
+          icon: "success",
+        });
+      }
+    }
+  });
+}
+
+$("#order_list").on("click", ".quick-view", function (e) {
+  return orderQuickView($(this), "/order/OrderQuickView");
+});
+
+function orderQuickView(element, action) {
+  let id = element.closest("tr").find(".id").text();
+  $.ajax({
+    url: ADMIN_URL + action + "/" + id,
+    dataType: "HTML",
+    success: (data) => {
+      $("#quickview .modal-body").html(data);
+      $("#quickview").modal("show");
+    },
+  });
+}

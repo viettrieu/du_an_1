@@ -1,5 +1,5 @@
-<form action="" method="POST" id="checkout-form">
-  <div class="row page-wrapper row-divided yproduct">
+<form action="" method="POST" id="checkout-form" class="needs-validation" novalidate>
+  <div class=" row page-wrapper row-divided yproduct">
     <div class="col medium-12 small-12 large-7">
       <?php
       $fullName = $email = $mobile = $address = "";
@@ -10,6 +10,9 @@
         $mobile = $UserById['mobile'];
         $address = $UserById['address'];
       }
+      $listProvince = $data['Province'];
+      $listDistrict = $data['District'];
+      $listWard = $data['Ward'];
       ?>
       <?php foreach ($data["Errors"] as $error) :
         $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
@@ -22,31 +25,34 @@
       </div>
       <?php endforeach ?>
       <h3 class="container text-center">THÔNG TIN THANH TOÁN</h3>
-      <div class="form-control">
-        <label for="fullname">
-          Họ và tên<span class="required">*</span>
-        </label>
-        <input id="fullName" name="fullName" type="text" value="<?= $fullName; ?>" size="30" required />
-      </div>
-      <div class="form-control">
-        <label for="email">
-          Email
-        </label>
-        <input id="email" name="email" type="email" value="<?= $email; ?>" />
-      </div>
-      <div class="form-control phone">
-        <label for="mobile">
-          Số điện thoại<span class="required">*</span>
-        </label>
-        <div class="input-group">
-          <input id="mobile" name="mobile" type="tel" value="<?= $mobile; ?>" size="30" required
-            pattern="(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})">
-          <!-- <button type="button" class="button primary" id="btnsubmit" onclick="onPhoneAuth()">
+      <div class="row">
+        <div class="col small-12 large-12">
+          <div class="form-group">
+            <label for="fullname">
+              Họ và tên <span class="required">*</span>
+            </label>
+            <input id="fullName" class="form-control" name="fullName" type="text" value="<?= $fullName; ?>" size="30"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="email">
+              Email
+            </label>
+            <input id="email" class="form-control" name="email" type="email" value="<?= $email; ?>" />
+          </div>
+          <div class="form-group phone">
+            <label for="mobile">
+              Số điện thoại <span class="required">*</span>
+            </label>
+            <!-- <div class="input-group"> -->
+            <input id="mobile" class="form-control" name="mobile" type="tel" value="<?= $mobile; ?>" size="30" required
+              pattern="(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})">
+            <!-- <button type="button" class="button primary" id="btnsubmit" onclick="onPhoneAuth()">
             Nhận OTP
           </button> -->
-        </div>
-      </div>
-      <!-- <div class="form-control otp none">
+            <!-- </div> -->
+          </div>
+          <!-- <div class="form-group otp none">
         <label for="phone">
           Vui Lòng Nhập Mã Xác Minh
           <span class="required">*</span>
@@ -58,28 +64,76 @@
           </button>
         </div>
       </div> -->
-      <div class="form-control">
-        <label for="address">
-          Địa chỉ nhận hàng<span class="required">*</span>
-        </label>
-        <input id="address" name="address" type="text" value="<?= $address; ?>" required autocomplete="off" />
-        <p id="current-position">Đặt vị trí hiện tại</p>
-        <div class="map-wrapper">
-          <div id="map" style="height: 350px; width: 100%"></div>
-          <div class="shippingtime_box" style="display: none">
-            Khoảng cách:
-            <span class="distance" style="font-weight: 700"></span><br />
-            Thời gian giao hàng:
-            <span class="duration" style="white-space: nowrap; font-weight: 700"></span>
+        </div>
+        <div class="col medium-6 small-12 large-6">
+          <div class="form-group">
+            <label for="province">
+              Tỉnh/Thành phố <span class="required">*</span>
+            </label>
+            <select id="province" class=" custom-select select2" name="province" required>
+              <option value=""></option>
+              <?php foreach ($listProvince as $key => $province) : ?>
+              <?= $selected = $key == $UserById['province'] ? 'selected' : "" ?>
+              <option data-province="<?= $key ?>" value="<?= $province ?>" <?= $selected ?>><?= $province ?></option>
+              <?php endforeach ?>
+            </select>
           </div>
         </div>
-      </div>
-      <div class="form-control">
-        <label for="comments">
-          <h5>Thông tin bổ sung</h5>
-        </label>
-        <textarea id="comments" name="comments" cols="45" rows="8" maxlength="1000"
-          placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."></textarea>
+        <div class="col medium-6 small-12 large-6">
+          <div class="form-group district">
+            <label for="district">
+              Quận/Huyện <span class="required">*</span>
+            </label>
+            <select id="district" name="district" class=" custom-select select2" required>
+              <?php foreach ($listDistrict as $key =>  $district) : ?>
+              <?= $selected = $key == $UserById['district'] ? 'selected' : "" ?>
+              <option data-district="<?= $key ?>" value="<?= $district ?>" <?= $selected ?>><?= $district ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+        </div>
+        <div class="col medium-6 small-12 large-6">
+          <div class="form-group ward">
+            <label for="ward">
+              Xã/Phường/Thị trấn <span class="required">*</span>
+            </label>
+            <select id="ward" name="ward" class=" custom-select select2" required>
+              <?php foreach ($listWard as $key =>  $ward) : ?>
+              <?= $selected = $key == $UserById['ward'] ? 'selected' : "" ?>
+              <option data-ward="<?= $key ?>" value="<?= $ward ?>" <?= $selected ?>><?= $ward ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+        </div>
+        <div class="col medium-6 small-12 large-6">
+          <div class="form-group">
+            <label for="address">
+              Địa chỉ nhận hàng <span class="required">*</span>
+            </label>
+            <input id="address" class="form-control" name="address" type="text" value="<?= $address; ?>" required
+              autocomplete="off" />
+            <!-- <p id="current-position">Đặt vị trí hiện tại</p>
+            <div class="map-wrapper">
+              <div id="map" style="height: 350px; width: 100%"></div>
+              <div class="shippingtime_box" style="display: none">
+                Khoảng cách:
+                <span class="distance" style="font-weight: 700"></span><br />
+                Thời gian giao hàng:
+                <span class="duration" style="white-space: nowrap; font-weight: 700"></span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col small-12 large-12">
+          <div class="form-group">
+            <label for="comments">
+              <h5>Thông tin bổ sung</h5>
+            </label>
+            <textarea id="comments" class="form-control" name="comments" cols="45" rows="8" maxlength="1000"
+              placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."></textarea>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col medium-12 small-12 large-5">
@@ -103,11 +157,10 @@
                 </strong>
               </td>
             </tr>
-            <tr class="shipping-totals shipping">
+            <tr class="shipping">
               <th>Phí vận chuyển</th>
-              <td data-title="Shipping">
-                <strong><span>0</span><sup>đ</sup></strong>
-
+              <td data-title="Shipping" id="transport">
+                Chưa xác định
               </td>
             </tr>
             <tr class="order-total">

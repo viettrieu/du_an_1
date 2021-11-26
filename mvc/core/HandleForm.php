@@ -55,10 +55,10 @@ class HandleForm
   private static function validate($value, string $type): bool
   {
     $typeValue = explode(':', $type);
-    if(count($typeValue) === 2) {
+    if (count($typeValue) === 2) {
       $type = $typeValue[0];
     }
-    
+
     switch ($type) {
       case 'required':
         return !empty($value);
@@ -192,7 +192,7 @@ class HandleForm
       move_uploaded_file($sourcePath, $target1);
     }
 
-    return [true, $target1];
+    return [true, $sourcePath];
   }
   public static function rip_tags($string)
   {

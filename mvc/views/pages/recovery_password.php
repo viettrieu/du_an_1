@@ -10,11 +10,17 @@
       </button>
     </div>
     <?php endforeach ?>
-    <form action="" method="post" id="recovery-form">
-      <input class="form-control" name="new_password" type="email" placeholder="Email" required
-        value="<?= base64_decode($_GET['email']); ?>" disabled>
-      <input class="form-control" name="new_password" type="password" placeholder="Nhập Mật Khẩu Mới" required>
-      <input class="form-control" name="password_confirm" type="password" placeholder="Nhập Lại Mật Khẩu" required>
+    <form action="" method="post" id="recovery-form" class="needs-validation" novalidate>
+      <div class="form-group">
+        <input class="form-control" name="new_password" type="email" placeholder="Email" required
+          value="<?= base64_decode($_GET['email']); ?>" disabled>
+      </div>
+      <div class="form-group">
+        <input class="form-control" name="new_password" type="password" placeholder="Nhập Mật Khẩu Mới" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" name="password_confirm" type="password" placeholder="Nhập Lại Mật Khẩu" required>
+      </div>
       <div class="text-center" style="margin-top: 1rem">
         <button type="submit" form="recovery-form" value="Submit" name="recovery_password" class="button primary">
           Đổi Mật Khẩu

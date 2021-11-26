@@ -1,6 +1,7 @@
 <?php
 $order = $data["Order"];
 $items = $data["Items"];
+$transport = $data["Transport"];
 ?>
 
 <div class="page-wrapper">
@@ -62,11 +63,21 @@ $items = $data["Items"];
                     </strong>
                   </td>
                 </tr>
+                <?php if (isset($order['coupon'])) : ?>
+                <tr class="cart-discount">
+                  <th>Coupon: <?= $order['coupon']; ?></th>
+                  <td> <strong>
+                      <span class="discount">-<?= number_format($order['discount'], 0, ',', '.'); ?></span>
+                      <sup>đ</sup>
+                      <strong>
+                  </td>
+                </tr>
+                <?php endif ?>
                 <tr class="shipping-totals shipping">
                   <th>Phí vận chuyển</th>
                   <td data-title="Shipping">
                     <strong>
-                      <span>0 </span>
+                      <span><?= number_format($order['shipping'], 0, ',', '.'); ?></span>
                       <sup>đ</sup>
                     </strong>
                   </td>
@@ -93,7 +104,9 @@ $items = $data["Items"];
             <p><strong>Họ và tên:</strong> <?= $order['fullName'] ?></p>
             <p><strong>Số điện thoại:</strong> <?= $order['mobile'] ?></p>
             <p><strong>Email:</strong> <?= $order['email'] ?></p>
-            <p><strong>Địa chỉ:</strong> <?= $order['address'] ?></p>
+            <p><strong>Địa chỉ:</strong>
+              <?= $transport['address'] . ", " . $transport['ward'] . ", " . $transport['district'] . ", " . $transport['province'] ?>
+            </p>
           </div>
         </div>
       </div>

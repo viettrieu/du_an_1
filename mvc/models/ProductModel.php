@@ -4,7 +4,7 @@ class ProductModel extends DB
     public $table = "book";
     public function GetAllProduct()
     {
-        $sql = "SELECT product.*, X.rating FROM ps_product product LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM ps_product_review WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id ";
+        $sql = "SELECT book.*, X.rating, author  FROM book INNER JOIN book_author ON book.id = book_author.productId INNER JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id ";
         return $this->pdo_query($sql);
     }
     public function GetAllProducts()
@@ -14,7 +14,7 @@ class ProductModel extends DB
     }
     public function GetSellProduct($limit = 6)
     {
-        $sql = "SELECT product.id,product.title, thumbnail, product.price, SUM(orderi.quantity) AS 'quantity', X.rating FROM book product LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review  WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id JOIN order_item orderi   ON product.id = orderi.productId GROUP BY orderi.productId ORDER BY quantity DESC LIMIT $limit";
+        $sql = "SELECT book.id,book.title, .thumbnail, product.price, SUM(orderi.quantity) AS 'quantity', X.rating FROM book INNER JOIN book_author ON book.id = book_author.productId INNER JOIN author ON book_author.authorId= author.id LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review  WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id JOIN order_item orderi  ON product.id = orderi.productId GROUP BY orderi.productId ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
     public function GetHotProduct($limit = 6)

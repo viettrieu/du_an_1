@@ -1,5 +1,6 @@
 <?php
 
+use Core\Address;
 use Core\Helper;
 use Core\HandleForm;
 
@@ -7,15 +8,17 @@ class Checkout extends Controller
 {
   public $CartModel;
   public $User;
-  public $Order;
+  public $Orders;
   public $Coupon;
+  public $Transport;
 
   function __construct()
   {
     $this->CartModel = $this->model("CartModel");
     $this->User = $this->model("UserModel");
-    $this->Order = $this->model("OrderModel");
+    $this->Orders = $this->model("OrderModel");
     $this->Coupon = $this->model("CouponModel");
+    $this->Transport = $this->model("TransportModel");
   }
   function SayHi()
   {
@@ -53,12 +56,12 @@ class Checkout extends Controller
           unset($_SESSION['cart']['coupon']);
         }
       }
+      $shipping = $_SESSION['cart']['shipment']['fee'];
       $discount = isset($coupon['discount']) ?  $coupon['discount'] / 100 * $subtotal : 0;
-      $total = $subtotal - $discount;
+      $total = $subtotal - $discount + $shipping;
       $fullName =  HandleForm::rip_tags($request->fullName);
       $mobile =  HandleForm::rip_tags($request->mobile);
       $email =  HandleForm::rip_tags($request->email);
-      $address =  HandleForm::rip_tags($request->address);
       $transaction =  HandleForm::rip_tags($request->transaction);
       $content =  HandleForm::rip_tags($request->comments);
       $bankcode  =  HandleForm::rip_tags($request->bankcode);
@@ -68,16 +71,25 @@ class Checkout extends Controller
         "fullName" => $fullName,
         "mobile" => $mobile,
         "email" => $email,
-        "address" => $address,
         "transaction" => $transaction,
+        "shipping" => $shipping,
         "content" => $content,
         "subTotal" => $subtotal,
         "discount" => $discount,
         "total" => $total,
       );
       if (count($errors) == 0) {
-        $this->Order->InsertOrder($data);
-        $orderId  = $this->Order->lastInsertId();
+        $this->Orders->InsertOrder($data);
+        $orderId  = $this->Orders->lastInsertId();
+        $dataTransport = array(
+          "orderId"  => $orderId,
+          "method" => HandleForm::rip_tags($request->shipping),
+          "address" => HandleForm::rip_tags($request->address),
+          "ward" => HandleForm::rip_tags($request->ward),
+          "district" => HandleForm::rip_tags($request->district),
+          "province" => HandleForm::rip_tags($request->province)
+        );
+        $this->Transport->insertTransport($dataTransport);
         $this->Coupon->UpdateCoupon(['usages' => $coupon['usages'] + 1], 'id = ' . (int)$coupon['id']);
         foreach ($listCart as $values) {
           $item = array(
@@ -86,7 +98,7 @@ class Checkout extends Controller
             "price" => $values['price'],
             "quantity" => $values['quantity'],
           );
-          $this->Order->InsertOrderItem($item);
+          $this->Orders->InsertOrderItem($item);
         }
         setcookie("orderId", base64_encode($orderId), time() + (5 * 60), "/");
         $data["orderId"] = $orderId;
@@ -103,11 +115,12 @@ class Checkout extends Controller
           "Email" => $email,
           "FullName" => $fullName,
         );
-        Helper::sendMail($data);
+        // Helper::sendMail($data);
         unset($_SESSION['cart']);
+        unset($_SESSION['shipment']);
         if ($transaction == "bacs" || $transaction == "credit") {
           $data = array("status" => 2);
-          $this->Order->UpdateOrderBy($data, 'id = ' . (int)$orderId);
+          $this->Orders->UpdateOrderBy($data, 'id = ' . (int)$orderId);
           $VNpayData = Helper::VNpayCreatePayment($orderId, $total, $bankcode);
           $VNpayData = json_decode($VNpayData,  true);
           header("Location: " . $VNpayData["data"]);
@@ -123,22 +136,25 @@ class Checkout extends Controller
       "Title" => "Thanh toán",
       "UserById" => $UserById,
       "Errors" => $errors,
+      "Province" => Address::Province(),
+      "District" => isset($UserById['province']) ? Address::District($UserById['province']) : [],
+      "Ward" => isset($UserById['district']) ? Address::Ward($UserById['district']) : [],
     ]);
   }
   function OrderReceived($id = 0)
   {
-    $order = $this->Order->GetOrderById($id);
+    $order = $this->Orders->GetOrderById($id);
     if (isset($_COOKIE["orderId"]) && base64_encode($id) == $_COOKIE["orderId"] && $order != NULL) {
       if ($order['transaction'] == "bacs" || $order['transaction'] == "credit") {
         $returnData = json_decode(Helper::cc($order), true);
         if ($returnData['RspCode'] == "00") {
           $data = array("status" => 3);
           $cond = "id = '$id'";
-          $this->Order->UpdateOrderBy($data, $cond);
+          $this->Orders->UpdateOrderBy($data, $cond);
           $order['status'] = 3;
         }
       }
-      $status = $this->Order->GetOrderStatus("id= " . $order['status']);
+      $status = $this->Orders->GetOrderStatus("id= " . $order['status']);
       $order['status'] = $status[0]["status"];
       $order['transaction'] = Helper::PaymentMethods($order['transaction']);
       if (isset($order['idCoupon'])) {
@@ -149,7 +165,8 @@ class Checkout extends Controller
         "Page" => "order-received",
         "Title" => "Chi tiết đơn hàng",
         "Order" => $order,
-        "Items" => $this->Order->GetOrderItemById($id),
+        "Items" => $this->Orders->GetOrderItemById($id),
+        "Transport" => $this->Transport->GetId($id),
       ]);
     } else {
       header("Location: " . SITE_URL);

@@ -75,12 +75,13 @@ class Category extends Controller
       "Category" => $this->ListCategory->GetCategorById($id),
     ]);
   }
-  function Delete()
+  function Delete($id = 0)
   {
-    $id = $_POST['id'];
     $cond = "id = '$id'";
     $result =  $this->ListCategory->DeleteCategoryById($cond);
-    echo json_encode($result);
+    if ($result) {
+      echo json_encode($result);
+    }
     exit();
   }
 }
