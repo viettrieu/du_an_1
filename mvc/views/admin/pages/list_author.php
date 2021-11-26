@@ -34,6 +34,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Tên Tác Giả</th>
+                    <th>Số lượng sách</th>
                     <th class="text-right">Action</th>
                   </tr>
                 </thead>
@@ -42,20 +43,28 @@
                   $listAuthor = $data["ListAuthor"];
                   if (isset($listAuthor)) {
                     foreach ($listAuthor as $author) { ?>
-                      <tr>
-                        <td class="id"><?= $author['id']; ?></td>
-                        <td>
-                          <h2 class="table-avatar">
-                            <a href="<?= SITE_URL ?>/store/product/<?= $author['id']; ?>"><img class="avatar avatar-lg mr-2 avatar-img rounded" src="<?= SITE_URL ?><?= $author['thumbnail'] == null ? '/public/img/default-product-image.png' : $author['thumbnail']; ?>" alt="<?= $author['title']; ?>">
-                              <span class="title"><?= $author['title']; ?></span>
-                            </a>
-                          </h2>
-                        </td>
-                        <td class="text-right">
-                          <a href="<?= ADMIN_URL ?>/author/edit/<?= $author['id']; ?>" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>
-                          <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger delete"><i class="far fa-trash-alt mr-1"></i>Xóa</a>
-                        </td>
-                      </tr>
+                  <tr>
+                    <td class="id"><?= $author['id']; ?></td>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a href="<?= SITE_URL ?>/store/product/<?= $author['id']; ?>"><img
+                            class="avatar avatar-lg mr-2 avatar-img rounded"
+                            src="<?= SITE_URL ?><?= $author['avatar'] == null ? '/public/img/default-product-image.png' : $author['avatar']; ?>"
+                            alt="<?= $author['title']; ?>">
+                          <span class="title"><?= $author['title']; ?></span>
+                        </a>
+                      </h2>
+                    </td>
+                    <td>
+                      <?= $author['luot']; ?>
+                    </td>
+                    <td class="text-right">
+                      <a href="<?= ADMIN_URL ?>/author/edit/<?= $author['id']; ?>"
+                        class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>
+                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger delete"><i
+                          class="far fa-trash-alt mr-1"></i>Xóa</a>
+                    </td>
+                  </tr>
                   <?php }
                   }
                   ?>
