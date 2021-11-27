@@ -192,7 +192,7 @@ class HandleForm
       move_uploaded_file($sourcePath, $target1);
     }
 
-    return [true, $sourcePath];
+    return [true, $target1];
   }
   public static function rip_tags($string)
   {
