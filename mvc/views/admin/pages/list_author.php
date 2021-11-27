@@ -11,7 +11,7 @@
           </ul>
         </div>
         <div class="col-auto">
-          <a href="<?= ADMIN_URL; ?>/product/create" class="btn btn-primary">
+          <a href="<?= ADMIN_URL; ?>/author/create" class="btn btn-primary">
             <i class="fas fa-plus"></i>
             Thêm Tác Giả
           </a>
