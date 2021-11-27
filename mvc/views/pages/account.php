@@ -8,7 +8,8 @@ $listWard = $data['Ward'];
   <div class="large-3 col" style=" padding-right: 0;">
     <div class="account-user">
       <span class="image">
-        <img alt="" src="<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>" height="70" width="70">
+        <img alt="" src="<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
+          height="70" width="70">
       </span>
       <span class="user-name">
         <?= $user['username']; ?>
@@ -49,19 +50,20 @@ $listWard = $data['Ward'];
           <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
         </div>
         <div class="avatar-preview">
-          <div id="imagePreview" style="background-image: url(<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>);">
+          <div id="imagePreview"
+            style="background-image: url(<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>);">
           </div>
         </div>
       </div>
       <?php foreach ($data["Errors"] as $error) :
         $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
       ?>
-        <div class="alert <?= $class ?> alert-dismissible fade show" role="alert">
-          <?= $error["message"] ?>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
+      <div class="alert <?= $class ?> alert-dismissible fade show" role="alert">
+        <?= $error["message"] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
       <?php endforeach ?>
       <div class="row">
         <div class="col small-12 large-12">
@@ -69,13 +71,15 @@ $listWard = $data['Ward'];
             <label for="username">
               Username <span class="required">*</span>
             </label>
-            <input class="form-control" id="username" name="username" type="text" value="<?= $user['username']; ?>" required disabled />
+            <input class="form-control" id="username" name="username" type="text" value="<?= $user['username']; ?>"
+              required disabled />
           </div>
           <div class="form-group">
             <label for="fullname">
               Họ và tên <span class="required">*</span>
             </label>
-            <input class="form-control" id="fullName" name="fullName" type="text" value="<?= $user['fullName']; ?>" placeholder="Họ và tên" required />
+            <input class="form-control" id="fullName" name="fullName" type="text" value="<?= $user['fullName']; ?>"
+              placeholder="Họ và tên" required />
           </div>
         </div>
         <div class="col medium-6 small-12 large-6">
@@ -83,7 +87,9 @@ $listWard = $data['Ward'];
             <label for="province">
               Số điện thoại <span class="required">*</span>
             </label>
-            <input class="form-control" name="mobile" type="text" value="<?= $user['mobile']; ?>" required pattern="(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})" placeholder="Số điện thoại *" />
+            <input class="form-control" name="mobile" type="text" value="<?= $user['mobile']; ?>" required
+              pattern="(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})"
+              placeholder="Số điện thoại *" />
           </div>
         </div>
         <div class="col medium-6 small-12 large-6">
@@ -91,7 +97,8 @@ $listWard = $data['Ward'];
             <label for="email">
               Địa chỉ Email <span class="required">*</span>
             </label>
-            <input class="form-control" id="email" name="email" type="text" value="<?= $user['email']; ?>" required placeholder="Địa chỉ Email *" />
+            <input class="form-control" id="email" name="email" type="text" value="<?= $user['email']; ?>" required
+              placeholder="Địa chỉ Email *" />
           </div>
         </div>
         <div class="col small-12 large-12">
@@ -110,8 +117,8 @@ $listWard = $data['Ward'];
             <select id="province" class=" custom-select select2" name="province" required>
               <option value=""></option>
               <?php foreach ($listProvince as $key => $province) : ?>
-                <?= $selected = $key == $user['province'] ? 'selected' : "" ?>
-                <option data-province="<?= $key ?>" value="<?= $province ?>" <?= $selected ?>><?= $province ?></option>
+              <?= $selected = $key == $user['province'] ? 'selected' : "" ?>
+              <option data-province="<?= $key ?>" value="<?= $province ?>" <?= $selected ?>><?= $province ?></option>
               <?php endforeach ?>
             </select>
           </div>
@@ -123,8 +130,8 @@ $listWard = $data['Ward'];
             </label>
             <select id="district" name="district" class=" custom-select select2" required>
               <?php foreach ($listDistrict as $key =>  $district) : ?>
-                <?= $selected =  $key == $user['district'] ? 'selected' : "" ?>
-                <option data-district="<?= $key ?>" value="<?= $district ?>" <?= $selected ?>><?= $district ?></option>
+              <?= $selected =  $key == $user['district'] ? 'selected' : "" ?>
+              <option data-district="<?= $key ?>" value="<?= $district ?>" <?= $selected ?>><?= $district ?></option>
               <?php endforeach ?>
             </select>
           </div>
@@ -136,8 +143,8 @@ $listWard = $data['Ward'];
             </label>
             <select id="ward" name="ward" class=" custom-select select2" required>
               <?php foreach ($listWard as $key =>  $ward) : ?>
-                <?= $selected =  $key == $user['ward'] ? 'selected' : "" ?>
-                <option data-ward="<?= $key ?>" value="<?= $ward ?>" <?= $selected ?>><?= $ward ?></option>
+              <?= $selected =  $key == $user['ward'] ? 'selected' : "" ?>
+              <option data-ward="<?= $key ?>" value="<?= $ward ?>" <?= $selected ?>><?= $ward ?></option>
               <?php endforeach ?>
             </select>
           </div>
@@ -147,7 +154,8 @@ $listWard = $data['Ward'];
             <label for="address">
               Địa chỉ<span class="required">*</span>
             </label>
-            <input class="form-control" name="address" type="text" value="<?= $user['address']; ?>" placeholder="Địa chỉ" required />
+            <input class="form-control" name="address" type="text" value="<?= $user['address']; ?>"
+              placeholder="Địa chỉ" required />
           </div>
         </div>
       </div>
@@ -161,69 +169,69 @@ $listWard = $data['Ward'];
 </div>
 
 <script>
-  $("#update_user").submit(function(e) {
-    $("#province :selected").val($("#province :selected").data("province"));
-    $("#district :selected").val($("#district :selected").data("district"));
-    $("#ward :selected").val($("#ward :selected").data("ward"));
-  });
-  $(document).ready(function() {
-    var xhrPool = [];
-    if ($(".select2").length > 0) {
-      $(".select2").select2({
-        placeholder: "Select a state",
-        width: "100%",
-      });
-    }
-    $("select#province").change(function() {
-      abortAll();
-      let _province_id = $("#province :selected").data("province");
-      $.ajax({
-        url: `${SITE_URL}/transport/district/${_province_id}`,
-        dataType: "JSON",
-        beforeSend: function(jqXHR) {
-          xhrPool.push(jqXHR);
-          $(".form-group.district").addClass("address_loading");
-        },
-        success: function(data) {
-          let district = `<option value=""></option>`;
-          Object.keys(data).forEach(function(key) {
-            district += `<option data-district="${key}" value="${data[key]}">${data[key]}</option>`;
-          });
-          $("#district").empty().append(district);
-          $(".form-group.district").removeClass("address_loading");
-          $("#ward").empty().append(`<option value=""></option>`);
-        },
-      });
+$("#update_user").submit(function(e) {
+  $("#province :selected").val($("#province :selected").data("province"));
+  $("#district :selected").val($("#district :selected").data("district"));
+  $("#ward :selected").val($("#ward :selected").data("ward"));
+});
+$(document).ready(function() {
+  var xhrPool = [];
+  if ($(".select2").length > 0) {
+    $(".select2").select2({
+      placeholder: "Select a state",
+      width: "100%",
     });
-    $("select#district").change(function() {
-      abortAll();
-      let _district_id = $("#district :selected").data("district");
-      $.ajax({
-        url: `${SITE_URL}/transport/ward/${_district_id}`,
-        dataType: "JSON",
-        beforeSend: function(jqXHR) {
-          xhrPool.push(jqXHR);
-          $(".form-group.ward").addClass("address_loading");
-        },
-        success: function(data) {
-          let ward = `<option value=""></option>`;
-          Object.keys(data).forEach(function(key) {
-            ward += `<option data-ward="${key}" value="${data[key]}">${data[key]}</option>`;
-          });
-          $("#ward").empty().append(ward);
-          $(".form-group.ward").removeClass("address_loading");
-        },
-      });
-    });
-
-    function abortAll() {
-      if (xhrPool.length > 0) {
-        console.log(xhrPool);
-        $.each(xhrPool, function(idx, jqXHR) {
-          jqXHR.abort();
+  }
+  $("select#province").change(function() {
+    abortAll();
+    let _province_id = $("#province :selected").data("province");
+    $.ajax({
+      url: `${SITE_URL}/transport/district/${_province_id}`,
+      dataType: "JSON",
+      beforeSend: function(jqXHR) {
+        xhrPool.push(jqXHR);
+        $(".form-group.district").addClass("address_loading");
+      },
+      success: function(data) {
+        let district = `<option value=""></option>`;
+        Object.keys(data).forEach(function(key) {
+          district += `<option data-district="${key}" value="${data[key]}">${data[key]}</option>`;
         });
-        xhrPool = [];
-      }
-    }
+        $("#district").empty().append(district);
+        $(".form-group.district").removeClass("address_loading");
+        $("#ward").empty().append(`<option value=""></option>`);
+      },
+    });
   });
+  $("select#district").change(function() {
+    abortAll();
+    let _district_id = $("#district :selected").data("district");
+    $.ajax({
+      url: `${SITE_URL}/transport/ward/${_district_id}`,
+      dataType: "JSON",
+      beforeSend: function(jqXHR) {
+        xhrPool.push(jqXHR);
+        $(".form-group.ward").addClass("address_loading");
+      },
+      success: function(data) {
+        let ward = `<option value=""></option>`;
+        Object.keys(data).forEach(function(key) {
+          ward += `<option data-ward="${key}" value="${data[key]}">${data[key]}</option>`;
+        });
+        $("#ward").empty().append(ward);
+        $(".form-group.ward").removeClass("address_loading");
+      },
+    });
+  });
+
+  function abortAll() {
+    if (xhrPool.length > 0) {
+      console.log(xhrPool);
+      $.each(xhrPool, function(idx, jqXHR) {
+        jqXHR.abort();
+      });
+      xhrPool = [];
+    }
+  }
+});
 </script>
