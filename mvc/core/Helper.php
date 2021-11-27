@@ -19,8 +19,7 @@ class Helper
     \n <b>Thông tin khách hàng</b>
     \n Họ và tên: " . $data['fullName'] . "
     \n Số điện thoại: " . $data['mobile'] . "
-    \n Địa chỉ: " . $data['address'] . "
-    ";
+    \n Địa chỉ: " . $data['address'] . "";
     $url = $url . "&text=" . urlencode($message);
     file_get_contents($url);
   }
