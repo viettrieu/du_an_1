@@ -44,7 +44,7 @@ class Order extends Controller
       exit();
     }
     $status = $this->Orders->GetOrderStatus("id= " . $order['status']);
-    $order['status'] = $status[0]["status"];
+    $order['status'] = [$status[0]["id"], $status[0]["status"]];
     $order['transaction'] = Helper::PaymentMethods($order['transaction']);
     if (isset($order['idCoupon'])) {
       $coupon = $this->Coupon->GetCoupon('id = ' . (int)$order['idCoupon']);
@@ -66,7 +66,7 @@ class Order extends Controller
       exit();
     }
     $status = $this->Orders->GetOrderStatus("id= " . $order['status']);
-    $order['status'] = $status[0]["status"];
+    $order['status'] = [$status[0]["id"], $status[0]["status"]];
     $order['transaction'] = Helper::PaymentMethods($order['transaction']);
     if (isset($order['idCoupon'])) {
       $coupon = $this->Coupon->GetCoupon('id = ' . (int)$order['idCoupon']);

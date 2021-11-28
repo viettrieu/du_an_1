@@ -21,6 +21,7 @@ class Transport extends Controller
       exit();
     }
     extract($this->Order->GetOrderById($orderId));
+    $pick_money = $status == 3 ? 0 : $total;
     $products = $this->Order->GetOrderItemById($orderId);
     extract($this->listPick());
     if (!$this->Transport->GetId($orderId)) {
@@ -56,11 +57,11 @@ class Transport extends Controller
         "ward": "$ward",
         "hamlet": "$address",
         "is_freeship": "1",
-        "pick_money": $total ,
+        "pick_money": $pick_money,
         "note": "$content",
         "value": $total,
-        "transport": "road",
-        "pick_option":"cod",
+        "transport": "$method",
+        "pick_option": "cod",
         "deliver_option" : "none",
         "tags": []
     }
@@ -68,14 +69,21 @@ class Transport extends Controller
 HTTP_BODY;
     $result = json_decode(GiaoHangTietKiem::createShipmentOrder($order), true);
     if ($result["success"]) {
-      $this->Transport->updateTransport(["label" => $result["order"]["label"]], "orderId = $orderId");
+      $this->Order->UpdateOrderBy(["status" => 4], "id = " . (int)$orderId);
+      $this->Transport->updateTransport(["tracking_id" => $result["order"]["tracking_id"]], "orderId = $orderId");
     }
+    $result["message"] = "Đơn hàng $orderId của bạn đã được gửi lên hệ thống GHTK";
     echo json_encode($result);
   }
 
   function cancelOrder($orderId)
   {
-    echo GiaoHangTietKiem::cancelOrder("partner_id:" . $orderId);
+    $result = json_decode(GiaoHangTietKiem::cancelOrder("partner_id:" . $orderId), true);
+    if ($result["success"]) {
+      $this->Order->UpdateOrderBy(["status" => 6], "id = " . (int)$orderId);
+      $this->Transport->updateTransport(["status" => -1], "orderId = " . (int)$orderId);
+    }
+    echo json_encode($result);
   }
   function listPick()
   {

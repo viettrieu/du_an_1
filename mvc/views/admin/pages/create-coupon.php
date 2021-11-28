@@ -31,13 +31,14 @@
               <?php endforeach ?>
               <div class="form-group ">
                 <label>Coupon:</label>
-                <input type="text" class="form-control" id="code" required name="code">
+                <input type="text" class="form-control" id="code" required name="code"
+                  value="<?= htmlspecialchars($_POST['code']  ?? ''); ?>">
                 <div class=" invalid-feedback">Vui lòng nhập coupon.</div>
                 <button type="button" class="btn btn-secondary mt-2" onclick="generateCoupon()">Tạo Coupon</button>
               </div>
               <div class="form-group">
                 <label>Mô tả ngắn:</label>
-                <div id="summary"></div>
+                <div id="summary"><?= $_POST['summary']  ?? ''; ?></div>
                 <input type="hidden" name="summary">
               </div>
             </div>
@@ -46,20 +47,59 @@
         <div class="col-md-3">
           <div class="card">
             <div class="card-body">
+              <div class=" form-group">
+                <label>Loại:</label>
+                <select name="coupon-type" id="coupon-type" class="select custom-select" required>
+                  <option value="0" <?= isset($_POST['coupon-type']) && $_POST['coupon-type'] == 1 ? 'selected' : '' ?>>
+                    Theo phần trăm</option>
+                  <option value="1" <?= isset($_POST['coupon-type']) && $_POST['coupon-type'] == 1 ? 'selected' : '' ?>>
+                    Cố định</option>
+                </select>
+              </div>
               <div class="form-group">
-                <label>Phần trăm giảm giá:</label>
-                <input type="number" class="form-control" id="discount" required name="discount">
+                <label>Giá trị:</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="discount" required name="discount" min="1" max="100"
+                    aria-describedby="basic-addon2" value="<?= htmlspecialchars($_POST['discount']  ?? ''); ?>">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">%</span>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label>Giới hạn:</label>
-                <input type="number" class="form-control" id="usageLimit" name="usageLimit">
+                <input type="number" class="form-control" id="usageLimit" name="usageLimit" min="1"
+                  value="<?= htmlspecialchars($_POST['usageLimit']  ?? ''); ?>">
               </div>
               <div class="form-group">
-                <label>Ngày hết hạn:</label>
-                <div class="cal-icon">
-                  <input type="text" class="form-control datetimepicker" id="expiryDate" name="expiryDate">
+                <label>Đơn hàng tối thiểu:</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="minOrder" name="minOrder" min="1"
+                    aria-describedby="basic-addon3" value="<?= htmlspecialchars($_POST['minOrder']  ?? ''); ?>">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon3">VNĐ</span>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Ngày bắt đầu:</label>
+                <div class="cal-icon">
+                  <input type="text" class="form-control datetimepicker" id="startDate" name="startDate"
+                    value="<?= htmlspecialchars($_POST['startDate']  ?? ''); ?>" autocomplete="off">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Ngày kết thúc:</label>
+                <div class="cal-icon">
+                  <input type="text" class="form-control datetimepicker" id="expiryDate" name="expiryDate"
+                    value="<?= htmlspecialchars($_POST['expiryDate']  ?? ''); ?>" autocomplete="off">
+                </div>
+              </div>
+
             </div>
           </div>
           <button type="submit" name="create_coupon" class="btn btn-block btn-primary btn-lg">Tạo Coupon</button>
@@ -68,3 +108,21 @@
     </form>
   </div>
 </div>
+
+
+
+<script>
+function couponType(val) {
+  if (val == 1) {
+    $("#basic-addon2").text('VNĐ');
+    $("#discount").removeAttr("max");
+  } else {
+    $("#basic-addon2").text('%');
+    $("#discount").prop('max', 100);
+  }
+}
+couponType($('#coupon-type option:selected').val())
+$(document).on('change', '#coupon-type', function(event) {
+  couponType(event.target.value)
+})
+</script>

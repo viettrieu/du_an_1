@@ -28,24 +28,35 @@ class Coupon extends Controller
     $request = json_decode(json_encode($_POST));
 
     if (isset($request->create_coupon)) {
-      $errors = HandleForm::validations([
-        [$request->code, 'required', 'Vui lòng nhập coupon'],
-      ]);
       $code = HandleForm::rip_tags($_POST['code']);
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
-      $discount = (float)HandleForm::rip_tags($_POST['discount']);
+      $type = (int)HandleForm::rip_tags($_POST['coupon-type']);
+      $discount = (int)HandleForm::rip_tags($_POST['discount']);
+      $minOrder = (int)HandleForm::rip_tags($_POST['minOrder']);
+      $usageLimit = (int)HandleForm::rip_tags($_POST['usageLimit']);
+      $startDate = HandleForm::rip_tags($_POST['startDate']);
       $expiryDate = HandleForm::rip_tags($_POST['expiryDate']);
-      $usageLimit = HandleForm::rip_tags($_POST['usageLimit']);
+      $errors = HandleForm::validations([
+        [$code, 'required', 'Vui lòng nhập coupon'],
+        [$discount, 'Nmin:0', 'Giá trị phải lớn hơn 0'],
+        [$minOrder, 'Nmin:0', 'Đơn hàng tối thiểu phải lớn hơn 0'],
+        [$usageLimit, 'Nmin:0', 'Số lần sử dụng phải lớn hơn 0'],
+        [strtotime($startDate), 'Nmax:' . strtotime($expiryDate), 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'],
+      ]);
       $data = array(
         "code" => $code,
         "summary" => $summary,
+        "type" => $type,
         "discount" => $discount,
+        "minOrder" => !empty($minOrder) ? $minOrder : NULL,
+        "usageLimit"  => !empty($usageLimit) ? $usageLimit : NULL,
+        "startDate" => !empty($startDate) ?  date("Y-m-d", strtotime($startDate)) : NULL,
+        "expiryDate" => !empty($expiryDate) ? date("Y-m-d", strtotime($expiryDate)) : NULL,
       );
-      $data["expiryDate"] = !empty($expiryDate) ? $expiryDate : NULL;
-      $data["usageLimit"]  = !empty($usageLimit) ? (int)$usageLimit : NULL;
       if (count($errors) == 0) {
         $InsertCoupon = $this->listCoupon->InsertCoupon($data);
         if ($InsertCoupon) {
+          unset($_POST);
           $errors[] = ["status" => "OK", "message" => "Bạn đã thêm thành công sản phẩm <strong>" . $code . "</strong>"];
         } else {
           $errors[] = ["status" => "ERROR", "message" => "Đã có lỗi khi đăng vui lòng thử lại"];
@@ -68,21 +79,32 @@ class Coupon extends Controller
     $errors = array();
     $request = json_decode(json_encode($_POST));
     if (isset($request->edit_coupon)) {
-      $errors = HandleForm::validations([
-        [$request->code, 'required', 'Vui lòng nhập coupon'],
-      ]);
       $code = HandleForm::rip_tags($_POST['code']);
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
-      $discount = (float)HandleForm::rip_tags($_POST['discount']);
+      $type = (int)HandleForm::rip_tags($_POST['coupon-type']);
+      $discount = (int)HandleForm::rip_tags($_POST['discount']);
+      $minOrder = (int)HandleForm::rip_tags($_POST['minOrder']);
+      $usageLimit = (int)HandleForm::rip_tags($_POST['usageLimit']);
+      $startDate = HandleForm::rip_tags($_POST['startDate']);
       $expiryDate = HandleForm::rip_tags($_POST['expiryDate']);
-      $usageLimit = HandleForm::rip_tags($_POST['usageLimit']);
+      $errors = HandleForm::validations([
+        [$code, 'required', 'Vui lòng nhập coupon'],
+        [$discount, 'Nmin:0', 'Giá trị phải lớn hơn 0'],
+        [$minOrder, 'Nmin:0', 'Đơn hàng tối thiểu phải lớn hơn 0'],
+        [$usageLimit, 'Nmin:0', 'Số lần sử dụng phải lớn hơn 0'],
+        [strtotime($startDate), 'Nmax:' . strtotime($expiryDate), 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'],
+      ]);
       $data = array(
         "code" => $code,
         "summary" => $summary,
-        "discount" => (int)$discount,
+        "type" => $type,
+        "discount" => $discount,
+        "minOrder" => !empty($minOrder) ? $minOrder : NULL,
+        "usageLimit"  => !empty($usageLimit) ? $usageLimit : NULL,
+        "startDate" => !empty($startDate) ?  date("Y-m-d", strtotime($startDate)) : NULL,
+        "expiryDate" => !empty($expiryDate) ? date("Y-m-d", strtotime($expiryDate)) : NULL,
       );
-      $data["expiryDate"] = !empty($expiryDate) ? $expiryDate : NULL;
-      $data["usageLimit"]  = !empty($usageLimit) ? (int)$usageLimit : NULL;
+
       if (count($errors) == 0) {
         $UpdateCoupon = $this->listCoupon->UpdateCoupon($data, "id = " . $id);
         if ($UpdateCoupon) {

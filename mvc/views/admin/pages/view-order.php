@@ -21,8 +21,7 @@ $transport = $data["Transport"];
     <!-- /Page Header -->
 
     <?php if ($data["Order"] != false) : ?>
-    <div class="row">
-
+    <div class="row" id="view_order">
       <div class="col-lg-7">
         <div class="card">
           <div class="card-header">
@@ -95,12 +94,20 @@ $transport = $data["Transport"];
                   <th scope="row">Phương thức thanh toán:</th>
                   <td><?= $order['transaction']; ?></td>
                 </tr>
+                <tr>
+                  <th scope="row">Trạng thái đơn hàng:</th>
+                  <td><span class="badge bg-status-<?= $order['status'][0]; ?>"><?= $order['status'][1]; ?></span></td>
+                </tr>
               </tfoot>
             </table>
 
           </div>
-          <div class="card-footer">
-            <h5 class="card-title text-center">THÔNG TIN THANH TOÁN</h5>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="text-center">THÔNG TIN THANH TOÁN</h5>
             <p><strong>Họ và tên:</strong> <?= $order['fullName'] ?></p>
             <p><strong>Số điện thoại:</strong> <?= $order['mobile'] ?></p>
             <p><strong>Email:</strong> <?= $order['email'] ?></p>
@@ -109,29 +116,28 @@ $transport = $data["Transport"];
             </p>
           </div>
         </div>
-      </div>
-      <div class="col-lg-5">
         <div class="card">
           <div class="card-body">
-            <p>
-              <strong>Cảm ơn bạn. Đơn hàng của bạn đã được nhận.</strong>
-            </p>
-            <ul>
-              <li>Mã đơn hàng: <strong><?= $order['id'] ?></strong></li>
-              <li>Ngày: <strong><?= $order['published'] ?></strong></li>
-              <li>Tổng cộng: <strong>
-                  <span class="total"><?= number_format($order['total'], 0, ',', '.'); ?></span>
-                  <sup>đ</sup></strong></li>
-              <li>Trạng thái: <strong><?= $order['status']; ?></strong></li>
-            </ul>
-
-
+            <h5 class="text-center">THÔNG TIN THANH TOÁN</h5>
+            <?php if (!isset($order['tracking_id'])) : ?>
+            <a href="javascript:void(0);" class="btn btn-sm btn-white text-success mr-2 create"
+              data-id="<?= $order['id'] ?>">
+              <i class="fas fa-shipping-fast"></i>
+              Đăng đơn hàng
+            </a>
+            <?php else : ?>
+            <p>Mã vận đơn: <strong><?= $transport['tracking_id']; ?></strong></p>
+            <p>Mã vận đơn: <strong><?= $transport['tracking_id']; ?></strong></p>
+            <p>Mã vận đơn: <strong><?= $transport['tracking_id']; ?></strong></p>
+            <p>Mã vận đơn: <strong><?= $transport['tracking_id']; ?></strong></p>
+            <?php endif ?>
           </div>
         </div>
       </div>
     </div>
-    <?php else : ?>
-    <p>KHÔNG CÓ ĐƠN HÀNG</p>
-    <?php endif ?>
   </div>
+  <?php else : ?>
+  <p>KHÔNG CÓ ĐƠN HÀNG</p>
+  <?php endif ?>
+</div>
 </div>

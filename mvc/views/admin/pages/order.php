@@ -26,10 +26,11 @@
                   <tr>
                     <th>ID</th>
                     <th>Khách hàng</th>
-                    <th>Email</th>
-                    <th>Ngày tạo đơn</th>
+                    <th>Số điện thoại</th>
                     <th>Tổng</th>
+                    <th>Ngày tạo đơn</th>
                     <th>Trạng thái</th>
+                    <th>GHTK</th>
                     <th class="text-right">Hành động</th>
                   </tr>
                 </thead>
@@ -42,36 +43,31 @@
                   <tr>
                     <td class="id"><?= $order['id']; ?></td>
                     <td>
-                      <h2 class="table-avatar">
-                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $order['id']; ?>"
-                          class="avatar avatar-sm mr-2">
-                          <img class="avatar-img rounded-circle"
-                            src="<?= SITE_URL ?><?= $order['avatar'] == null ? '/public/img/avatar-default.png' : $order['avatar']; ?>"
-                            alt="User Image" />
-                        </a>
-                        <a href="<?= ADMIN_URL ?>/order/vieworder/<?= $order['id']; ?>">
-                          <?= $order['fullName'] == null ? $order['username'] : $order['fullName']; ?>
-                          <span><?= $order['mobile']; ?></span>
-                        </a>
-                      </h2>
+                      <strong><?= $order['fullName']; ?></strong>
+                      <p><?= $order['email']; ?></p>
                     </td>
-                    <td><?= $order['email']; ?></td>
+                    <td><a href="tel:<?= $order['mobile']; ?>"><strong><?= $order['mobile']; ?></strong></a></td>
+                    <td><?= number_format($order['total'], 0, ',', '.'); ?><sup>đ</sup></td>
                     <td><?= $order['published']; ?></td>
-                    <td><?php echo number_format($order['total'], 0, ',', '.'); ?><sup>đ</sup></td>
-                    <td><span class="badge bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
+                    <td class="status">
+                      <span class="bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
+                    </td>
+                    <td class="ghtk">
+                      <?php if (isset($order['tracking_id'])) : ?>
+                      <p>Mã vận đơn: <strong><?= $order['tracking_id']; ?></strong></p>
+                      <?php endif ?>
                     </td>
                     <td class="text-right">
-                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-success mr-2 transport"><i
-                          class="fas fa-shipping-fast"></i>
-                        Đăng đơn hàng lên GHTK</a>
                       <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i
-                          class="far fa-eye mr-1"></i>View</a>
+                          class="far fa-eye mr-1"></i>View
+                      </a>
                       <div class="dropdown dropdown-action" style=" display: inline-block; ">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                            class="fas fa-ellipsis-h"></i></a>
+                            class="fas fa-ellipsis-h"></i>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right">
                           <?php foreach ($data["Status"] as $status) : ?>
-                          <?php if ($status["id"] == $order['status']) continue; ?>
+                          <?php if ($status["id"] <= $order['status']) continue; ?>
                           <a class="dropdown-item status" href="javascript:void(0);" data-id="<?= $status["id"] ?>"><i
                               class="far fa-edit mr-2"></i>
                             <?= $status["status"] ?>

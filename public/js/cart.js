@@ -94,12 +94,15 @@ function getSubTotal() {
 }
 function getDiscount(subTotal) {
   let sum = 0;
-  if (coupon["code"]) {
+  if (coupon["type"] == 0) {
     sum = (coupon["discount"] / 100) * subTotal;
+  } else if (coupon["type"] == 1) {
+    sum = coupon["discount"];
   }
   return sum;
 }
 function showCoupon(discount) {
+  $(".cart-discount").remove();
   let info = ``;
   if (coupon["code"]) {
     info = `<tr class="cart-discount">
@@ -221,6 +224,8 @@ $("#add_coupon").submit(function (e) {
     data: formData,
     dataType: "JSON",
     success: function (data) {
+      console.log(data);
+      $("#add_coupon")[0].reset();
       coupon = data["coupon"];
       let subTotal = getSubTotal();
       let discount = getDiscount(subTotal);
@@ -235,7 +240,6 @@ $("#add_coupon").submit(function (e) {
    </div>`;
       $("#info").html(alert);
       if (info["status"] == "OK") {
-        $(".coupon").remove();
         $(".cart-subtotal").after(showCoupon(discount));
         document.querySelector(".total").innerHTML = formatCash(total);
       }

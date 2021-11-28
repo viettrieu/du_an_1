@@ -86,15 +86,15 @@ Version      : 1.0
 
   if ($(".datetimepicker").length > 0) {
     $(".datetimepicker").datetimepicker({
-      format: "YYYY-MM-DD",
-      icons: {
-        up: "fas fa-angle-up",
-        down: "fas fa-angle-down",
-        next: "fas fa-angle-right",
-        previous: "fas fa-angle-left",
-      },
+      format: "DD-MM-YYYY",
     });
   }
+  $("#startDate").on("dp.change", function (e) {
+    $("#expiryDate").data("DateTimePicker").minDate(e.date.add(1, "days"));
+  });
+  // $("#expiryDate").on("dp.change", function (e) {
+  //   $("#startDate").data("DateTimePicker").maxDate(e.date);
+  // });
 
   // Tooltip
   if ($('[data-toggle="tooltip"]').length > 0) {
@@ -426,7 +426,7 @@ $("#DataTables_Table_0").on("click", ".status", function (e) {
   let idOrder = $(this).closest("tr").find(".id").text();
   let idStatus = $(this).data("id");
   let textStatus = $(this).text();
-  let badge = $(this).closest("tr").find(".badge");
+  let status = $(this).closest("tr").find(".status");
   var postForm = {
     idOrder,
     idStatus,
@@ -452,12 +452,11 @@ $("#DataTables_Table_0").on("click", ".status", function (e) {
     },
     allowOutsideClick: () => !Swal.isLoading(),
   }).then((result) => {
-    console.log(result);
     if (result.isConfirmed) {
       if (result.value == "true") {
-        badge.text(textStatus);
-        badge.removeClass();
-        badge.addClass(`badge bg-status-${idStatus}`);
+        status
+          .empty()
+          .append(`<span class="bg-status-${idStatus}">${textStatus}</span>`);
         Swal.fire({
           title: "Thay đổi thành công",
           html: `Trạng thái hiện tại là <b>${textStatus}</b>`,
@@ -551,7 +550,7 @@ $("#reviews_list").on("click", ".accept", function (e) {
   });
 });
 window.setTimeout(function () {
-  $(".alert.alert-success")
+  $(".alert.alert-success.fade")
     .fadeTo(500, 0)
     .slideUp(500, function () {
       $(this).remove();
@@ -565,49 +564,165 @@ function generateCoupon() {
   $("#code").val(coupon[0]);
 }
 
-$("#order_list").on("click", ".transport", function (e) {
-  return GHTK($(this), "/transport/createShipmentOrder");
+// $("#order_list").on("click", ".create", function (e) {
+//   return CreateShipmentOrder($(this), "/transport/createShipmentOrder");
+// });
+// $("#view_order").on("click", ".create", function (e) {
+//   return CreateShipmentOrder($(this), "/transport/createShipmentOrder");
+// });
+$("#quickview").on("click", ".create", function (e) {
+  return CreateShipmentOrder($(this), "/transport/createShipmentOrder");
 });
 
-function GHTK(element, action) {
-  let id = element.closest("tr").find(".id").text();
-  Swal.fire({
-    title: `Đăng đơn hàng`,
-    html: `Đơn hàng <b>${id}</b> của bạn đã được gửi lên hệ thống GHTK`,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Xóa",
-    cancelButtonText: "Không",
-    showLoaderOnConfirm: true,
-    preConfirm: () => {
-      return $.ajax({
-        url: ADMIN_URL + action + "/" + id,
-        dataType: "JSON",
-        success: (data) => {
-          console.log(data);
-          if (!data["success"]) {
-            Swal.showValidationMessage(`${data["message"]}`);
-          } else {
-            return data;
-          }
-        },
-      });
-    },
-    allowOutsideClick: () => !Swal.isLoading(),
-  }).then((result) => {
-    if (result.isConfirmed) {
-      if (result.value["success"] == true) {
-        Swal.fire({
-          title: "Thành công",
-          html: `Đơn hàng ${id} của bạn đã được gửi lên hệ thống GHTK`,
-          icon: "success",
-        });
+function CreateShipmentOrder(element, action) {
+  let id = element.data("id");
+  element.find("i").removeClass().addClass("fas fa-spinner fa-spin");
+  let status = $("#quickview .status");
+  let ghtk = $("#quickview .ghtk");
+  $.ajax({
+    url: ADMIN_URL + action + "/" + id,
+    dataType: "JSON",
+    success: (data) => {
+      let className =
+        data["success"] == false ? "alert-danger" : "alert-success";
+      $("#quickview .errors").empty()
+        .append(`<div class="alert ${className} alert-dismissible" role="alert">
+        ${data["message"]}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>`);
+      if (!data["success"]) {
+        element.find("i").removeClass().addClass("fas fa-shipping-fast");
+      } else {
+        element.remove();
+        status
+          .empty()
+          .append(`<span class="bg-status-4">Đang giao hàng</span>`);
+        ghtk.append(`
+          <p><strong>Mã vận đơn:</strong>${data["order"]["tracking_id"]}</p>
+          <p><strong>Ngày lấy hàng:</strong> ${data["order"]["estimated_pick_time"]}</p>
+          <p><strong>Ngày giao hàng:</strong> ${data["order"]["estimated_deliver_time"]}</p>
+          <p><strong>Trạng thái:</strong> Đã tiếp nhận</p>
+          <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger cancel" data-id="${id}">
+          <i class="fas fa-ban"></i>
+          Hủy đơn hàng
+          </a>
+          <a href="javascript:void(0);" class="btn btn-sm btn-white text-info print"
+          data-id="${data["order"]["tracking_id"]}">
+          <i class="fas fa-print"></i>
+          In đơn hàng
+        </a>`);
       }
-    }
+    },
   });
 }
+
+$("#quickview").on("click", ".cancel", function (e) {
+  return cancelOrder($(this), "/transport/cancelOrder");
+});
+
+function cancelOrder(element, action) {
+  let id = element.data("id");
+  element.find("i").removeClass().addClass("fas fa-spinner fa-spin");
+  let status = $("#quickview .status");
+  $.ajax({
+    url: ADMIN_URL + action + "/" + id,
+    dataType: "JSON",
+    success: (data) => {
+      let className =
+        data["success"] == false ? "alert-danger" : "alert-success";
+      $("#quickview .errors").empty()
+        .append(`<div class="alert ${className} alert-dismissible" role="alert">
+      ${data["message"]}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>`);
+      if (!data["success"]) {
+        element.find("i").removeClass().addClass("fas fa-ban");
+      } else {
+        element.remove();
+        status.empty().append(`<span class="bg-status-6">Thất bại</span>`);
+      }
+    },
+  });
+}
+$("#quickview").on("click", ".print", function (e) {
+  return ajaxFileStream($(this), "/transport/printOrder");
+});
+function ajaxFileStream(element, action) {
+  let id = element.data("id");
+  element.find("i").removeClass().addClass("fas fa-spinner fa-spin");
+  let url = ADMIN_URL + action + "/" + id;
+  let oReq = new XMLHttpRequest();
+  oReq.open("GET", url, true);
+  oReq.responseType = "arraybuffer";
+  oReq.onload = function (event) {
+    element.find("i").removeClass().addClass("fas fa-print");
+    let blob = new Blob([oReq.response], { type: "application/pdf" });
+    let blobURL = URL.createObjectURL(blob);
+    let iframe = document.createElement("iframe");
+    document.body.appendChild(iframe);
+    iframe.style.display = "none";
+    iframe.src = blobURL;
+    iframe.onload = function () {
+      setTimeout(function () {
+        iframe.focus();
+        iframe.contentWindow.print();
+      }, 1);
+    };
+  };
+  oReq.send();
+}
+// function CreateShipmentOrdersss(element, action) {
+//   let id = element.data("id");
+//   let badge = element.closest("tr").find(".badge");
+//   let ghtk = element.closest("tr").find(".ghtk");
+//   Swal.fire({
+//     title: `Đăng đơn hàng`,
+//     html: `Đơn hàng <b>${id}</b> của bạn đã được gửi lên hệ thống GHTK`,
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonColor: "#3085d6",
+//     cancelButtonColor: "#d33",
+//     confirmButtonText: "Đăng",
+//     cancelButtonText: "Không",
+//     showLoaderOnConfirm: true,
+//     preConfirm: () => {
+//       return $.ajax({
+//         url: ADMIN_URL + action + "/" + id,
+//         dataType: "JSON",
+//         success: (data) => {
+//           if (!data["success"]) {
+//             Swal.showValidationMessage(`${data["message"]}`);
+//           } else {
+//             return data;
+//           }
+//         },
+//       });
+//     },
+//     allowOutsideClick: () => !Swal.isLoading(),
+//   }).then((result) => {
+//     console.log(result);
+//     if (result.isConfirmed) {
+//       if (result.value["success"] == true) {
+//         element.remove();
+//         badge.text("Đang giao hàng");
+//         badge.removeClass();
+//         badge.addClass("badge bg-status-4");
+//         ghtk.append(
+//           `<p>Mã vận đơn: <strong>${result.value.order["tracking_id"]}</strong></p>`
+//         );
+//         Swal.fire({
+//           title: "Thành công",
+//           html: `Đơn hàng ${id} của bạn đã được gửi lên hệ thống GHTK`,
+//           icon: "success",
+//         });
+//       }
+//     }
+//   });
+// }
 
 $("#order_list").on("click", ".quick-view", function (e) {
   return orderQuickView($(this), "/order/OrderQuickView");
