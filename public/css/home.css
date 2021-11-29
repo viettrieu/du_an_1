@@ -1,0 +1,29 @@
+.IN-AUGUST{
+    color: rgb(219, 26, 26);
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+.best-author{
+    color: black;
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+ul.social-media .youtube {
+    background: #d1111b;
+}
+.social-media{
+    align-items: center;
+}
+.quote{
+    line-height: 2;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.name_author{
+    font-size: 30px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 30px;
+
+}
