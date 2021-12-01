@@ -19,6 +19,9 @@
   <!-- Datepicker CSS -->
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/admin/css/bootstrap-datetimepicker.min.css">
 
+  <!-- daterangepicker CSS -->
+  <link rel="stylesheet" href="<?= SITE_URL ?>/public/admin//plugins/daterangepicker/daterangepicker.css">
+
   <!-- quill CSS -->
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/admin/plugins/quill/css/quill.snow.css">
 
