@@ -12,6 +12,7 @@ class Store extends Controller
     public $User;
     public $page;
     public $offset;
+    public $ListAuthor;
     public $perPage = 9;
     function __construct()
     {
@@ -22,6 +23,7 @@ class Store extends Controller
         $this->ListTag = $this->model("TagModel");
         $this->ListReview = $this->model("ReviewModel");
         $this->User = $this->model("UserModel");
+        $this->ListAuthor = $this->model("AuthorModel");
     }
     function SayHi()
     {
@@ -33,6 +35,7 @@ class Store extends Controller
             "ListProduct" => $this->ListProduct->GetByTaxonomy(0, "all", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetOneAuthor(),
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
@@ -40,7 +43,7 @@ class Store extends Controller
     function Category($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "category");
-        $base_url = SITE_URL . "/store/category/$id";
+        $base_url = SITE_URL . "/store/category";
         $category = $this->ListCategory->GetCategorById($id);
         $this->view("page-left", [
             "Page" => "store",
@@ -55,7 +58,7 @@ class Store extends Controller
     function Tag($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "tag");
-        $base_url = SITE_URL . "/store/tag/$id";
+        $base_url = SITE_URL . "/store/tag";
         $tag = $this->ListTag->GetTagById($id);
         echo $this->ListProduct->GetByTaxonomy($id, "tag", $this->offset, $this->perPage);
         exit();
@@ -75,16 +78,11 @@ class Store extends Controller
             $productId = (int)$_POST["productId"];
             $rating = (int)$_POST["rate"];
             $content = $_POST["content"];
-            $checkComment = $this->ListReview->check($_SESSION["user"]["id"], $productId);
-            $orderId = $this->ListReview->GetOrderId($_SESSION["user"]["id"], $checkComment);
-            $dt = new DateTime("now", new DateTimeZone('Antarctica/Davis'));
             $data = array(
                 "userId" => (int)$_SESSION["user"]["id"],
-                "productId" => (int)$productId,
-                "rating" => (int)$rating,
-                "content" => "'$content'",
-                "status" => 0,
-                "orderId" => (int)$orderId['id'],
+                "productId" => $productId,
+                "rating" => $rating,
+                "content" => $content,
             );
             $result = $this->ListReview->InsertReview($data);
             if ($result) {
@@ -92,8 +90,9 @@ class Store extends Controller
                 $data["username"] = $_SESSION["user"]["fullName"] ? $_SESSION["user"]["fullName"] : $_SESSION["user"]["username"];
                 echo json_encode($data);
             } else {
-                echo 'Thất bại';
+                echo 'Thấp bại';
             }
+            exit();
         }
 
         if ($id == false || $this->ListProduct->Check($id) == false) {
@@ -101,7 +100,6 @@ class Store extends Controller
             exit();
         }
         $product =  $this->ListProduct->GetProductById($id);
-        // die();
         // $this->ListProduct->CountViewById($id);
         $UserById = "";
         if (isset($_SESSION['user'])) {
@@ -115,9 +113,10 @@ class Store extends Controller
             "ListTag" => $this->ListTag->GetTagByProduct($id),
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
-            "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
+            "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
             // "SumView" => $this->ListProduct->SumViewById($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
+            "ListAuthor" => $this->ListAuthor->GetOneAuthor(),
         ]);
     }
 
@@ -136,6 +135,7 @@ class Store extends Controller
             "ListTag" => $this->ListTag->GetAllTag(),
             "ListProduct" => $ListProduct,
             "Key" => $key,
+
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }

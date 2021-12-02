@@ -34,14 +34,14 @@ $UserById = $data["UserById"];
   <div class="col medium-6 small-12 large-6">
     <h1 class="entry-title product-title"><?= $product['title']; ?></h1>
     <div class="product-rating view">
-      <?php if ($data["AVGReview"] != NULL) : ?>
+      <!-- <?php if ($data["AVGReview"] != NULL) : ?> -->
       <div class="star-rating" style=" margin-right: 10px; ">
         <div class="star-ratings-css" style=" font-size: 2rem; ">
           <div class="star-ratings-inner" style="width: <?= $data["AVGReview"] * 20 ?>%"></div>
         </div>
       </div>
       <?php endif ?>
-      <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span>
+      <!-- <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span> -->
     </div>
     <span class="price product-price" data-price="<?= $product['price']; ?>">
       <span class="unit-price"><?= number_format($product['price'], 0, ',', '.'); ?></span>
@@ -85,7 +85,7 @@ $UserById = $data["UserById"];
       if ($resultCategory) {
         echo "Categorys: ";
         foreach ($resultCategory as $category) { ?>
-      <a href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>" rel="tag"><?= $category["title"] ?></a>
+      <a href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>" rel="tag"><?= $category["title"] ?></a> <br>
       <?php }
       }
       $resultTag =  $data['ListTag'];
@@ -133,61 +133,61 @@ $UserById = $data["UserById"];
   </div>
 </div>
 <section id="product-author-wrap">
-  <div class="row">
-    <div class="col small-12 large-12">
-      <div class="col-inner">
-        <h2 class="text-center">Meet The Author</h2>
-      </div>
-    </div>
-    <div class="col medium-4 small-12 large-4">
-      <div class="col-inner">
-        <div class="author-avatar">
-          <img src="<?= SITE_URL ?>/public/img/author-2.jpg">
+    <div class="row">
+        <div class="col small-12 large-12">
+            <div class="col-inner">
+                <h2 class="text-center">Meet The Author</h2>
+            </div>
         </div>
-        <div class="author-info">
-          <h4 class="text-center" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">Shia
-            Ung</a>
-          </h4>
+        <div class="col medium-4 small-12 large-4">
+            <div class="col-inner">
+                <?php
 
-          <ul class="social-media">
-            <li>
-              <a class="facebook" href="#" target="blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li>
-              <a class="twitter" href="#" target="blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a class="linkedin" href="#" target="blank">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </li>
-            <li>
-              <a class="pinterest" href="#" target="blank">
-                <i class="fab fa-pinterest"></i>
-              </a>
-            </li>
-          </ul>
+                $ListAuthor = $data["ListAuthor"];
+
+                ?>
+                <div class="author-avatar">
+                    <img src="<?= SITE_URL ?><?= $ListAuthor['avatar'] ?>">
+                </div>
+                <div class="author-info">
+                    <h4 class="text-center" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">
+                        <?= $ListAuthor['title'] ?></a>
+                    </h4>
+
+                    <ul class="social-media">
+                        <li>
+                            <a class="facebook" href="<?= $ListAuthor['fblink'] ?>" target="blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="twitter" href="<?= $ListAuthor['twitterlink'] ?>" target="blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="youtube" href="<?= $ListAuthor['youtubelink'] ?>" target="blank">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col medium-8 small-12 large-8">
-      <div class="col-inner">
-        <div class="author-quote">" My books are marked down because most of them are marked with a on the edge by
-          publishers. "</div>
-        <div class="container list-posts owl-carousel owl-theme">
-          <?php
-          $RelatedProduct =  $data['RelatedProduct'];
-          foreach ($RelatedProduct as $product) : ?>
-          <?php require "./mvc/views/block/product.php" ?>
-          <?php endforeach ?>
+        <div class="col medium-8 small-12 large-8">
+            <div class="col-inner">
+                <div class="author-quote">" <?= $ListAuthor['quote'] ?>"</div>
+                <div class="container list-posts owl-carousel owl-theme">
+                    <?php
+                    $RelatedProduct =  $data['RelatedProduct'];
+                    foreach ($RelatedProduct as $product) : ?>
+                    <?php require "./mvc/views/block/product.php" ?>
+                    <?php endforeach ?>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 <div class="row">
   <div class="col small-12 large-12">
@@ -197,11 +197,7 @@ $UserById = $data["UserById"];
     </div>
     <div class="tab-content">
       <div class="tab-pane active">
-        typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-        unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-        five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      <?= $product['content'] ?>
       </div>
       <div class="tab-pane reviews">
         <div class="row">

@@ -10,7 +10,7 @@ class AuthorModel extends DB
     //cau lenh can sua
     public function GetOneAuthor()
     {
-        $sql = "SELECT * FROM `author` WHERE `id` = 16";
+        $sql = "SELECT * FROM `author` WHERE `id` = 2";
         return $this->pdo_query_one($sql);
     }
     public function GetAuthorById($id)

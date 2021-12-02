@@ -40,6 +40,6 @@
         <h4 class="product-title">
             <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>"><?= $product["title"] ?></a>
         </h4>
-        <div class="product-author"><span>By</span><a href="#" rel="tag">John Walker</a></div>
+        <div class="product-author"><span>By</span><a href="#" rel="tag"><?= $product["author"] ?></a></div>
     </div>
 </div>
