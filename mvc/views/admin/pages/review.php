@@ -42,10 +42,10 @@
                   if (isset($ListReview)) {
                     foreach ($ListReview as $review) { ?>
                   <tr>
-                    <td class="id"><?= $review['id']; ?></td>
+                    <td class="id"><?= $review['orderId']; ?></td>
                     <td>
                       <h2 class="table-avatar">
-                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['id']; ?>"
+                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['orderId']; ?>"
                           class="avatar avatar-sm mr-2">
                           <img class="avatar-img rounded-circle"
                             src="<?= SITE_URL ?><?= $review['avatar'] == null ? '/public/img/avatar-default.png' : $review['avatar']; ?>"
