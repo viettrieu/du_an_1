@@ -40,7 +40,7 @@ class Store extends Controller
     function Category($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "category");
-        $base_url = SITE_URL . "/store/category";
+        $base_url = SITE_URL . "/store/category/$id";
         $category = $this->ListCategory->GetCategorById($id);
         $this->view("page-left", [
             "Page" => "store",
@@ -55,7 +55,7 @@ class Store extends Controller
     function Tag($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "tag");
-        $base_url = SITE_URL . "/store/tag";
+        $base_url = SITE_URL . "/store/tag/$id";
         $tag = $this->ListTag->GetTagById($id);
         echo $this->ListProduct->GetByTaxonomy($id, "tag", $this->offset, $this->perPage);
         exit();
@@ -75,8 +75,8 @@ class Store extends Controller
             $productId = (int)$_POST["productId"];
             $rating = (int)$_POST["rate"];
             $content = $_POST["content"];
-            $checkComment = $this->ListReview->check($_SESSION["user"]["id"],$productId);
-            $orderId = $this->ListReview->GetOrderId($_SESSION["user"]["id"],$checkComment);
+            $checkComment = $this->ListReview->check($_SESSION["user"]["id"], $productId);
+            $orderId = $this->ListReview->GetOrderId($_SESSION["user"]["id"], $checkComment);
             $dt = new DateTime("now", new DateTimeZone('Antarctica/Davis'));
             $data = array(
                 "userId" => (int)$_SESSION["user"]["id"],
@@ -84,7 +84,7 @@ class Store extends Controller
                 "rating" => (int)$rating,
                 "content" => "'$content'",
                 "status" => 0,
-                "orderId"=>(int)$orderId['id'],
+                "orderId" => (int)$orderId['id'],
             );
             $result = $this->ListReview->InsertReview($data);
             if ($result) {
