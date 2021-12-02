@@ -22,7 +22,7 @@
         <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>">
             <span class="on-sale product-flash">Sale</span>
             <span class="on-featured product-flash">Hot</span>
-            <img src="<?= $product["thumbnail"] ?>" alt="<?= $product["title"] ?>">
+            <img src="<?= SITE_URL ?>/<?= $product["thumbnail"] ?>" alt="<?= $product["title"] ?>">
             <?php if ($product["rating"] != NULL) : ?>
                 <div class="star-rating">
                     <div class="star-ratings-css">
