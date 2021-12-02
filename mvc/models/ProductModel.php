@@ -29,18 +29,20 @@ class ProductModel extends DB
     }
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
     {
-        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author'  FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id  GROUP BY book.id DESC";
+        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author'  FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id";
         if ($id != 0) {
             if ($name == 'tag') {
-                $sql .= "INNER JOIN book_tag tag ON tagId = $id AND product.id = tag.productId";
+                $sql .= " INNER JOIN book_tag tag ON tagId = $id AND book.id = tag.productId";
             }
             if ($name == 'category') {
-                $sql .= "INNER JOIN book_category category ON categoryId = $id AND product.id = category.productId";
+                $sql .= " INNER JOIN book_category category ON categoryId = $id AND book.id = category.productId";
             }
             if ($name == 'search') {
-                $sql .= "WHERE (title LIKE '%$id%' OR summary LIKE '%$id%')";
+                $sql .= " WHERE (title LIKE '%$id%' OR summary LIKE '%$id%')";
             }
         }
+        $sql .= " GROUP BY book.id DESC";
+
         if ($offset >= 0 &&  $perPage > 0) $sql .= " LIMIT $offset, $perPage";
         // return  $sql;
         return $this->pdo_query($sql);
