@@ -43,7 +43,7 @@ class Store extends Controller
     function Category($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "category");
-        $base_url = SITE_URL . "/store/category";
+        $base_url = SITE_URL . "/store/category/$id";
         $category = $this->ListCategory->GetCategorById($id);
         $this->view("page-left", [
             "Page" => "store",
@@ -58,7 +58,7 @@ class Store extends Controller
     function Tag($id)
     {
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "tag");
-        $base_url = SITE_URL . "/store/tag";
+        $base_url = SITE_URL . "/store/tag/$id";
         $tag = $this->ListTag->GetTagById($id);
         $this->view("page-left", [
             "Page" => "store",
