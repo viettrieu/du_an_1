@@ -102,13 +102,114 @@ Version      : 1.0
   }
 
   // Datatable
+
   if ($(".datatable").length > 0) {
     $(".datatable").DataTable({
       // bFilter: false,
       order: [[0, "desc"]],
+      searching: true,
+      dom: `<'row'<'col-sm-6 text-left'l><'col-sm-6 text-right'B>>
+			<'row'<'col-sm-12'tr>>
+			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'p>>`,
+      buttons: [
+        {
+          extend: "csv",
+          exportOptions: {
+            columns: ":not(:last-child)",
+          },
+        },
+        {
+          extend: "excel",
+          exportOptions: {
+            columns: ":not(:last-child)",
+          },
+        },
+        {
+          extend: "pdf",
+          exportOptions: {
+            columns: ":not(:last-child)",
+          },
+        },
+        {
+          extend: "print",
+          exportOptions: {
+            columns: ":not(:last-child)",
+          },
+        },
+      ],
+
+      language: {
+        sProcessing: "Đang xử lý...",
+        sLengthMenu: "Xem _MENU_ mục",
+        sZeroRecords: "Không tìm thấy dòng nào phù hợp",
+        sInfo: "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+        sInfoEmpty: "Đang xem 0 đến 0 trong tổng số 0 mục",
+        sInfoFiltered: "(được lọc từ _MAX_ mục)",
+        sInfoPostFix: "",
+        sSearch: "Tìm:",
+        sUrl: "",
+        oPaginate: {
+          sFirst: "Đầu",
+          sPrevious: "Trước",
+          sNext: "Tiếp",
+          sLast: "Cuối",
+        },
+      },
     });
   }
+  if ($("#order_list").length > 0) {
+    // $("#clear").on("click", function (e) {
+    //   $("#categoryFilter").val("");
+    //   $("#invoice_number").val("");
+    //   $("#phone").val("");
+    //   $("#startDate").val("");
+    //   $("#expiryDate").val("");
+    //   table.columns().search("").draw();
+    // });
+    var table = $("#order_list").DataTable();
+    var categoryIndex = 0;
+    $("#order_list th").each(function (i) {
+      if ($($(this)).html() == "Trạng thái") {
+        categoryIndex = i;
+        return false;
+      }
+    });
 
+    $("#categoryFilter").on("change", function (e) {
+      table.columns(categoryIndex).search(this.value).draw();
+    });
+    $("#invoice_number").on("keyup", function (e) {
+      table.columns(0).search(this.value).draw();
+    });
+    $("#phone").on("keyup", function (e) {
+      table.columns(2).search(this.value).draw();
+    });
+    let flag = true;
+    $("#startDate, #expiryDate").on("dp.change", function (e) {
+      if (flag) {
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          var min = $("#startDate").val();
+          var max = $("#expiryDate").val();
+          min = new Date(moment(min, "DD-MM-YYYY").format("YYYY-MM-DD"));
+          max = new Date(moment(max, "DD-MM-YYYY").format("YYYY-MM-DD"));
+          var date = new Date(
+            moment(data[4], "DD/MM/YYYY").format("YYYY-MM-DD")
+          );
+          if (
+            (min === null && max === null) ||
+            (min === null && date <= max) ||
+            (min <= date && max === null) ||
+            (min <= date && date <= max)
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      }
+      table.draw();
+    });
+  }
   // Sidebar Slimscroll
   if ($slimScrolls.length > 0) {
     $slimScrolls.slimScroll({

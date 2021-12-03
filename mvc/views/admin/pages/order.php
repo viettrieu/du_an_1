@@ -13,6 +13,60 @@
             <i class="fas fa-plus"></i>
             Tạo đơn hàng
           </a>
+          <a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
+            <i class="fas fa-filter"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="filter_inputs" class="card filter-card">
+      <div class="card-body pb-0">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Mã đơn hàng</label>
+              <input type="text" class="form-control" id="invoice_number">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Số điện thoại</label>
+              <input type="text" class="form-control" id="phone">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>From</label>
+              <div class="cal-icon">
+                <input class="form-control datetimepicker" type="text" id="startDate" name="min">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>To</label>
+              <div class="cal-icon">
+                <input class="form-control datetimepicker" type="text" id="expiryDate" name="max">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Trạng thái:</label>
+              <select id="categoryFilter" class="select">
+                <option value="">Tất cả</option>
+                <?php foreach ($data["Status"] as $status) : ?>
+                <option value="<?= $status["status"] ?>"> <?= $status["status"] ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="col-md-2">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger" id="clear">Clear</button>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -20,8 +74,8 @@
       <div class="col-sm-12">
         <div class="card card-table">
           <div class="card-body">
-            <div class="table-responsive" id="order_list">
-              <table class="table table-stripped table-hover datatable">
+            <div class="table-responsive">
+              <table class="table table-stripped table-hover datatable" id="order_list">
                 <thead class="thead-light">
                   <tr>
                     <th>ID</th>

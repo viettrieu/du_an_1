@@ -4330,3 +4330,18 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.dataTables_wrapper .btn-secondary {
+  border-color: #e6e6e6;
+  background-color: #f8f9fa;
+  color: #a6a6a6;
+}
+
+.dataTables_wrapper .btn-secondary:hover {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+div.dataTables_wrapper div.dataTables_length select {
+  width: 60px;
+}
