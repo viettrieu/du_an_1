@@ -22,6 +22,51 @@ $(document).ready(function () {
     ],
     items: 1,
   });
+  $("#book_author").owlCarousel({
+    loop: true,
+    autoplay: false,
+    autoplayTimeout: 5000,
+    smartSpeed: 800,
+    autoplayHoverPause: true,
+    touchDrag: false,
+    mouseDrag: false,
+    nav: true,
+    dots: false,
+    items: 1,
+  });
+
+  $(".related-book").owlCarousel({
+    loop: true,
+    autoplay: false,
+    autoplayTimeout: 5000,
+    smartSpeed: 800,
+    autoplayHoverPause: true,
+    margin: 30,
+    nav: true,
+    dots: false,
+    navText: [
+      '<i class="fa fa-angle-left"></i>',
+      '<i class="fa fa-angle-right"></i>',
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 3,
+      },
+    },
+  });
+  setTimeout(() => {
+    let getHeight = $(
+      "#book_author > .owl-stage-outer > .owl-stage > .owl-item.active "
+    ).height();
+    $("#book_author").height(getHeight);
+    $("#book_author > .owl-stage-outer").height(getHeight);
+  }, 0);
 
   $(".list-posts").owlCarousel({
     loop: true,
@@ -285,3 +330,24 @@ $(document).ready(function () {
     false
   );
 })();
+$(document).ready(function () {
+  $(document).on("click", ".bpfw-action-flip", function (e) {
+    e.preventDefault();
+    $(".bpfw-flip-wrapper").toggleClass("bpfw-view");
+  });
+});
+$(document).on("click", "#quick_view", function (e) {
+  let id = $(this).data("id");
+  $(this).find("i").removeClass().addClass("fas fa-spinner fa-spin");
+  $.ajax({
+    type: "POST",
+    data: { id },
+    url: SITE_URL + "/store/quickview",
+    dataType: "HTML",
+    success: (data) => {
+      $(this).find("i").removeClass().addClass("fas fa-search");
+      $("#modal-quick_view .md-content").empty().append(data);
+      $("#modal-quick_view").addClass("md-show");
+    },
+  });
+});

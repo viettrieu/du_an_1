@@ -21,7 +21,7 @@ class AuthorModel extends DB
 
     public function GetAuthorByProduct($id)
     {
-        $sql = "SELECT id, title FROM author
+        $sql = "SELECT * FROM author
         INNER JOIN book_author ON authorId = author.id
         WHERE productId = $id";
         return $this->pdo_query($sql);

@@ -60,8 +60,6 @@ class Store extends Controller
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "tag");
         $base_url = SITE_URL . "/store/tag";
         $tag = $this->ListTag->GetTagById($id);
-        echo $this->ListProduct->GetByTaxonomy($id, "tag", $this->offset, $this->perPage);
-        exit();
         $this->view("page-left", [
             "Page" => "store",
             "Title" => $tag['title'],
@@ -105,6 +103,10 @@ class Store extends Controller
         if (isset($_SESSION['user'])) {
             $UserById = $this->User->GetUserById($_SESSION['user']['username']);
         }
+        $ListAuthor =  $this->ListAuthor->GetAuthorByProduct($id);
+        foreach ($ListAuthor as $key => $author) {
+            $ListAuthor[$key]['listbook'] = $this->ListProduct->GetByTaxonomy($author['id'], "author", 1, 6);
+        }
         $this->view("page-full", [
             "Page" => "product",
             "Title" => $product['title'],
@@ -116,7 +118,7 @@ class Store extends Controller
             "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
             // "SumView" => $this->ListProduct->SumViewById($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
-            "ListAuthor" => $this->ListAuthor->GetOneAuthor(),
+            "ListAuthor" => $ListAuthor,
         ]);
     }
 
@@ -135,8 +137,24 @@ class Store extends Controller
             "ListTag" => $this->ListTag->GetAllTag(),
             "ListProduct" => $ListProduct,
             "Key" => $key,
-
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
+        ]);
+    }
+
+    function QuickView()
+    {
+        $id = isset($_POST['id']) ? $_POST['id'] : false;
+        if ($id == false || $this->ListProduct->Check($id) == false) {
+            echo 'GGG';
+            // header("Location: " . SITE_URL . "/store");
+            exit();
+        }
+        $product =  $this->ListProduct->GetProductById($id);
+        $this->view("/pages/quick-view", [
+            "Product" => $product,
+            "ListCategory" => $this->ListCategory->GetCategoryByProduct($id),
+            "ListTag" => $this->ListTag->GetTagByProduct($id),
+            "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
         ]);
     }
 }

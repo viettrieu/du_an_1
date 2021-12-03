@@ -38,7 +38,7 @@ class Author extends Controller
       $twitterlink = HandleForm::rip_tags($_POST['twitterlink']);
       $quote = $_POST['quote'] == '<p><br></p>' ? NULL : $_POST['quote'];
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
-      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 500000, "./public/img/");
+      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 5000000, "./public/img/");
       if (!$avatar[0]) {
         $errors[] = ["status" => "ERROR", "message" => $avatar[1]];
       }
@@ -85,7 +85,7 @@ class Author extends Controller
       $twitterlink = HandleForm::rip_tags($_POST['twitterlink']);
       $quote = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
-      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 500000, "./public/img/");
+      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 5000000, "./public/img/");
       if (!$avatar[0]) {
         $errors[] = ["status" => "ERROR", "message" => $avatar[1]];
       }

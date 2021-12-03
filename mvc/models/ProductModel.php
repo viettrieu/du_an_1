@@ -29,13 +29,16 @@ class ProductModel extends DB
     }
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
     {
-        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author'  FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id";
+        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author' FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id";
         if ($id != 0) {
             if ($name == 'tag') {
-                $sql .= " INNER JOIN book_tag tag ON tagId = $id AND book.id = tag.productId";
+                $sql .= " WHERE book.id IN (SELECT book_tag.productId FROM book_tag WHERE tagId = $id)";
             }
             if ($name == 'category') {
-                $sql .= " INNER JOIN book_category category ON categoryId = $id AND book.id = category.productId";
+                $sql .= " WHERE book.id IN (SELECT book_category.productId FROM book_category WHERE categoryId = $id)";
+            }
+            if ($name == 'author') {
+                $sql .= " WHERE book.id IN (SELECT book_author.productId FROM book_author WHERE authorId = $id)";
             }
             if ($name == 'search') {
                 $sql .= " WHERE (title LIKE '%$id%' OR summary LIKE '%$id%')";
@@ -66,9 +69,11 @@ class ProductModel extends DB
     // }
     public function GetRelatedProductById($id, $num)
     {
-        $sql = "SELECT product.id, thumbnail, product.title, price, X.rating, categoryId FROM book product
-        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id
-        LEFT JOIN book_category category ON product.id = category.productId WHERE categoryId IN( SELECT id FROM category INNER JOIN book_category ON categoryId = category.id WHERE productId = $id) AND NOT product.id = $id GROUP BY  product.id ORDER BY RAND() LIMIT $num";
+        $sql = "SELECT book.id, book.thumbnail, book.title, price, X.rating, categoryId, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author' FROM book
+        LEFT JOIN book_author ON book.id = book_author.productId
+        LEFT JOIN author ON book_author.authorId = author.id
+        LEFT JOIN( SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE STATUS = 1 GROUP BY productId ) X ON X.productId = book.id
+        LEFT JOIN book_category category ON book.id = category.productId WHERE categoryId IN( SELECT id FROM category INNER JOIN book_category ON categoryId = category.id WHERE productId = $id ) AND NOT book.id = $id GROUP BY book.id ORDER BY RAND() LIMIT $num";
         return $this->pdo_query($sql);
     }
     public function Check($id)

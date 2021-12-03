@@ -59,6 +59,12 @@
     </div>
   </div>
 </div>
+<div class="md-modal md-effect-3" id="modal-quick_view">
+  <button class="md-close">Close me!</button>
+  <div class="md-content">
+  </div>
+</div>
+<div class="md-overlay"></div>
 <footer id="footer">
   <div class="row">
     <div class="col medium-6 small-12 large-3">
@@ -193,6 +199,7 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/js/main.js"></script>
 <script src="<?= SITE_URL ?>/public/js/add-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>
+<script src="<?= SITE_URL ?>/public/js/modal.js"></script>
 <script src="<?= SITE_URL ?>/public/plugins/select2/js/select2.min.js"></script>
 <?php if ($data["Page"] == "faq") : ?>
 <script>

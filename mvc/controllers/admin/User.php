@@ -41,7 +41,7 @@ class User extends Controller
       $password = HandleForm::rip_tags($request->password);
       $admin =  (bool)$request->admin;
       $verify = isset($_POST['verify']) ?  (bool)$request->verify : false;
-      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 500000,  "/public/img/");
+      $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 5000000,  "/public/img/");
       if (!$avatar[0]) {
         $errors[] = ["status" => "ERROR", "message" => $avatar[1]];
       }

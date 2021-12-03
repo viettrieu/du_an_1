@@ -1,14 +1,15 @@
 <?php
-$product = $data["Product"];
+$Cproduct = $data["Product"];
 $UserById = $data["UserById"];
+$ListAuthor = $data["ListAuthor"];
 ?>
-<div class="row page-wrapper">
-  <div class="col medium-6 small-12 large-6">
+<div class="row page-wrapper" style="justify-content: center">
+  <div class="col medium-6 small-12 large-4">
     <div class="bpfw-images">
       <figure class="woocommerce-product-gallery__wrapper bpfw-flip-wrapper">
-        <img src="https://auteur.g5plus.net/wp-content/uploads/2018/11/product-20.jpg" class="wp-post-image" alt="">
-        <div class="bpfw-flip bpfw-flip-front"><img
-            src="https://auteur.g5plus.net/wp-content/uploads/2018/11/product-20.jpg" class="wp-post-image" alt="">
+        <img src="<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>" class="wp-post-image" alt="">
+        <div class="bpfw-flip bpfw-flip-front"><img src="<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>"
+            class="wp-post-image" alt="">
         </div>
         <div class="bpfw-flip bpfw-flip-back">
           <img src="https://auteur.g5plus.net/wp-content/uploads/2018/11/product-11.jpg" alt="Back Cover">
@@ -25,14 +26,13 @@ $UserById = $data["UserById"];
         </a>
         <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&amp;product_id=126&amp;acds_read_book_nonce=1606f631e6"
           class="bpfw-btn bpfw-action-read-book">
-
           <span>Look inside</span>
         </a>
       </div>
     </div>
   </div>
-  <div class="col medium-6 small-12 large-6">
-    <h1 class="entry-title product-title"><?= $product['title']; ?></h1>
+  <div class="col medium-6 small-12 large-5">
+    <h1 class="entry-title product-title"><?= $Cproduct['title']; ?></h1>
     <div class="product-rating view">
       <!-- <?php if ($data["AVGReview"] != NULL) : ?> -->
       <div class="star-rating" style=" margin-right: 10px; ">
@@ -43,12 +43,12 @@ $UserById = $data["UserById"];
       <?php endif ?>
       <!-- <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span> -->
     </div>
-    <span class="price product-price" data-price="<?= $product['price']; ?>">
-      <span class="unit-price"><?= number_format($product['price'], 0, ',', '.'); ?></span>
+    <span class="price product-price" data-price="<?= $Cproduct['price']; ?>">
+      <span class="unit-price"><?= number_format($Cproduct['price'], 0, ',', '.'); ?></span>
       <sup>đ</sup>
     </span>
     <div class="product-short-description">
-      <?= $product['summary']; ?>
+      <?= $Cproduct['summary']; ?>
     </div>
 
     <div class="buttons-added">
@@ -66,20 +66,20 @@ $UserById = $data["UserById"];
     </div>
     <div style=" display: flex; ">
       <div class="add-the-cart">
-        <a href="#" class="secondary" data-id="<?= $product['id']; ?>">
+        <a href="#" class="secondary" data-id="<?= $Cproduct['id']; ?>">
           <i class="fas fa-shopping-cart"></i>
           <i class="fas fa-box"></i>
           <span>THÊM VÀO GIỎ</span>
         </a>
       </div>
       <div class="add-to-wishlist">
-        <a href="" data-id="<?= $product['id']; ?>"></a>
+        <a href="" data-id="<?= $Cproduct['id']; ?>"></a>
         <span class="tooltiptext tooltip-top">Yêu thích</span>
         </a>
       </div>
     </div>
     <div class="product-meta">
-      <span class="sku-wrapper">SKU: <span class="sku"><?= $product['sku']; ?></span> </span>
+      <span class="sku-wrapper">SKU: <span class="sku"><?= $Cproduct['sku']; ?></span> </span>
       <?php
       $resultCategory =  $data['ListCategory'];
       if ($resultCategory) {
@@ -133,61 +133,67 @@ $UserById = $data["UserById"];
   </div>
 </div>
 <section id="product-author-wrap">
-    <div class="row">
-        <div class="col small-12 large-12">
-            <div class="col-inner">
-                <h2 class="text-center">Meet The Author</h2>
-            </div>
-        </div>
-        <div class="col medium-4 small-12 large-4">
-            <div class="col-inner">
-                <?php
-
-                $ListAuthor = $data["ListAuthor"];
-
-                ?>
-                <div class="author-avatar">
-                    <img src="<?= SITE_URL ?><?= $ListAuthor['avatar'] ?>">
-                </div>
-                <div class="author-info">
-                    <h4 class="text-center" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">
-                        <?= $ListAuthor['title'] ?></a>
-                    </h4>
-
-                    <ul class="social-media">
-                        <li>
-                            <a class="facebook" href="<?= $ListAuthor['fblink'] ?>" target="blank">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="twitter" href="<?= $ListAuthor['twitterlink'] ?>" target="blank">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="youtube" href="<?= $ListAuthor['youtubelink'] ?>" target="blank">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col medium-8 small-12 large-8">
-            <div class="col-inner">
-                <div class="author-quote">" <?= $ListAuthor['quote'] ?>"</div>
-                <div class="container list-posts owl-carousel owl-theme">
-                    <?php
-                    $RelatedProduct =  $data['RelatedProduct'];
-                    foreach ($RelatedProduct as $product) : ?>
-                    <?php require "./mvc/views/block/product.php" ?>
-                    <?php endforeach ?>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col small-12 large-12">
+      <div class="col-inner">
+        <h2 class="text-center">Meet The Author</h2>
+      </div>
     </div>
+    <div class="owl-carousel owl-theme container-full" id="book_author">
+      <?php
+      foreach ($ListAuthor as $author) : ?>
+      <div class="item">
+        <div class="row">
+          <div class="col medium-4 small-12 large-4">
+            <div class="col-inner">
+              <div class="author-avatar">
+                <img src="<?= SITE_URL ?><?= $author['avatar'] ?>">
+              </div>
+              <div class="author-info">
+                <h4 class="text-center" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">
+                  <?= $author['title'] ?></a>
+                </h4>
+
+                <ul class="social-media">
+                  <li>
+                    <a class="facebook" href="<?= $author['fblink'] ?>" target="blank">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="<?= $author['twitterlink'] ?>" target="blank">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="youtube" href="<?= $author['youtubelink'] ?>" target="blank">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col medium-8 small-12 large-8">
+            <div class="col-inner">
+              <div class="author-quote">" <?= $author['quote'] ?>"</div>
+              <div class="container related-book owl-carousel owl-theme">
+                <?php
+                  $listBook =  $author['listbook'];
+                  foreach ($listBook as $product) :
+                    if ($Cproduct['id'] == $product['id']) continue;
+                  ?>
+                <?php require "./mvc/views/block/product.php" ?>
+                <?php endforeach ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endforeach ?>
+    </div>
+  </div>
 </section>
 <div class="row">
   <div class="col small-12 large-12">
@@ -197,7 +203,7 @@ $UserById = $data["UserById"];
     </div>
     <div class="tab-content">
       <div class="tab-pane active">
-      <?= $product['content'] ?>
+        <?= $Cproduct['content'] ?>
       </div>
       <div class="tab-pane reviews">
         <div class="row">
@@ -246,7 +252,7 @@ $UserById = $data["UserById"];
                 bắt buộc được đánh dấu <span class="required">*</span>1
               </p>
               <div class="reviews-form-rating">
-                <input type="hidden" name="productId" value="<?= $product['id']?>">
+                <input type="hidden" name="productId" value="<?= $product['id'] ?>">
                 <label for="rating">Đánh giá của bạn<span class="required">*</span></label>
                 <div class="rate">
                   <input type="radio" id="star5" name="rate" value="5" checked />
@@ -308,12 +314,6 @@ if ($RelatedProduct) { ?>
 
 <script src="<?= SITE_URL ?>/public/js/reviews.js"></script>
 <script>
-$(document).ready(function() {
-  $(document).on('click', '.bpfw-action-flip', function(e) {
-    e.preventDefault();
-    $('.bpfw-flip-wrapper').toggleClass('bpfw-view');
-  });
-});
 document.addEventListener("DOMContentLoaded", function() {
   const tabs = document.querySelectorAll(".tab-item");
   const panes = document.querySelectorAll(".tab-pane");

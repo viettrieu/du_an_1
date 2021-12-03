@@ -44,7 +44,7 @@ class Product extends Controller
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
       $discount = (float)HandleForm::rip_tags($_POST['discount']);
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
-      $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 500000,  "./public/img/");
+      $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 5000000,  "./public/img/");
       $category = (int)$request->category;
       $tags = isset($request->tag) ? $request->tag : [];
       $authors = isset($request->author) ? $request->author : [];
@@ -106,7 +106,7 @@ class Product extends Controller
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
       $discount = (float) HandleForm::rip_tags($_POST['discount']);
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
-      $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 500000,  "./public/img/");
+      $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 5000000,  "./public/img/");
       $category = (int)$request->category;
       $tags = isset($request->tag) ? $request->tag : [];
       $authors = isset($request->author) ? $request->author : [];
