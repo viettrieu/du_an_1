@@ -37,7 +37,7 @@ class Transport extends Controller
         'price' => (int)$product['price'],
       );
     }, $products);
-    $products = json_encode($products);
+    $products = json_encode($products, JSON_UNESCAPED_UNICODE);
     $order = <<<HTTP_BODY
 {
     "products": $products,
