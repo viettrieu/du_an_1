@@ -2712,7 +2712,7 @@ a.active:after {
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.fa-box {
+.fa-book {
   position: absolute;
   z-index: 3;
   color: var(--primary-color) !important;
@@ -2737,7 +2737,7 @@ a.active:after {
 .add-the-cart a.clicked .fa-shopping-cart {
   animation: cart 1.2s ease-in-out forwards;
 }
-.add-the-cart a.clicked .fa-box {
+.add-the-cart a.clicked .fa-book {
   animation: box 1.2s ease-in-out forwards;
 }
 @keyframes cart1 {

@@ -68,7 +68,7 @@ $ListAuthor = $data["ListAuthor"];
       <div class="add-the-cart">
         <a href="#" class="secondary" data-id="<?= $Cproduct['id']; ?>">
           <i class="fas fa-shopping-cart"></i>
-          <i class="fas fa-box"></i>
+          <i class="fas fa-book"></i>
           <span>THÊM VÀO GIỎ</span>
         </a>
       </div>

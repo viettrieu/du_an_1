@@ -125,7 +125,7 @@ let showProduct = (products, n) => {
           <div class="add-the-cart">
               <a href="#" data-id="${products[index].id}">
               <i class="fas fa-shopping-cart"></i>
-              <i class="fas fa-box"></i>
+              <i class="fas fa-book"></i>
                   <span>Thêm vào giỏ</span>
               </a>
           </div>

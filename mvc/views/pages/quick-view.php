@@ -6,8 +6,7 @@ $Cproduct = $data["Product"];
     <div class="bpfw-images">
       <figure class="woocommerce-product-gallery__wrapper bpfw-flip-wrapper">
         <img src="<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>" class="wp-post-image" alt="">
-        <div class="bpfw-flip bpfw-flip-front"><img src="<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>"
-            class="wp-post-image" alt="">
+        <div class="bpfw-flip bpfw-flip-front"><img src="<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>" class="wp-post-image" alt="">
         </div>
         <div class="bpfw-flip bpfw-flip-back">
           <img src="https://auteur.g5plus.net/wp-content/uploads/2018/11/product-11.jpg" alt="Back Cover">
@@ -22,8 +21,7 @@ $Cproduct = $data["Product"];
 
           <span>Flip to Back</span>
         </a>
-        <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&amp;product_id=126&amp;acds_read_book_nonce=1606f631e6"
-          class="bpfw-btn bpfw-action-read-book">
+        <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&amp;product_id=126&amp;acds_read_book_nonce=1606f631e6" class="bpfw-btn bpfw-action-read-book">
           <span>Look inside</span>
         </a>
       </div>
@@ -38,8 +36,8 @@ $Cproduct = $data["Product"];
           <div class="star-ratings-inner" style="width: <?= $data["AVGReview"] * 20 ?>%"></div>
         </div>
       </div>
-      <?php endif ?>
-      <!-- <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span> -->
+    <?php endif ?>
+    <!-- <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span> -->
     </div>
     <span class="price product-price" data-price="<?= $Cproduct['price']; ?>">
       <span class="unit-price"><?= number_format($Cproduct['price'], 0, ',', '.'); ?></span>
@@ -66,7 +64,7 @@ $Cproduct = $data["Product"];
       <div class="add-the-cart">
         <a href="#" class="secondary" data-id="<?= $Cproduct['id']; ?>">
           <i class="fas fa-shopping-cart"></i>
-          <i class="fas fa-box"></i>
+          <i class="fas fa-book"></i>
           <span>THÊM VÀO GIỎ</span>
         </a>
       </div>
@@ -83,14 +81,14 @@ $Cproduct = $data["Product"];
       if ($resultCategory) {
         echo "Categorys: ";
         foreach ($resultCategory as $category) { ?>
-      <a href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>" rel="tag"><?= $category["title"] ?></a> <br>
-      <?php }
+          <a href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>" rel="tag"><?= $category["title"] ?></a> <br>
+        <?php }
       }
       $resultTag =  $data['ListTag'];
       if ($resultTag) {
         echo "Tags: ";
         foreach ($resultTag as $tag) { ?>
-      <a href="<?= SITE_URL ?>/store/tag/<?= $tag["id"] ?>" rel="tag"><?= $tag["title"] ?></a>
+          <a href="<?= SITE_URL ?>/store/tag/<?= $tag["id"] ?>" rel="tag"><?= $tag["title"] ?></a>
       <?php }
       }
       ?>

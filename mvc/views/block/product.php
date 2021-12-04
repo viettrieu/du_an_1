@@ -5,7 +5,7 @@
         <li class="add-the-cart">
           <a href="#" data-id="<?= $product["id"] ?>">
             <i class="fas fa-shopping-cart"></i>
-            <i class="fas fa-box"></i>
+            <i class="fas fa-book"></i>
           </a>
           <span class="tooltiptext tooltip-left">Thêm vào giỏ</span>
         </li>
@@ -14,8 +14,7 @@
           <span class="tooltiptext tooltip-left">Yêu thích</span>
         </li>
         <li>
-          <a href="javascript:void(0);" class="md-trigger" data-id="<?= $product["id"] ?>" data-modal="modal-quick_view"
-            id="quick_view"><i class="fas fa-search"></i></a>
+          <a href="javascript:void(0);" class="md-trigger" data-id="<?= $product["id"] ?>" data-modal="modal-quick_view" id="quick_view"><i class="fas fa-search"></i></a>
           <span class="tooltiptext tooltip-left">Xem nhanh</span>
         </li>
       </ul>
@@ -25,11 +24,11 @@
       <span class="on-featured product-flash">Hot</span>
       <img src="<?= SITE_URL ?>/<?= $product["thumbnail"] ?>" alt="<?= $product["title"] ?>">
       <?php if ($product["rating"] != NULL) : ?>
-      <div class="star-rating">
-        <div class="star-ratings-css">
-          <div class="star-ratings-inner" style="width: <?= $product["rating"] * 20 ?>%"></div>
+        <div class="star-rating">
+          <div class="star-ratings-css">
+            <div class="star-ratings-inner" style="width: <?= $product["rating"] * 20 ?>%"></div>
+          </div>
         </div>
-      </div>
       <?php endif ?>
     </a>
   </div>
