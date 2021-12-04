@@ -522,7 +522,7 @@ function deleteItem(element, action, item) {
   });
 }
 
-$("#DataTables_Table_0").on("click", ".status", function (e) {
+$("#order_list").on("click", ".status", function (e) {
   $this = $(this);
   let idOrder = $(this).closest("tr").find(".id").text();
   let idStatus = $(this).data("id");
