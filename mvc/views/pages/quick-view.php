@@ -1,7 +1,7 @@
 <?php
 $Cproduct = $data["Product"];
 $wishlist = ["link" => "javascript:void(0);", "class" => "wishlist", "icon" => "far",];
-if (in_array($Cproduct["id"], $_SESSION['user']['wishlist'])) {
+if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION['user']['wishlist'])) {
   $wishlist = ["link" => SITE_URL . "/wishlist", "class" => "", "icon" => "fas",];
 }
 ?>

@@ -360,25 +360,17 @@ $(document).on("click", ".wishlist", function (e) {
     url: SITE_URL + "/wishlist/add",
     dataType: "JSON",
     success: (data) => {
-      if (data) {
+      if (data["type"] == "success") {
         $(this).attr("href", SITE_URL + "/wishlist");
         $(this).removeClass("wishlist");
         $(this).find("i").removeClass().addClass("fas fa-heart");
-        notification({
-          title: "Success",
-          message: "Đã thêm sản phẩm vào wish list",
-          type: "success",
-          duration: 3000,
-        });
       } else {
         $(this).find("i").removeClass().addClass("far fa-heart");
-        notification({
-          title: "Error",
-          message: "Thêm sản phẩm thất bại",
-          type: "error",
-          duration: 3000,
-        });
       }
+      notification({
+        duration: 3000,
+        ...data,
+      });
     },
   });
 });

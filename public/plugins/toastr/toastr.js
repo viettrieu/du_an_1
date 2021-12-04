@@ -35,7 +35,7 @@ function notification({
                   <i class="${icon}"></i>
               </div>
               <div class="toast__body">
-                  <h3 class="toast__title">${title}</h3>
+                  <h3 class="toast__title">${title != "" ? title : type}</h3>
                   <p class="toast__msg">${message}</p>
               </div>
               <div class="toast__close">
