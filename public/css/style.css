@@ -1013,13 +1013,13 @@ span.price {
   line-height: 48px;
   text-align: center;
 }
-.add-to-wishlist a:before {
+/* .add-to-wishlist a:before {
   display: block;
   font-family: "Font Awesome 5 Free";
   content: "\f004";
   font-weight: 300;
   font-size: 18px;
-}
+} */
 #what-hot {
   padding: 150px 0;
   background: url("../img/background-16.jpg") rgba(51, 51, 51, 0.4);

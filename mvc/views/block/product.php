@@ -1,3 +1,8 @@
+<?php
+$wishlist = ["link" => "javascript:void(0);", "class" => "wishlist", "icon" => "far",];
+if (in_array($product["id"], $_SESSION['user']['wishlist'])) {
+  $wishlist = ["link" => SITE_URL . "/wishlist", "class" => "", "icon" => "fas",];
+} ?>
 <div class="product has-hover">
   <div class="box-image">
     <div class="product-actions">
@@ -10,11 +15,14 @@
           <span class="tooltiptext tooltip-left">Thêm vào giỏ</span>
         </li>
         <li>
-          <a href=""><i class="far fa-heart"></i></a>
+          <a href="<?= $wishlist["link"] ?>" class="<?= $wishlist["class"] ?>" data-id="<?= $product["id"] ?>"><i
+              class="<?= $wishlist["icon"] ?> fa-heart"></i>
+          </a>
           <span class="tooltiptext tooltip-left">Yêu thích</span>
         </li>
         <li>
-          <a href="javascript:void(0);" class="md-trigger" data-id="<?= $product["id"] ?>" data-modal="modal-quick_view" id="quick_view"><i class="fas fa-search"></i></a>
+          <a href="javascript:void(0);" class="md-trigger quick_view" data-id="<?= $product["id"] ?>"
+            data-modal="modal-quick_view"><i class="fas fa-search"></i></a>
           <span class="tooltiptext tooltip-left">Xem nhanh</span>
         </li>
       </ul>
@@ -24,11 +32,11 @@
       <span class="on-featured product-flash">Hot</span>
       <img src="<?= SITE_URL ?>/<?= $product["thumbnail"] ?>" alt="<?= $product["title"] ?>">
       <?php if ($product["rating"] != NULL) : ?>
-        <div class="star-rating">
-          <div class="star-ratings-css">
-            <div class="star-ratings-inner" style="width: <?= $product["rating"] * 20 ?>%"></div>
-          </div>
+      <div class="star-rating">
+        <div class="star-ratings-css">
+          <div class="star-ratings-inner" style="width: <?= $product["rating"] * 20 ?>%"></div>
         </div>
+      </div>
       <?php endif ?>
     </a>
   </div>

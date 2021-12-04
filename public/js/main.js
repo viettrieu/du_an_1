@@ -336,7 +336,7 @@ $(document).ready(function () {
     $(".bpfw-flip-wrapper").toggleClass("bpfw-view");
   });
 });
-$(document).on("click", "#quick_view", function (e) {
+$(document).on("click", ".quick_view", function (e) {
   let id = $(this).data("id");
   $(this).find("i").removeClass().addClass("fas fa-spinner fa-spin");
   $.ajax({
@@ -348,6 +348,37 @@ $(document).on("click", "#quick_view", function (e) {
       $(this).find("i").removeClass().addClass("fas fa-search");
       $("#modal-quick_view .md-content").empty().append(data);
       $("#modal-quick_view").addClass("md-show");
+    },
+  });
+});
+$(document).on("click", ".wishlist", function (e) {
+  let id = $(this).data("id");
+  $(this).find("i").removeClass().addClass("fas fa-spinner fa-spin");
+  $.ajax({
+    type: "POST",
+    data: { productId: id },
+    url: SITE_URL + "/wishlist/add",
+    dataType: "JSON",
+    success: (data) => {
+      if (data) {
+        $(this).attr("href", SITE_URL + "/wishlist");
+        $(this).removeClass("wishlist");
+        $(this).find("i").removeClass().addClass("fas fa-heart");
+        notification({
+          title: "Success",
+          message: "Đã thêm sản phẩm vào wish list",
+          type: "success",
+          duration: 3000,
+        });
+      } else {
+        $(this).find("i").removeClass().addClass("far fa-heart");
+        notification({
+          title: "Error",
+          message: "Thêm sản phẩm thất bại",
+          type: "error",
+          duration: 3000,
+        });
+      }
     },
   });
 });

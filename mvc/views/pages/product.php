@@ -2,6 +2,11 @@
 $Cproduct = $data["Product"];
 $UserById = $data["UserById"];
 $ListAuthor = $data["ListAuthor"];
+
+$wishlist = ["link" => "javascript:void(0);", "class" => "wishlist", "icon" => "far",];
+if (in_array($Cproduct["id"], $_SESSION['user']['wishlist'])) {
+  $wishlist = ["link" => SITE_URL . "/wishlist", "class" => "", "icon" => "fas",];
+}
 ?>
 <div class="row page-wrapper" style="justify-content: center">
   <div class="col medium-6 small-12 large-4">
@@ -21,7 +26,6 @@ $ListAuthor = $data["ListAuthor"];
       </figure>
       <div class="bpfw-btn-action">
         <a href="#" class="bpfw-btn bpfw-action-flip">
-
           <span>Flip to Back</span>
         </a>
         <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&amp;product_id=126&amp;acds_read_book_nonce=1606f631e6"
@@ -73,8 +77,8 @@ $ListAuthor = $data["ListAuthor"];
         </a>
       </div>
       <div class="add-to-wishlist">
-        <a href="" data-id="<?= $Cproduct['id']; ?>"></a>
-        <span class="tooltiptext tooltip-top">Yêu thích</span>
+        <a href="<?= $wishlist["link"] ?>" class="<?= $wishlist["class"] ?>" data-id="<?= $Cproduct["id"] ?>"><i
+            class="<?= $wishlist["icon"] ?> fa-heart"></i>
         </a>
       </div>
     </div>

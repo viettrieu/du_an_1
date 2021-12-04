@@ -65,6 +65,7 @@
   </div>
 </div>
 <div class="md-overlay"></div>
+<div id="toast"></div>
 <footer id="footer">
   <div class="row">
     <div class="col medium-6 small-12 large-3">
@@ -201,6 +202,7 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/modal.js"></script>
 <script src="<?= SITE_URL ?>/public/plugins/select2/js/select2.min.js"></script>
+<script src="<?= SITE_URL ?>/public/plugins/toastr/toastr.js"></script>
 <?php if ($data["Page"] == "faq") : ?>
 <script>
 (function($) {
@@ -246,6 +248,9 @@ $("#imageUpload").change(function() {
 <?php endif; ?>
 <?php if ($data["Page"] == "cart") : ?>
 <script src="<?= SITE_URL ?>/public/js/cart.js"></script>
+<?php endif; ?>
+<?php if ($data["Page"] == "wishlist") : ?>
+<script src="<?= SITE_URL ?>/public/js/wishlist.js"></script>
 <?php endif; ?>
 <?php if ($data["Page"] == "checkout") : ?>
 <script src="<?= SITE_URL ?>/public/js/checkout.js"></script>
