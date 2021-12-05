@@ -2,10 +2,11 @@
 
 namespace Core;
 
+require_once "./mvc/core/config.php";
 class MailChimp
 {
   private static $list_id = 'b76c552a54';
-  private static $api_key = 'dc6efba237adca5783eb378560994a33-us20';
+  private static $api_key = MAIL_CHIMP_API;
   public static function AddSubscriber($email)
   {
     $data_center = substr(self::$api_key, strpos(self::$api_key, '-') + 1);

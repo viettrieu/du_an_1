@@ -252,7 +252,7 @@ window.setTimeout(function () {
       $(this).remove();
     });
 }, 3000);
-$(".close").click(function () {
+$(document).on("click", ".alert .close", function (e) {
   $(this)
     .parent()
     .fadeTo(500, 0)
@@ -421,6 +421,9 @@ $("#mailchimp").submit(function () {
     success: function (data) {
       let alert = ``;
       data.forEach((element) => {
+        if (element.status == "OK") {
+          $("#mailchimp")[0].reset();
+        }
         let status =
           element.status == "ERROR" ? "alert-danger" : "alert-success";
         alert = `<div class="alert ${status} alert-dismissible fade show" role="alert">
@@ -433,7 +436,6 @@ $("#mailchimp").submit(function () {
       $("#news-letter .errors").html(alert);
       console.log($(this).find("i"));
       $("#mailchimp .fas").remove();
-      mailchimpform.reset();
     },
   });
   return false;
