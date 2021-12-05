@@ -90,7 +90,7 @@ class Cart extends Controller
     if (isset($_SESSION['cart']['coupon']) && count($_SESSION['cart']['coupon']) > 0) {
       $subTotal -= $_SESSION['cart']['coupon']["type"] == 0 ? ($_SESSION['cart']['coupon']["discount"] / 100) * $subTotal : $_SESSION['cart']['coupon']["discount"];
     }
-    return $subTotal;
+    return $subTotal < 0 ? 0 : $subTotal;
   }
   function checkCoupon()
   {

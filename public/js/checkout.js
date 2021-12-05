@@ -31,41 +31,6 @@ let discount = getDiscount(subTotal);
 let ship = getshipmentFee();
 let total = getTotal(subTotal, discount, ship);
 displayCheckout();
-function getSubTotal() {
-  let sum = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
-  return sum;
-}
-function getDiscount(subTotal) {
-  let sum = 0;
-  if (coupon["type"] == 0) {
-    sum = (coupon["discount"] / 100) * subTotal;
-  } else if (coupon["type"] == 1) {
-    sum = coupon["discount"];
-  }
-  return sum;
-}
-function getshipmentFee() {
-  if (shipmentFee.length > 0) {
-    return shipmentFee[0]["fee"];
-  }
-  return 0;
-}
-function showCoupon(discount) {
-  let info = ``;
-  if (coupon["code"]) {
-    info = `<tr class="cart-discount">
-    <th>Coupon: ${coupon["code"]}</th>
-    <td>-<span class="discount">${formatCash(discount)}</span>
-      <sup>đ</sup> <a href="" id="remove-coupon">[xóa]</a>
-    </td>
-  </tr>`;
-  }
-  return info;
-}
-function getTotal(subTotal, discount, ship = 0) {
-  let sum = subTotal - discount + ship;
-  return sum;
-}
 
 // MAP
 // document

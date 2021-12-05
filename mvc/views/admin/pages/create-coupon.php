@@ -112,17 +112,26 @@
 
 
 <script>
+let type = $('#coupon-type option:selected').val();
+
 function couponType(val) {
   if (val == 1) {
     $("#basic-addon2").text('VNĐ');
     $("#discount").removeAttr("max");
+    $("#minOrder").prop('min', $("#discount").val());
+    $("#minOrder").prop('required', true);
   } else {
     $("#basic-addon2").text('%');
+    $("#minOrder").removeAttr('required');
+    $("#minOrder").prop('min', 1);
     $("#discount").prop('max', 100);
   }
 }
-couponType($('#coupon-type option:selected').val())
+couponType(type)
 $(document).on('change', '#coupon-type', function(event) {
   couponType(event.target.value)
+})
+$(document).on('change', '#discount', () => {
+  $("#minOrder").prop('min', $("#discount").val());
 })
 </script>

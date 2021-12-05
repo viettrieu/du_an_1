@@ -43,8 +43,12 @@ class Coupon extends Controller
         [$usageLimit, 'Nmin:0', 'Số lần sử dụng phải lớn hơn 0'],
         [strtotime($startDate), 'Nmax:' . strtotime($expiryDate), 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'],
       ]);
-      if ($discount > $minOrder && $type == 1 && isset($minOrder)) {
-        $errors[] = ["status" => "ERROR", "message" => "Giá trị giảm phải nhỏ hơn đơn hàng tối thiểu"];
+      if ($type == 1) {
+        if (empty($minOrder)) {
+          $errors[] = ["status" => "ERROR", "message" => "Vui lòng nhập giá trị đơn hàng tối thiểu"];
+        } elseif ($discount > $minOrder) {
+          $errors[] = ["status" => "ERROR", "message" => "Giá trị giảm phải nhỏ hơn đơn hàng tối thiểu"];
+        }
       }
       $data = array(
         "code" => $code,
@@ -97,8 +101,12 @@ class Coupon extends Controller
         [$usageLimit, 'Nmin:0', 'Số lần sử dụng phải lớn hơn 0'],
         [strtotime($startDate), 'Nmax:' . strtotime($expiryDate), 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'],
       ]);
-      if ($discount > $minOrder && $type == 1 && isset($minOrder)) {
-        $errors[] = ["status" => "ERROR", "message" => "Giá trị giảm phải nhỏ hơn đơn hàng tối thiểu"];
+      if ($type == 1) {
+        if (empty($minOrder)) {
+          $errors[] = ["status" => "ERROR", "message" => "Vui lòng nhập giá trị đơn hàng tối thiểu"];
+        } elseif ($discount > $minOrder) {
+          $errors[] = ["status" => "ERROR", "message" => "Giá trị giảm phải nhỏ hơn đơn hàng tối thiểu"];
+        }
       }
       $data = array(
         "code" => $code,
@@ -134,7 +142,6 @@ class Coupon extends Controller
     if ($result) {
       echo json_encode($result);
     }
-
     exit();
   }
 }

@@ -83,7 +83,7 @@ class Checkout extends Controller
         "content" => $content,
         "subTotal" => $subtotal,
         "discount" => $discount,
-        "total" => $total,
+        "total" => $total < 0 ? 0 : $total,
       );
       if (count($errors) == 0) {
         $this->Orders->InsertOrder($data);
@@ -112,13 +112,13 @@ class Checkout extends Controller
         $data["date"] = date("d/m/Y");
         $data["Page"] = $listCart;
         $data['transaction'] = Helper::PaymentMethods($data['transaction']);
-        Helper::sendTelegram([
-          'orderId' => $orderId,
-          'total' => $total,
-          'fullName' => $fullName,
-          'mobile' => $mobile,
-          'address' => $dataTransport['address'] . ', ' . $dataTransport['ward'] . ', ' . $dataTransport['district'] . ', ' . $dataTransport['province'],
-        ]);
+        // Helper::sendTelegram([
+        //   'orderId' => $orderId,
+        //   'total' => $total,
+        //   'fullName' => $fullName,
+        //   'mobile' => $mobile,
+        //   'address' => $dataTransport['address'] . ', ' . $dataTransport['ward'] . ', ' . $dataTransport['district'] . ', ' . $dataTransport['province'],
+        // ]);
         ob_start();
         $this->view("pages/cc", $data);
         $body = ob_get_clean();
@@ -128,7 +128,7 @@ class Checkout extends Controller
           "Email" => $email,
           "FullName" => $fullName,
         );
-        Helper::sendMail($data);
+        // Helper::sendMail($data);
         unset($_SESSION['cart']);
         unset($_SESSION['shipment']);
         if ($transaction == "bacs" || $transaction == "credit") {
