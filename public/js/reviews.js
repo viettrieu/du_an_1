@@ -13,20 +13,21 @@ $("#reviews-form").submit(function (e) {
     data: formData,
     dataType: "JSON",
     success: function (data) {
-      $(".noreviews").remove();
-      $(".spinner-border").remove();
-      $("#reviews-form").trigger("reset");
-      data["avatar"] = data["avatar"]
-        ? data["avatar"]
-        : "/public/img/avatar-default.png";
-      $("#reviews-list").prepend(`
+      if (data["type"] == "success") {
+        $(".noreviews").remove();
+        $(".spinner-border").remove();
+        $("#reviews-form").trigger("reset");
+        data["avatar"] = data["avatar"]
+          ? data["avatar"]
+          : "/public/img/avatar-default.png";
+        $("#reviews-list").prepend(`
         <li>
         <p class="note">Đánh giá của bạn đã gửi thành công và đang chờ kiểm duyệt</p>
           <div class="comment-main-level">
             <div class="comment-avatar">
-              <img src=" ${SITE_URL + data["avatar"]}" alt="${
-        data["username"]
-      }" />
+              <img src="${SITE_URL + data["avatar"]}" alt="${
+          data["username"]
+        }" />
             </div>
             <div class="comment-box">
               <div class="comment-head">
@@ -46,6 +47,11 @@ $("#reviews-form").submit(function (e) {
           </div>
         </li>
         `);
+      }
+      notification({
+        duration: 3000,
+        ...data,
+      });
     },
     cache: false,
     contentType: false,

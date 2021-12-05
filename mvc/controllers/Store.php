@@ -72,24 +72,35 @@ class Store extends Controller
     }
     function Product($id = false)
     {
-        if ($id == "addreview") {
-            $productId = (int)$_POST["productId"];
-            $rating = (int)$_POST["rate"];
-            $content = $_POST["content"];
-            $data = array(
-                "userId" => (int)$_SESSION["user"]["id"],
-                "productId" => $productId,
-                "rating" => $rating,
-                "content" => $content,
-            );
-            $result = $this->ListReview->InsertReview($data);
-            if ($result) {
-                $data["avatar"] = $_SESSION["user"]["avatar"];
-                $data["username"] = $_SESSION["user"]["fullName"] ? $_SESSION["user"]["fullName"] : $_SESSION["user"]["username"];
-                echo json_encode($data);
+        if ($id == "addreview" && isset($_SESSION["user"])) {
+            if (isset($_POST["productId"])) {
+                $userId = (int)$_SESSION["user"]["id"];
+                $productId = (int)HandleForm::rip_tags($_POST["productId"]);
+                $addReview = in_array($productId, $this->ListReview->check($userId));
+                if (!$addReview) {
+                    echo json_encode(["type" => "error", "message" => "Bạn phải trải nghiệm sản phẩm trước khi đánh giá"]);
+                    exit();
+                }
+                $rating = (int)HandleForm::rip_tags(isset($_POST["rate"]) ? $_POST["rate"] : 5);
+                $content = HandleForm::rip_tags($_POST["content"]);
+                $data = array(
+                    "userId" => $userId,
+                    "productId" => $productId,
+                    "rating" => $rating,
+                    "content" => $content,
+                );
+                $result = $this->ListReview->InsertReview($data);
+                if ($result) {
+                    $data["avatar"] = $_SESSION["user"]["avatar"];
+                    $data["username"] = $_SESSION["user"]["fullName"] ? $_SESSION["user"]["fullName"] : $_SESSION["user"]["username"];
+                    $result = ["type" => "success", "message" => "Bình luận đã được gửi thành công"];
+                } else {
+                    $result = ["type" => "error", "message" => "Đã có lỗi trong quá trình gửi bình luận"];
+                }
             } else {
-                echo 'Thấp bại';
+                $result = ["type" => "error", "message" => "Đã có lỗi"];
             }
+            echo json_encode($result);
             exit();
         }
 
@@ -98,7 +109,6 @@ class Store extends Controller
             exit();
         }
         $product =  $this->ListProduct->GetProductById($id);
-        // $this->ListProduct->CountViewById($id);
         $UserById = "";
         if (isset($_SESSION['user'])) {
             $UserById = $this->User->GetUserById($_SESSION['user']['username']);
@@ -116,7 +126,6 @@ class Store extends Controller
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
             "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
-            // "SumView" => $this->ListProduct->SumViewById($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
             "ListAuthor" => $ListAuthor,
         ]);

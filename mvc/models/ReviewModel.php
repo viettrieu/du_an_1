@@ -4,7 +4,7 @@ class ReviewModel extends DB
     public $table = "book_review";
     public function GetAllReview()
     {
-        $sql = "SELECT b.orderId, avatar, u.fullName, username,  rating , b.content, title , DATE_FORMAT(b.published, '%e/%c/%Y') AS 'published', status FROM book_review as b   LEFT JOIN users as u ON b.userId  = u.id INNER JOIN book ON b.productId = book.id";
+        $sql = "SELECT b.id, avatar, u.fullName, username,  rating , b.content, title , DATE_FORMAT(b.published, '%e/%c/%Y') AS 'published', status FROM book_review as b   LEFT JOIN users as u ON b.userId  = u.id INNER JOIN book ON b.productId = book.id";
         return $this->pdo_query($sql);
     }
     public function GetReviewByRank($id)
@@ -32,28 +32,25 @@ class ReviewModel extends DB
     }
     public function DeleteReviewById($cond)
     {
-        return  $this->delete($this->table, $cond);
+        return $this->delete($this->table, $cond);
     }
 
-    public function check($userId,$productId){
-        $sql = "SELECT `orderId` FROM `book_review` WHERE userId = $userId and productId = $productId ORDER BY published ASC";
-        $check = $this->pdo_query_one($sql);
-        if(!$check){
-            return false;
-        }else{
-            return true;
-        }
+    public function check($userId)
+    {
+        $sql = "SELECT productId FROM order_item WHERE orderId IN (SELECT id FROM detailed_order WHERE userId = $userId)";
+        return $this->pdo_query_one($sql);
     }
 
-    public function GetOrderId($id,$check){
-        if($check){
+    public function GetOrderId($id, $check)
+    {
+        if ($check) {
             $sql = "SELECT id FROM detailed_order WHERE id not in (
                 SELECT orderId FROM book_review as b
                 where b.userId = 1 and b.productId = 1
             ) and userId = 1";
             echo $sql;
-        }else{
-            $sql ="SELECT id FROM detailed_order WHERE userId = $id ORDER BY published ASC"; 
+        } else {
+            $sql = "SELECT id FROM detailed_order WHERE userId = $id ORDER BY published ASC";
         }
         return $this->pdo_query_one($sql);
     }

@@ -42,10 +42,10 @@
                   if (isset($ListReview)) {
                     foreach ($ListReview as $review) { ?>
                   <tr>
-                    <td class="id"><?= $review['orderId']; ?></td>
+                    <td class="id"><?= $review['id']; ?></td>
                     <td>
                       <h2 class="table-avatar">
-                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['orderId']; ?>"
+                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['id']; ?>"
                           class="avatar avatar-sm mr-2">
                           <img class="avatar-img rounded-circle"
                             src="<?= SITE_URL ?><?= $review['avatar'] == null ? '/public/img/avatar-default.png' : $review['avatar']; ?>"
@@ -64,8 +64,8 @@
                     <td><?= $review['content']; ?></td>
                     <td><?= $review['title']; ?></td>
                     <td><?= $review['published']; ?></td>
-                    <td>
-                      <span class="badge badge-pill bg-<?= $review['status'] == 1 ? 'success' : 'warning'; ?>-light">
+                    <td class="status">
+                      <span class="badge-pill bg-<?= $review['status'] == 1 ? 'success' : 'warning'; ?>-light">
                         <?= $review['status'] == 1 ? 'Đã duyệt' : 'Chờ phê duyệt'; ?>
                     </td>
                     <td class="text-right">

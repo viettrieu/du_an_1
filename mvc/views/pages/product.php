@@ -202,7 +202,7 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
   <div class="col small-12 large-12">
     <div class="tabs">
       <div class="tab-item active">Mô tả</div>
-      <div class="tab-item" id="reviews">Bình luận</div>
+      <div class="tab-item" id="reviews">Đánh giá</div>
     </div>
     <div class="tab-content">
       <div class="tab-pane active">
@@ -249,13 +249,12 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
           </div>
           <div class="col medium-12 small-12 large-6 col-nop medium-col-first">
             <?php if (isset($_SESSION["user"])) : ?>
-            <form action="<?php echo SITE_URL . '/store/product/addreview' ?>" method="POST" id="reviewsform">
+            <form action="" method="POST" id="reviews-form" data-id="<?= $Cproduct['id']; ?>">
               <p style="font-weight: 600">
                 Địa chỉ email của bạn sẽ không được công bố. Các trường
-                bắt buộc được đánh dấu <span class="required">*</span>1
+                bắt buộc được đánh dấu <span class="required">*</span>
               </p>
               <div class="reviews-form-rating">
-                <input type="hidden" name="productId" value="<?= $product['id'] ?>">
                 <label for="rating">Đánh giá của bạn<span class="required">*</span></label>
                 <div class="rate">
                   <input type="radio" id="star5" name="rate" value="5" checked />
@@ -276,7 +275,9 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
               </div>
 
               <div class="text-center" style="margin-top: 1rem">
-                <button type="submit" form="reviewsform" class="button primary" value='BinhLuan'>Bình Luan</button>
+                <button type="submit" form="reviews-form" value="Submit" class="button primary">
+                  Bình luận
+                </button>
               </div>
             </form>
             <?php else :
