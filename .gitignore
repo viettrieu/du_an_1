@@ -6,3 +6,4 @@ mvc/core/DB.php
 mvc/Bridge.php
 mvc/core/config.php
 mvc/core/gmail.json
+mvc/core/foodo.json

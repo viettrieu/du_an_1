@@ -54,6 +54,7 @@ class SocialAuth extends Controller
       if (isset($IdUser)) {
         $result = $this->SocialAuthModel->Check($IdUser);
         $_SESSION['user'] = $result;
+        $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
         setcookie("social_user", "", time() - 3600);
       } else {
         echo '<script> window.close();window.opener.document.location.href = "' . SITE_URL . '/register";</script>';

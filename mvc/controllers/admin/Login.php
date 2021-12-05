@@ -32,7 +32,7 @@ class Login extends Controller
           $errors[] = ["status" => "ERROR", "message" => "Tài khoản bạn không đủ thẩm quyền"];
         } else {
           $_SESSION['user'] = $result;
-          $_SESSION['user']['wishlist'] = [];
+          $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
           header("Location: " . ADMIN_URL . "/dashboard");
         }
       }

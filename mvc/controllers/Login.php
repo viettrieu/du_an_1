@@ -33,7 +33,7 @@ class Login extends Controller
         } else {
           $refurl = isset($_GET['refurl']) ? base64_decode($_GET['refurl']) :  SITE_URL . "/account";
           $_SESSION['user'] = $result;
-          $_SESSION['user']['wishlist'] = [];
+          $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
           header("Location: " . $refurl);
           exit();
         }

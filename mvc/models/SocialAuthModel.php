@@ -8,7 +8,7 @@ class SocialAuthModel extends DB
   }
   public function Check($id)
   {
-    $sql = "SELECT id, username, avatar, fullName, `admin` FROM users WHERE id = $id";
+    $sql = "SELECT id, username, avatar, fullName, admin,GROUP_CONCAT(productId) as wishlist FROM users LEFT JOIN wishlist ON id = userId WHERE id = $id";
     return $this->pdo_query_one($sql);
   }
 }

@@ -1,5 +1,5 @@
 <?php
-class wishlist extends Controller
+class Wishlist extends Controller
 {
   public $wishlist;
   public $userId;
@@ -36,11 +36,11 @@ class wishlist extends Controller
     }
     $productId = (int)$_POST['productId'];
     $result = $this->wishlist->DeleteWishlist("productId = " . $productId . " AND userId = " .  $this->userId);
-    if (($key = array_search($productId, $_SESSION['user']['wishlist'])) !== false) {
-      unset($_SESSION['user']['wishlist'][$key]);
-    }
     if ($result) {
       $result = ["type" => "success", "message" => "Đã xoá sản phẩm khỏi wishlist"];
+      if (($key = array_search($productId, $_SESSION['user']['wishlist'])) !== false) {
+        unset($_SESSION['user']['wishlist'][$key]);
+      }
     } else {
       $result = ["type" => "error", "message" => "Đã có lỗi trong quá trình xóa vui lòng thử lại"];
     }
@@ -53,10 +53,10 @@ class wishlist extends Controller
       exit();
     }
     $productId = (int)$_POST['productId'];
-    $_SESSION['user']['wishlist'][] = $productId;
     $result = $this->wishlist->InsertWishlist(["productId" => $productId, "userId" =>  $this->userId]);
     if ($result) {
       $result = ["type" => "success", "message" => "Đã thêm sản phẩm vào wishlist"];
+      $_SESSION['user']['wishlist'][] = $productId;
     } else {
       $result = ["type" => "error", "message" => "Thêm sản phẩm thất bại"];
     }

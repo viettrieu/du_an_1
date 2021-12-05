@@ -11,7 +11,7 @@ class UserModel extends DB
   public function CheckLogin($username, $password)
   {
     $password = md5($password);
-    $sql = "SELECT id, username, avatar, fullName, admin FROM users WHERE (username='$username' OR email='$username' OR mobile='$username') AND passwordHash='$password' LIMIT 1";
+    $sql = "SELECT id, username, avatar, fullName, admin, GROUP_CONCAT(productId) as wishlist FROM users LEFT JOIN wishlist ON id = userId WHERE (username='$username' OR email='$username' OR mobile='$username') AND passwordHash='$password' LIMIT 1";
     return $this->pdo_query_one($sql);
   }
   public function GetUserById($username = 0, $email = 0, $mobile = 0, $cond = 1)
@@ -35,6 +35,6 @@ class UserModel extends DB
   public function GetUserByEmail($email, $select = '*')
   {
     $sql = "select $select from users where email = '$email'";
-    return $this->pdo_query_one($sql);    
+    return $this->pdo_query_one($sql);
   }
 }
