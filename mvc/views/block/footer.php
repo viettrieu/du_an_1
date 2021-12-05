@@ -7,9 +7,10 @@
     </div>
     <div class="col medium-12 small-12 large-6">
       <div class="col-inner">
-        <form class="form-subscribe">
+        <div class="errors"></div>
+        <form class="form-subscribe" id="mailchimp">
           <div class="input-group">
-            <input type="text" placeholder="Your eamil address" required />
+            <input type="text" placeholder="Your eamil address" name="email" required />
             <span class="input-group-btn">
               <button class="button secondary" type="submit">
                 Đăng ký

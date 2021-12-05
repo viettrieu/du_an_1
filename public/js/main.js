@@ -410,3 +410,31 @@ function getTotal(subTotal, discount, ship = 0) {
   let sum = subTotal - discount + ship;
   return sum < 0 ? 0 : sum;
 }
+$("#mailchimp").submit(function () {
+  var mailchimpform = $(this);
+  $("#mailchimp button").prepend(`<i class="fas fa-spinner fa-spin"></i>`);
+  $.ajax({
+    url: SITE_URL + "/formsubscribe",
+    type: "POST",
+    data: mailchimpform.serialize(),
+    dataType: "JSON",
+    success: function (data) {
+      let alert = ``;
+      data.forEach((element) => {
+        let status =
+          element.status == "ERROR" ? "alert-danger" : "alert-success";
+        alert = `<div class="alert ${status} alert-dismissible fade show" role="alert">
+      ${element.message}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>`;
+      });
+      $("#news-letter .errors").html(alert);
+      console.log($(this).find("i"));
+      $("#mailchimp .fas").remove();
+      mailchimpform.reset();
+    },
+  });
+  return false;
+});
