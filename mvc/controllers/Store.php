@@ -76,7 +76,9 @@ class Store extends Controller
             if (isset($_POST["productId"])) {
                 $userId = (int)$_SESSION["user"]["id"];
                 $productId = (int)HandleForm::rip_tags($_POST["productId"]);
-                $addReview = in_array($productId, $this->ListReview->check($userId));
+                $products = $this->ListReview->check($userId);
+                if ($products === NULL) $products  = [];
+                $addReview = in_array($productId, $products);
                 if (!$addReview) {
                     echo json_encode(["type" => "error", "message" => "Bạn phải trải nghiệm sản phẩm trước khi đánh giá"]);
                     exit();
