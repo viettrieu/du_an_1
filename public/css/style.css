@@ -660,11 +660,11 @@ ul {
   margin-bottom: 0.1rem;
   text-transform: uppercase;
 }
-.box-image > a {
+.product .box-image > a {
   position: relative;
   display: block;
 }
-.box-image > a:after {
+.product .box-image > a:after {
   content: "";
   display: block;
   padding-bottom: 150%;
