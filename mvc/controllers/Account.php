@@ -51,6 +51,7 @@ class Account extends Controller
       if (!$avatar[0]) {
         $errors[] = ["status" => "ERROR", "message" => $avatar[1]];
       }
+      if ($avatar[1] !== NULL) $avatar[1] = str_replace('./', '/', $avatar[1]);
       $user = $this->User->GetUserById(0, $email, $mobile, "NOT id = " . (int)$_SESSION["user"]["id"]);
       if ($user) {
         if ($user['email'] == $email)
