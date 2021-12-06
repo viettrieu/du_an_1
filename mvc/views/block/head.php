@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/toastr/toastr.css">
   <script src="<?= SITE_URL ?>/public/js/jquery-3.5.1.min.js"></script>
+  <script src="<?= SITE_URL ?>/public/js/searh.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SKZBRYFQ9J"></script>
   <script>

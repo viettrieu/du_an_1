@@ -27,3 +27,27 @@ ul.social-media .youtube {
     margin-bottom: 30px;
 
 }
+.md-close {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: rgb(55, 184, 113);
+}
+.md-close:hover{
+    color: salmon;
+    background: rgb(41, 141, 141);
+}
+input[type="search"]{
+    width: 100%;
+}
+.md-content {
+    margin-top: 300px;
+}
+.formsearch{
+    height: 100%;
+}
+.searchform [type="search"] {
+    min-width: 890px;
+    border-radius: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}

@@ -27,12 +27,16 @@
         </li>
         <ul class="nav top-bar-nav">
         <li>
-          <a href="<?= SITE_URL ?>/login">
-            <i class="fas fa-search"></i>
-          </a>
+            <button class="md-trigger" data-modal="modal-7" id='sea'> <i class="fas fa-search"></i></button>
         </li>
         <li>
           <a href="<?= SITE_URL ?>/login">
+            <i class="fas fa-lock"></i>
+
+          </a>
+        </li>
+        <li>
+          <a href="<?= SITE_URL ?>/register">
             <i class="fas fa-user"></i>
           </a>
         </li>

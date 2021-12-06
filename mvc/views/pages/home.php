@@ -209,7 +209,7 @@
 </section>
 <section id="our-team">
     <div class="title container text-center">
-        <h2>ĐẦU BẾP HÀNG ĐẦU</h2>
+        <h2>TÁC GIẢ HÀNG ĐẦU</h2>
         <img src="<?= SITE_URL ?>/public/img/title.png">
     </div>
     <div class="container our-team owl-carousel owl-theme">
@@ -226,7 +226,7 @@
 
             <div class="box-text">
                 <span class="person-name">Gordon Ramsay</span><br>
-                <span class="person-title">Master Chef</span>
+                <span class="person-title">J-D</span>
                 <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                     ligula eget dolor sociis natoque</p>
             </div>
@@ -243,7 +243,7 @@
             </div>
             <div class="box-text">
                 <span class="person-name">Mark Anthony</span><br>
-                <span class="person-title">Founder & CEO</span>
+                <span class="person-title">F-D</span>
                 <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                     ligula eget dolor sociis natoque</p>
             </div>
@@ -260,7 +260,7 @@
             </div>
             <div class="box-text">
                 <span class="person-name">Jessica Lee</span><br>
-                <span class="person-title">Chinese Kitchen Lead</span>
+                <span class="person-title">R-D</span>
                 <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                     ligula eget dolor sociis natoque</p>
             </div>
@@ -284,72 +284,7 @@
         </div>
     </div>
 </section>
-<section id="services">
-    <div class="title container text-center">
-        <h2>DỊCH VỤ TỐT NHẤT</h2>
-        <img src="<?= SITE_URL ?>/public/img/title.png">
-    </div>
-    <div class="row row-collapse">
-        <div class="col medium-12 small-12 large-4">
-            <div class="col-inner">
-                <div class="service has-hover">
-                    <div class="box-image">
-                        <b></b>
-                        <span class="box-diamond"><img src="<?= SITE_URL ?>/public/img/icon-1.png"
-                                style=" width: 4rem; "></span>
-                        <b></b>
-                    </div>
-                    <div class="box-text text-center">
-                        <h5>Miễn phí vận chuyển</h5>
-                        <p>Đăng ký và đặt hàng để nhận giao hàng miễn phí ngay bây giờ.</p>
-                        <a href="./index.php?action=chinh-sach" class="button">
-                            <span>Xem chi tiết</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col medium-12 small-12 large-4">
-            <div class="col-inner">
-                <div class="service has-hover">
-                    <div class="box-image">
-                        <b></b>
-                        <span class="box-diamond"><img src="<?= SITE_URL ?>/public/img/icon-2.png"
-                                style=" width: 4rem; "></span>
-                        <b></b>
-                    </div>
-                    <div class="box-text text-center">
-                        <h5>30 phút giao hàng</h5>
-                        <p>Mọi thứ bạn đặt hàng sẽ nhanh chóng được giao đến tận nơi.</p>
-                        <a href="./index.php?action=chinh-sach" class="button">
-                            <span>Xem chi tiết</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col medium-12 small-12 large-4">
-            <div class="col-inner">
-                <div class="service has-hover">
-                    <div class="box-image">
-                        <b></b>
-                        <span class="box-diamond"><img src="<?= SITE_URL ?>/public/img/icon-3.png"
-                                style=" width: 4rem; "></span>
-                        <b></b>
-                    </div>
-                    <div class="box-text text-center">
-                        <h5>Đảm bảo chất lượng</h5>
-                        <p>Chúng tôi chỉ sử dụng những nguyên liệu tốt nhất để nấu những món ăn tươi ngon cho bạn.
-                        </p>
-                        <a href="./index.php?action=chinh-sach" class="button">
-                            <span>Xem chi tiết</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <section id="list-posts">
     <div class="title container text-center">
         <h2>TIN TỨC</h2>
@@ -380,7 +315,7 @@
         </div>
         <div class="post has-hover item">
             <div class="box-image image-zoom">
-                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
+                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-4.jpg"
                         alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
             </div>
             <div class="box-text">
