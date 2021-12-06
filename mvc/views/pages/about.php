@@ -227,7 +227,7 @@
 </section>
 <section id="our-team">
   <div class="title container text-center">
-    <h2>ĐẦU BẾP HÀNG ĐẦU</h2>
+    <h2>TÁC GIẢ HÀNG ĐẦU</h2>
     <img src="<?= SITE_URL ?>/public/img/title.png" />
   </div>
   <div class="container our-team owl-carousel owl-theme">

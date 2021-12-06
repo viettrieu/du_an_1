@@ -2,7 +2,7 @@
    <div class="col medium-12 small-12 large-4">
      <div class="post">
        <div class="box-image">
-         <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
+         <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-4.jpg"
              alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại" /></a>
        </div>
        <div class="box-text">
