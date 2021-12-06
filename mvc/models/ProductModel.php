@@ -9,7 +9,7 @@ class ProductModel extends DB
     }
     public function GetAllProducts()
     {
-        $sql = "SELECT * FROM book";
+        $sql = "SELECT id as 'objectID', book.* FROM book";
         return $this->pdo_query($sql);
     }
     public function GetSellProduct($limit = 6)
@@ -41,7 +41,7 @@ class ProductModel extends DB
                 $sql .= " WHERE book.id IN (SELECT book_author.productId FROM book_author WHERE authorId = $id)";
             }
             if ($name == 'search') {
-                $sql .= " WHERE (title LIKE '%$id%' OR summary LIKE '%$id%')";
+                $sql .= " WHERE book.title LIKE '%$id%'";
             }
         }
         $sql .= " GROUP BY book.id DESC";
