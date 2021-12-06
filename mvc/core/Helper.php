@@ -250,4 +250,21 @@ class Helper
     $str = preg_replace('/([\s]+)/', '-', $str);
     return $str;
   }
+  public static function hideString($string, $part_size = 0)
+  {
+    $part_size = abs($part_size);
+    $middle_string = "";
+    $length = strlen($string);
+    if ($length < 3) {
+      return $length == 1 ? "*" : "*" . substr($string,  -1);
+    } elseif ($part_size * 2 < $length) {
+      $part_size = $part_size == 0 ? floor($length / 3) : $part_size;
+      $middle_part_size = $length - ($part_size * 2);
+      for ($i = 0; $i < $middle_part_size; $i++) {
+        $middle_string .= "*";
+      }
+      return substr($string, 0, $part_size) . $middle_string  . substr($string,  -$part_size);
+    }
+    return $string;
+  }
 }
