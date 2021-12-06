@@ -32,9 +32,9 @@ class UserModel extends DB
     return  $this->delete($this->table, $cond);
   }
 
-  public function GetUserByEmail($email, $select = '*')
+  public function GetUserByAccount($account)
   {
-    $sql = "select $select from users where email = '$email'";
+    $sql = "select username, fullName, email, mobile from users WHERE (username='$account' OR username='$account' OR email='$account' OR mobile='$account')";
     return $this->pdo_query_one($sql);
   }
 }

@@ -41,13 +41,13 @@ class Recovery extends Controller
                 [$request->new_password, 'max:15', 'Mật Khẩu Mới Không Được Quá 15 Ký Tự'],
                 [$request->password_confirm, 'confirmed:' . $request->new_password, 'Nhập Lại Mật Khẩu Phải Khớp Với Nhau'],
             ]);
-            $email = $is_valid['email'];
+            $method = $is_valid['method'];
             if (count($errors) == 0) {
                 $this->User->UpdateUserBy([
                     'passwordHash' => md5($request->new_password)
-                ], "email = '$email'");
-                $this->PwReset->delete('password_reset', "email = '$email'");
-                $_SESSION['errors'] = ["status" => "OK", "message" => "Tài khoản có '$email' đã đổi pass thành công"];
+                ], "email = '$method' OR mobile = '$method'");
+                $this->PwReset->delete('password_reset', "method = '$method'");
+                $_SESSION['errors'] = ["status" => "OK", "message" => "Tài khoản có '$method' đã đổi pass thành công"];
                 header("Location: " . SITE_URL . "/login");
                 exit();
             }

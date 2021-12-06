@@ -12,8 +12,8 @@
     <?php endforeach ?>
     <form action="" method="post" id="recovery-form" class="needs-validation" novalidate>
       <div class="form-group">
-        <input class="form-control" name="new_password" type="email" placeholder="Email" required
-          value="<?= base64_decode($_GET['email']); ?>" disabled>
+        <input class="form-control" name="new_password" type="text" placeholder="method" required
+          value="<?= base64_decode($_GET['method']); ?>" disabled>
       </div>
       <div class="form-group">
         <input class="form-control" name="new_password" type="password" placeholder="Nhập Mật Khẩu Mới" required>

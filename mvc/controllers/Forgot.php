@@ -2,9 +2,7 @@
 
 use Core\HandleForm;
 use Core\Helper;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+use GuzzleHttp\Promise\Is;
 
 class Forgot extends Controller
 {
@@ -25,51 +23,120 @@ class Forgot extends Controller
 
     public function SayHi()
     {
-        $errors = isset($_SESSION['errors']) ?  array($_SESSION['errors']) :  array();
-        unset($_SESSION['errors']);
-        $request = json_decode(json_encode($_POST));
-
-        if (isset($request->recovery_password)) {
-            $errors = HandleForm::validations([
-                [$request->email, 'required', 'Vui lòng nhập email của bạn'],
-                [$request->email, 'email', 'Vui lòng nhập email hợp lệ'],
-            ]);
-
-            $email = HandleForm::rip_tags($request->email);
-            if (count($errors) == 0) {
-                $result  = $this->User->GetUserByEmail($email);
-                if (!$result) {
-                    $errors[] = ["status" => "ERROR", "message" => "Người dùng không tồn tại"];
-                } else {
-                    $token = md5(time() . rand(0, 9999));
-                    try {
-                        $this->PwReset->insert('password_reset', [
-                            'token' => $token,
-                            'email' => $email,
-                        ]);
-
-                        $email_data = [];
-                        $email_data['Email'] = $result['email'];
-                        $email_data['FullName'] = $result['fullName'];
-                        $email_data['Subject'] = 'Khôi phục mật khẩu';
-                        $email_data['Page'] = '
-                        Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
-                        <a href="' . SITE_URL . '/recovery?email=' . base64_encode($result['email']) . '&token=' . $token . '">' . SITE_URL . '/recovery?token=' . $token . '</a>';
-
-                        Helper::sendMail($email_data);
-
-                        $errors[] = ["status" => "OK", "message" => " Hãy kiểm tra email của bạn"];
-                    } catch (Exception $e) {
-                        $errors[] = ["status" => "ERROR", "message" => " Đã xảy ra lỗi vui lòng thử lại"];
-                    }
-                }
-            }
-        }
-
         $this->view("page-full", [
             "Page" => "forgot_password",
             "Title" => "Quen mat khau",
-            "Errors" => $errors
         ]);
+    }
+    public function checkExistAccount()
+    {
+        if (isset($_POST)) {
+            $account = HandleForm::rip_tags($_POST['account']);
+            if (!isset($account)) {
+                echo json_encode(["error" => ["status" => "ERROR", "message" => "Vui lòng điền vào số điện thoại/Email"]]);
+                exit();
+            }
+            $result = $this->User->GetUserByAccount($account);
+            if (!$result) {
+                echo json_encode(["error" => ["status" => "ERROR", "message" => "Người dùng không tồn tại"]]);
+                exit();
+            }
+            $check = 'email';
+            $email = explode("@", $result['email']);
+            $mobile = $result['mobile'];
+            if ($account == $result['email']) {
+                $mobile = Helper::hideString($mobile);
+            } elseif ($account == $mobile) {
+                $check = 'mobile';
+                $email[0] = Helper::hideString($email[0]);
+            } else {
+                $mobile = Helper::hideString($mobile);
+                $email[0] = Helper::hideString($email[0]);
+            }
+            $email = implode('@', $email);
+            echo json_encode(['error' => ['status' => 'OK'], 'account' => $result['username'], 'method' => ['email' => $email, 'mobile' => $mobile], 'check' => $check]);
+            exit();
+        }
+        echo json_encode(["error" => ["status" => "ERROR", "message" => "LỖI"]]);
+        exit();
+    }
+
+    public function SendToken()
+    {
+        if (isset($_POST)) {
+            $action = HandleForm::rip_tags($_POST['action']);
+            $account = HandleForm::rip_tags($_POST['account']);
+            $result = $this->User->GetUserByAccount($account);
+            if (!$result) {
+                echo json_encode(["error" => ["status" => "ERROR", "message" => "Người dùng không tồn tại"]]);
+                exit();
+            }
+            if ($action == "send_email") {
+                $token = md5(time() . rand(0, 9999));
+                try {
+                    $this->PwReset->insert('password_reset', [
+                        'token' =>  $token,
+                        'method' => $result['email'],
+                    ]);
+                    $link = SITE_URL . '/recovery?method=' . base64_encode($result['email']) . '&token=' .  $token;
+                    $email_data = [];
+                    $email_data['Email'] = $result['email'];
+                    $email_data['FullName'] = $result['fullName'];
+                    $email_data['Subject'] = 'Khôi phục mật khẩu';
+                    $email_data['Page'] = '
+                            Hãy bấm vào liên kết bên dưới để khôi phục mật khẩu của bạn: </br>
+                            <a href="' . $link . '">' . $link . '</a>';
+                    Helper::sendMail($email_data);
+                    echo json_encode(['error' => ["status" => "OK", "message" => "Hãy kiểm tra email của bạn"]]);
+                    $_SESSION['method'] = $result['email'];
+                    exit();
+                } catch (Exception $e) {
+                    echo json_encode([
+                        'error' => [
+                            "status" => "ERROR",
+                            "message" => " Đã xảy ra lỗi vui lòng thử lại"
+                        ]
+                    ]);
+                    exit();
+                }
+            } elseif ($action == "send_mobile") {
+                echo json_encode([
+                    'error' => ["status" => "OK", "message" => "Mã xác nhận đã được gửi thành công"],
+                    'mobile' => $result['mobile']
+                ]);
+                $_SESSION['method'] = $result['mobile'];
+                exit();
+            }
+        }
+        echo json_encode(['error' => ["status" => "ERROR", "message" => "LỐI"]]);
+        exit();
+    }
+    public function CheckToken()
+    {
+        if (isset($_POST) && isset($_SESSION['method'])) {
+            $action = HandleForm::rip_tags($_POST['action']);
+            if ($action == "send_email") {
+                $token = HandleForm::rip_tags($_POST['token']);
+                $is_valid = $this->PwReset->checkValidToken($token);
+                if (!$is_valid) {
+                    echo json_encode(["error" => ["status" => "ERROR", "message" => "Nhập sai mã vui lòng kiểm tra lại"]]);
+                    exit();
+                }
+                $link = SITE_URL . '/recovery?method=' . base64_encode($_SESSION['method']) . '&token=' .  $token;
+                echo json_encode(["error" => ["status" => "OK", "message" => "Xác nhận thành công"], 'link' => $link]);
+                unset($_SESSION['method']);
+                exit();
+            } elseif ($action == "send_mobile") {
+                $token = md5(time() . rand(0, 9999));
+                $this->PwReset->insert('password_reset', [
+                    'token' =>  $token,
+                    'method' => $_SESSION['method'],
+                ]);
+                $link = SITE_URL . '/recovery?method=' . base64_encode($_SESSION['method']) . '&token=' .  $token;
+                echo json_encode(["error" => ["status" => "OK", "message" => "Xác nhận thành công"], 'link' => $link]);
+                unset($_SESSION['method']);
+                exit();
+            }
+        }
     }
 }

@@ -7,19 +7,11 @@
 ?>
 <div class="row page-wrapper" style="justify-content: center">
   <div class="col medium-8 small-12 large-5">
-    <?php foreach ($data["Errors"] as $error) :
-      $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
-    ?>
-      <div class="alert <?= $class ?> alert-dismissible" role="alert">
-        <?= $error["message"] ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-    <?php endforeach ?>
     <form action="" method="post" id="recovery-form" class="needs-validation" novalidate>
+      <div class="errors"></div>
       <div class="form-group">
-        <input class="form-control" id="email" name="email" type="email" value="<?= htmlspecialchars($_POST['email'] ?? ''); ?>" required placeholder="Nhập Email Của Bạn">
+        <input class="form-control" id="account" name="account" type="text" value="" required
+          placeholder="Vui lòng điền vào số điện thoại/Email">
       </div>
       <div class="text-center" style="margin-top: 1rem">
         <button type="submit" form="recovery-form" value="Submit" name="recovery_password" class="button primary">
@@ -27,5 +19,7 @@
         </button>
       </div>
     </form>
+  </div>
+  <div class="col medium-12 small-12 large-8" id="recover_method">
   </div>
 </div>
