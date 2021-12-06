@@ -63,14 +63,13 @@
 <div class="md-modal md-effect-3" id="modal-quick_view">
 </div>
 </div>
-<button class="md-close">Close me!</button>
 <br>
 <div class="md-content">
     <div class="md-modal md-effect-7" id="modal-7">
         <button class="md-close">Close!</i></button>
         <br>
         <div class="md-content">
-            <form method="get" class="searchform" >
+            <form method="get" class="searchform">
                 <div class="flex-row">
                     <div class="formsearch">
                         <input type="search" name="text" value="" placeholder="Tìm kiếm…">
