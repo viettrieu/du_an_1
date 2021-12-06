@@ -71,8 +71,8 @@ HTTP_BODY;
     if ($result["success"]) {
       $this->Order->UpdateOrderBy(["status" => 4], "id = " . (int)$orderId);
       $this->Transport->updateTransport(["tracking_id" => $result["order"]["tracking_id"]], "orderId = $orderId");
+      $result["message"] = "Đơn hàng $orderId của bạn đã được gửi lên hệ thống GHTK";
     }
-    $result["message"] = "Đơn hàng $orderId của bạn đã được gửi lên hệ thống GHTK";
     echo json_encode($result);
   }
 
