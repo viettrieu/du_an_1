@@ -206,11 +206,11 @@ class Helper
     if ($totalPages <= 1) return "";
     $links = "<nav class='pagination'><ul class='page-numbers nav-pagination links text-center'>";
     if ($page > 1) {
-      $first = "<li><a class='page-number' href='{$base_url}?page=1'>
+      $first = "<li><a class='page-number' href='{$base_url}&page=1'>
       << </a>
   </li>";
       $page_prev = $page - 1;
-      $prev = "<li><a class='page-number' href='{$base_url}?page={$page_prev}'>
+      $prev = "<li><a class='page-number' href='{$base_url}&page={$page_prev}'>
       < </a>
   </li>";
       $links .= $first . $prev;
@@ -223,14 +223,14 @@ class Helper
       if ($i == $page) {
         $str = "<li><span class='page-number current'>{$i}<span></li>";
       } else {
-        $str = "<li><a class='page-number' href='{$base_url}?page={$i}'> {$i} </a></li>";
+        $str = "<li><a class='page-number' href='{$base_url}&page={$i}'> {$i} </a></li>";
       }
       $links .= $str;
     }
     if ($page < $totalPages) {
       $page_next = $page + 1;
-      $next = "<li><a class='page-number' href='{$base_url}?page={$page_next}'> > </a></li>";
-      $last = "<li><a class='page-number' href='{$base_url}?page={$totalPages}'> >> </a></li>";
+      $next = "<li><a class='page-number' href='{$base_url}&page={$page_next}'> > </a></li>";
+      $last = "<li><a class='page-number' href='{$base_url}&page={$totalPages}'> >> </a></li>";
       $links .= $next . $last;
     }
     $links .= "</ul> </nav>";
