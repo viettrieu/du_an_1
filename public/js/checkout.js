@@ -37,10 +37,8 @@ function getSubTotal() {
 }
 function getDiscount(subTotal) {
   let sum = 0;
-  if (coupon["type"] == 0) {
+  if (coupon["code"]) {
     sum = (coupon["discount"] / 100) * subTotal;
-  } else if (coupon["type"] == 1) {
-    sum = coupon["discount"];
   }
   return sum;
 }

@@ -88,7 +88,7 @@ class Cart extends Controller
       $subTotal +=  $values['quantity'] *  $values['price'];
     }
     if (isset($_SESSION['cart']['coupon']) && count($_SESSION['cart']['coupon']) > 0) {
-      $subTotal -= $_SESSION['cart']['coupon']["type"] == 0 ? ($_SESSION['cart']['coupon']["discount"] / 100) * $subTotal : $_SESSION['cart']['coupon']["discount"];
+      $subTotal -=  ($_SESSION['cart']['coupon']["discount"] / 100) * $subTotal;
     }
     return $subTotal;
   }
@@ -104,19 +104,14 @@ class Cart extends Controller
         $errors[] = ["status" => "ERROR", "message" => "Coupon đã hết lượt sử dụng"];
       }
       if (strtotime($coupon['expiryDate']) < strtotime('now') && $coupon['expiryDate'] !=  NULL) {
-        $errors[] = ["status" => "ERROR", "message" => "Coupon quá ngày áp dụng"];
-      }
-      if (strtotime($coupon['startDate']) > strtotime('now') && $coupon['startDate'] !=  NULL) {
-        $errors[] = ["status" => "ERROR", "message" => "Coupon chưa đến ngày áp dụng"];
-      }
-      if ($coupon['minOrder'] > $_SESSION['cart']['subTotal'] && $coupon['minOrder'] !=  NULL) {
-        $errors[] = ["status" => "ERROR", "message" => "Đơn hản phải trên " . number_format($coupon['minOrder'], 0, ',', '.') . " <sup>đ</sup>"];
+        $errors[] = ["status" => "ERROR", "message" => "Coupon giá hết hạn"];
+        unset($_SESSION['cart']['coupon']);
       }
     }
     if (count($errors) == 0) {
       $errors[] = ["status" => "OK", "message" => "Coupon đã được áp dụng"];
-      $_SESSION['cart']['coupon'] = ['id' => $coupon['id'], 'code' => $code, 'type' => $coupon['type'], 'discount' => $coupon['discount']];
       $_SESSION['cart']['subTotal'] = $this->GetCartSubTotal();
+      $_SESSION['cart']['coupon'] = ['id' => $coupon['id'], 'code' => $code, 'discount' => $coupon['discount']];
     } else {
       $_SESSION['cart']['coupon'] = [];
     }

@@ -48,61 +48,23 @@
         <div class="col-md-3">
           <div class="card">
             <div class="card-body">
-              <div class=" form-group">
-                <label>Loại:</label>
-                <select name="coupon-type" id="coupon-type" class="select custom-select" required>
-                  <option value="0" <?= $coupon['type'] == 1 ? 'selected' : '' ?>>
-                    Theo phần trăm</option>
-                  <option value="1" <?= $coupon['type'] == 1 ? 'selected' : '' ?>>
-                    Cố định</option>
-                </select>
-              </div>
               <div class="form-group">
-                <label>Giá trị:</label>
-                <div class="input-group">
-                  <input type="number" class="form-control" id="discount" required name="discount" min="1" max="100"
-                    aria-describedby="basic-addon2" value="<?= $coupon['discount']; ?>">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2">%</span>
-                  </div>
-                </div>
+                <label>Phần trăm giảm giá:</label>
+                <input type="number" class="form-control" id="discount" required name="discount"
+                  value="<?= $coupon['discount']; ?>">
               </div>
               <div class="form-group">
                 <label>Giới hạn:</label>
-                <input type="number" class="form-control" id="usageLimit" name="usageLimit" min="1"
+                <input type="number" class="form-control" id="usageLimit" name="usageLimit"
                   value="<?= $coupon['usageLimit']; ?>">
               </div>
-              <div class="form-group">
-                <label>Đơn hàng tối thiểu:</label>
-                <div class="input-group">
-                  <input type="number" class="form-control" id="minOrder" name="minOrder" min="1"
-                    aria-describedby="basic-addon3" value="<?= $coupon['minOrder']; ?>">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon3">VNĐ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="form-group">
-                <label>Ngày bắt đầu:</label>
-                <div class="cal-icon">
-                  <input type="text" class="form-control datetimepicker" id="startDate" name="startDate"
-                    value="<?= isset($coupon['startDate']) ? date("d/m/Y", strtotime($coupon['startDate'])) : ''; ?>"
-                    autocomplete="off">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Ngày kết thúc:</label>
+              <div class=" form-group">
+                <label>Ngày hết hạn:</label>
                 <div class="cal-icon">
                   <input type="text" class="form-control datetimepicker" id="expiryDate" name="expiryDate"
-                    value="<?= isset($coupon['expiryDate']) ? date("d/m/Y", strtotime($coupon['expiryDate'])) : ''; ?>"
-                    autocomplete="off">
+                    value="<?= $coupon['expiryDate']; ?>">
                 </div>
               </div>
-
             </div>
           </div>
           <button type="submit" name="edit_coupon" class="btn btn-block btn-primary btn-lg">Tạo Coupon</button>
@@ -111,21 +73,3 @@
     </form>
   </div>
 </div>
-
-
-
-<script>
-function couponType(val) {
-  if (val == 1) {
-    $("#basic-addon2").text('VNĐ');
-    $("#discount").removeAttr("max");
-  } else {
-    $("#basic-addon2").text('%');
-    $("#discount").prop('max', 100);
-  }
-}
-couponType($('#coupon-type option:selected').val())
-$(document).on('change', '#coupon-type', function(event) {
-  couponType(event.target.value)
-})
-</script>

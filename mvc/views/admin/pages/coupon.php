@@ -34,12 +34,9 @@
                   <tr>
                     <th>ID</th>
                     <th>Code</th>
-                    <th>Loại</th>
-                    <th>Giá trị</th>
-                    <th>Đơn hàng tối thiểu</th>
+                    <th>Phần trăm</th>
                     <th>Lượt</th>
-                    <th>Ngày bắt đầu</th>
-                    <th>Ngày kết thức</th>
+                    <th>Ngày hết hạn</th>
                     <th class="text-right">Action</th>
                   </tr>
                 </thead>
@@ -51,19 +48,10 @@
                   <tr>
                     <td class="id"><?= $coupon['id']; ?></td>
                     <td><?= $coupon['code']; ?></td>
-                    <td><?= $coupon['type'] == 0 ? "Phần trăm" : "Cố định"; ?></td>
-                    <td>
-                      <?= $coupon['type'] == 0 ? $coupon['discount'] . "%" : number_format($coupon['discount'], 0, ',', '.') . " <sup>đ</sup>"; ?>
-                    </td>
-                    <td>
-                      <?= $coupon['minOrder'] == NULL ? "∞" :  number_format($coupon['minOrder'], 0, ',', '.') . " <sup>đ</sup>"; ?>
-                    </td>
+                    <td><?= $coupon['discount']; ?></td>
                     <td><?= $coupon['usages']; ?>/<?= $coupon['usageLimit'] == NULL ? "∞" : $coupon['usageLimit']; ?>
                     </td>
-                    <td><?= $coupon['startDate'] == NULL ? "∞" : date("d/m/Y", strtotime($coupon['startDate'])); ?>
-                    </td>
-                    <td><?= $coupon['expiryDate'] == NULL ? "∞" : date("d/m/Y", strtotime($coupon['expiryDate'])); ?>
-                    </td>
+                    <td><?= $coupon['expiryDate'] == NULL ? "∞" : $coupon['expiryDate']; ?></td>
                     <td class="text-right">
                       <a href="<?= ADMIN_URL ?>/coupon/edit/<?= $coupon['id']; ?>"
                         class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>

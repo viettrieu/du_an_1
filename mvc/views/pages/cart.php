@@ -45,18 +45,17 @@
           ĐẶT HÀNG
         </a>
       </div>
-
+      <?php if (!isset($_SESSION['cart']['coupon']["code"])) : ?>
       <div class="coupon">
         <form action="" method="post" id="add_coupon">
           <div id="info"></div>
-          <div class="form-group">
-            <input type="text" name="coupon_code" id="coupon_code" value="" placeholder="Coupon code" />
-          </div>
+          <input type="text" name="coupon_code" id="coupon_code" value="" placeholder="Coupon code" />
           <button type="submit" class="button primary" name="apply_coupon">
             ÁP DỤNG
           </button>
         </form>
       </div>
+      <?php endif ?>
     </div>
   </div>
 </div>

@@ -121,6 +121,8 @@ class Product extends Controller
         "discount" => !empty($discount) ? $discount : NULL,
         "thumbnail" => $thumbnail[1] == NULL ? $product["thumbnail"] : $thumbnail[1],
       );
+      var_dump($data);
+      exit();
       if (count($errors) == 0) {
         $InsertProduct = $this->ListProduct->UpdateProduct($data, "id = " . $id);
         $this->ListProduct->UpdateProductCategory(["categoryId" => $category], "productId = " . $id);

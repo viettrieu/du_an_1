@@ -37,4 +37,10 @@ class UserModel extends DB
     $sql = "select $select from users where email = '$email'";
     return $this->pdo_query_one($sql);    
   }
+  
+  public function FindById($id)
+  {
+    $sql = "select * from users where id = $id";
+    return $this->pdo_query_one($sql);
+  }
 }

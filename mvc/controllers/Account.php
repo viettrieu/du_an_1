@@ -67,7 +67,7 @@ class Account extends Controller
         "district" => $district,
         "province" => $province,
         "gender" => $gender,
-        "avatar" => $avatar[1] == NULL ? $this->UserById["avatar"] : SITE_URL . '' . $avatar[1],
+        "avatar" => $avatar[1] == NULL ? $this->UserById["avatar"] : $avatar[1],
       );
       if (count($errors) == 0) {
         $cond = "id = " . (int) $_SESSION["user"]["id"];

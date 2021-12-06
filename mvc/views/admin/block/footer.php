@@ -25,9 +25,6 @@
 <!-- Form Validation JS -->
 <script src="<?= SITE_URL ?>/public/admin/js/form-validation.js"></script>
 
-<!-- daterangepicker JS -->
-<script src="<?= SITE_URL ?>/public/admin//plugins/daterangepicker/daterangepicker.js"></script>
-
 <!-- Datatables JS -->
 <script src="<?= SITE_URL ?>/public/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= SITE_URL ?>/public/admin/plugins/datatables/datatables.min.js"></script>

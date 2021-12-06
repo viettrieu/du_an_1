@@ -29,7 +29,7 @@ class ProductModel extends DB
     }
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
     {
-        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author'  FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id  GROUP BY book.id DESC";
+        $sql = "SELECT product.*, X.rating FROM book product LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id ";
         if ($id != 0) {
             if ($name == 'tag') {
                 $sql .= "INNER JOIN book_tag tag ON tagId = $id AND product.id = tag.productId";

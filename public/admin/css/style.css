@@ -379,14 +379,13 @@ table.table td h2 span {
 .table .btn {
   white-space: nowrap;
 }
-table td.status span {
+table .badge {
   border-radius: 3px;
   display: inline-block;
   font-size: 13px;
   min-width: 75px;
   padding: 4px 12px;
   text-align: center;
-  font-weight: 500;
 }
 .feather {
   width: 18px;
@@ -4318,15 +4317,4 @@ input#switch:checked + label:after {
 }
 *:focus {
   outline: 0px;
-}
-/* Remove Arrows/Spinners */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
 }

@@ -19,6 +19,11 @@ class Order extends Controller
   }
   function SayHi()
   {
+    if(isset($_POST) && isset($_POST['print'])){
+      $id = $_POST['pdfId'];
+      header("location: " . SITE_URL .'/pdf/' . $id);
+      exit();
+    }
     $this->view("admin/page-full", [
       "Page" => "order",
       "Title" => "Đơn hàng",
@@ -38,13 +43,14 @@ class Order extends Controller
   }
   public function ViewOrder($id = 0)
   {
+    
     $order = $this->Orders->GetOrderById($id);
     if ($order == NULL) {
       header("Location: " . ADMIN_URL . "/order");
       exit();
     }
     $status = $this->Orders->GetOrderStatus("id= " . $order['status']);
-    $order['status'] = [$status[0]["id"], $status[0]["status"]];
+    $order['status'] = $status[0]["status"];
     $order['transaction'] = Helper::PaymentMethods($order['transaction']);
     if (isset($order['idCoupon'])) {
       $coupon = $this->Coupon->GetCoupon('id = ' . (int)$order['idCoupon']);
@@ -66,7 +72,7 @@ class Order extends Controller
       exit();
     }
     $status = $this->Orders->GetOrderStatus("id= " . $order['status']);
-    $order['status'] = [$status[0]["id"], $status[0]["status"]];
+    $order['status'] = $status[0]["status"];
     $order['transaction'] = Helper::PaymentMethods($order['transaction']);
     if (isset($order['idCoupon'])) {
       $coupon = $this->Coupon->GetCoupon('id = ' . (int)$order['idCoupon']);

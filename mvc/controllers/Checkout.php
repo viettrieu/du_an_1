@@ -45,7 +45,7 @@ class Checkout extends Controller
         [$request->mobile, 'mobile', 'Vui lòng điền đúng số điện thoại'],
         [$request->address, 'required', 'Vui lòng nhập địa chỉ'],
       ]);
-      if (isset($_SESSION['cart']['coupon']) && count($_SESSION['cart']['coupon']) > 0) {
+      if (isset($_SESSION['cart']['coupon'])) {
         $coupon = $this->Coupon->GetCoupon('id = ' . (int)$_SESSION['cart']['coupon']['id']);
         if ($coupon['usages'] >= $coupon['usageLimit'] && $coupon['usageLimit'] > 0) {
           $errors[] = ["status" => "ERROR", "message" => "Coupon đã hết lượt sử dụng"];
@@ -55,16 +55,9 @@ class Checkout extends Controller
           $errors[] = ["status" => "ERROR", "message" => "Coupon giá hết hạn"];
           unset($_SESSION['cart']['coupon']);
         }
-        if (strtotime($coupon['startDate']) > strtotime('now') && $coupon['startDate'] !=  NULL) {
-          $errors[] = ["status" => "ERROR", "message" => "Coupon chưa đến ngày áp dụng"];
-          unset($_SESSION['cart']['coupon']);
-        }
       }
       $shipping = $_SESSION['cart']['shipment']['fee'];
-      $discount = 0;
-      if (isset($coupon['type'])) {
-        $discount = $coupon['type'] == 0 ?  $coupon['discount'] / 100 * $subtotal : $coupon['discount'];
-      }
+      $discount = isset($coupon['discount']) ?  $coupon['discount'] / 100 * $subtotal : 0;
       $total = $subtotal - $discount + $shipping;
       $fullName =  HandleForm::rip_tags($request->fullName);
       $mobile =  HandleForm::rip_tags($request->mobile);

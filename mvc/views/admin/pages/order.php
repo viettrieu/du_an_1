@@ -26,11 +26,10 @@
                   <tr>
                     <th>ID</th>
                     <th>Khách hàng</th>
-                    <th>Số điện thoại</th>
-                    <th>Tổng</th>
+                    <th>Email</th>
                     <th>Ngày tạo đơn</th>
+                    <th>Tổng</th>
                     <th>Trạng thái</th>
-                    <th>GHTK</th>
                     <th class="text-right">Hành động</th>
                   </tr>
                 </thead>
@@ -43,31 +42,37 @@
                   <tr>
                     <td class="id"><?= $order['id']; ?></td>
                     <td>
-                      <strong><?= $order['fullName']; ?></strong>
-                      <p><?= $order['email']; ?></p>
+                      <h2 class="table-avatar">
+                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $order['id']; ?>"
+                          class="avatar avatar-sm mr-2">
+                          <img class="avatar-img rounded-circle"
+                            src="<?= SITE_URL ?><?= $order['avatar'] == null ? '/public/img/avatar-default.png' : $order['avatar']; ?>"
+                            alt="User Image" />
+                        </a>
+                        <a href="<?= ADMIN_URL ?>/order/vieworder/<?= $order['id']; ?>">
+                          <?= $order['fullName'] == null ? $order['username'] : $order['fullName']; ?>
+                          <span><?= $order['mobile']; ?></span>
+                        </a>
+                      </h2>
                     </td>
-                    <td><a href="tel:<?= $order['mobile']; ?>"><strong><?= $order['mobile']; ?></strong></a></td>
-                    <td><?= number_format($order['total'], 0, ',', '.'); ?><sup>đ</sup></td>
+                    <td><?= $order['email']; ?></td>
                     <td><?= $order['published']; ?></td>
-                    <td class="status">
-                      <span class="bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
-                    </td>
-                    <td class="ghtk">
-                      <?php if (isset($order['tracking_id'])) : ?>
-                      <p>Mã vận đơn: <strong><?= $order['tracking_id']; ?></strong></p>
-                      <?php endif ?>
+                    <td><?php echo number_format($order['total'], 0, ',', '.'); ?><sup>đ</sup></td>
+                    <td><span class="badge bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
                     </td>
                     <td class="text-right">
+                      <form style="display:inline-block" action="" method="POST" class="from-group">
+                        <input type="hidden" name="pdfId" value="<?= $order['id']?>">
+                        <button class="btn btn-primary" type="submit" name="print" value="pdf">In Đơn Hàng</button>
+                      </form>
                       <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i
-                          class="far fa-eye mr-1"></i>View
-                      </a>
+                          class="far fa-eye mr-1"></i>View</a>
                       <div class="dropdown dropdown-action" style=" display: inline-block; ">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                            class="fas fa-ellipsis-h"></i>
-                        </a>
+                            class="fas fa-ellipsis-h"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
                           <?php foreach ($data["Status"] as $status) : ?>
-                          <?php if ($status["id"] <= $order['status']) continue; ?>
+                          <?php if ($status["id"] == $order['status']) continue; ?>
                           <a class="dropdown-item status" href="javascript:void(0);" data-id="<?= $status["id"] ?>"><i
                               class="far fa-edit mr-2"></i>
                             <?= $status["status"] ?>

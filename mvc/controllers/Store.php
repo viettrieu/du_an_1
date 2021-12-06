@@ -76,7 +76,7 @@ class Store extends Controller
             $rating = (int)$_POST["rate"];
             $content = $_POST["content"];
             $checkComment = $this->ListReview->check($_SESSION["user"]["id"],$productId);
-            $orderId = $this->ListReview->GetOrderId($_SESSION["user"]["id"],$checkComment);
+            $orderId = $this->ListReview->GetOrderId($_SESSION["user"]["id"],$productId,$checkComment);
             $dt = new DateTime("now", new DateTimeZone('Antarctica/Davis'));
             $data = array(
                 "userId" => (int)$_SESSION["user"]["id"],
@@ -84,7 +84,7 @@ class Store extends Controller
                 "rating" => (int)$rating,
                 "content" => "'$content'",
                 "status" => 0,
-                "orderId"=>(int)$orderId['id'],
+                "orderId"=>$orderId['id'],
             );
             $result = $this->ListReview->InsertReview($data);
             if ($result) {

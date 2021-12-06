@@ -102,10 +102,6 @@ class HandleForm
         return strlen($value) >= intval($typeValue[1]);
       case 'max':
         return strlen($value) <= intval($typeValue[1]);
-      case 'Nmin':
-        return empty($value) || empty($typeValue[1]) || $value > $typeValue[1];
-      case 'Nmax':
-        return empty($value) || empty($typeValue[1]) || $value < $typeValue[1];
       case 'confirmed':
         return $value == $typeValue[1];
       default:
@@ -196,7 +192,7 @@ class HandleForm
       move_uploaded_file($sourcePath, $target1);
     }
 
-    return [true, $target1];
+    return [true, $sourcePath];
   }
   public static function rip_tags($string)
   {

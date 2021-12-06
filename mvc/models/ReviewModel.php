@@ -45,15 +45,15 @@ class ReviewModel extends DB
         }
     }
 
-    public function GetOrderId($id,$check){
+    public function GetOrderId($userId,$productId,$check){
         if($check){
             $sql = "SELECT id FROM detailed_order WHERE id not in (
                 SELECT orderId FROM book_review as b
-                where b.userId = 1 and b.productId = 1
-            ) and userId = 1";
+                where b.userId = $userId and b.productId = $productId
+            ) and userId = $userId";
             echo $sql;
         }else{
-            $sql ="SELECT id FROM detailed_order WHERE userId = $id ORDER BY published ASC"; 
+            $sql ="SELECT id FROM detailed_order WHERE userId = $userId ORDER BY published ASC";
         }
         return $this->pdo_query_one($sql);
     }

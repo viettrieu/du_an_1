@@ -5,8 +5,7 @@ $transport = $data["Transport"];
 ?>
 <?php if ($data["Order"] != false) : ?>
 <div class="row">
-  <div class="col-12 errors">
-  </div>
+
   <div class="col-lg-7">
     <h5 class="text-center">CHI TIẾT ĐƠN HÀNG - <?= $order['id'] ?></h5>
     <table class="order-received">
@@ -74,11 +73,6 @@ $transport = $data["Transport"];
           <th scope="row">Phương thức thanh toán:</th>
           <td><?= $order['transaction']; ?></td>
         </tr>
-        <tr>
-          <th scope="row">Trạng thái đơn hàng:</th>
-          <td class="status"><span class="bg-status-<?= $order['status'][0]; ?>"><?= $order['status'][1]; ?></span>
-          </td>
-        </tr>
       </tfoot>
     </table>
   </div>
@@ -90,31 +84,9 @@ $transport = $data["Transport"];
     <p><strong>Địa chỉ:</strong>
       <?= $transport['address'] . ", " . $transport['ward'] . ", " . $transport['district'] . ", " . $transport['province'] ?>
     </p>
-
-    <h5 class="text-center">GHTK</h5>
-    <div class="ghtk"></div>
-    <?php if (!isset($transport['tracking_id'])) : ?>
-    <a href="javascript:void(0);" class="btn btn-sm btn-white text-success create" data-id="<?= $order['id'] ?>">
-      <i class="fas fa-shipping-fast"></i>
-      Đăng đơn hàng
-    </a>
-    <?php else : ?>
-    <p><strong>Mã vận đơn:</strong> <?= $transport['tracking_id']; ?></p>
-    <p><strong>Ngày lấy hàng:</strong> <?= $transport['tracking_id']; ?></p>
-    <p><strong>Ngày giao hàng:</strong> <?= $transport['tracking_id']; ?></p>
-    <p><strong>Trạng thái:</strong> <?= $transport['tracking_id']; ?></p>
-    <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger cancel" data-id="<?= $order['id'] ?>">
-      <i class="fas fa-ban"></i>
-      Hủy đơn hàng
-    </a>
-    <a href="javascript:void(0);" class="btn btn-sm btn-white text-info print"
-      data-id="<?= $transport['tracking_id']; ?>">
-      <i class="fas fa-print"></i>
-      In đơn hàng
-    </a>
-    <?php endif ?>
+    <a href="" class="btn btn-sm btn-white text-success mr-2 transport"><i class="fas fa-shipping-fast"></i>
+      Đăng đơn hàng lên GHTK</a>
   </div>
-</div>
 </div>
 <?php else : ?>
 <p>KHÔNG CÓ ĐƠN HÀNG</p>

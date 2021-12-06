@@ -9,7 +9,8 @@ $transport = $data["Transport"];
   <div class="large-3 col" style=" padding-right: 0;">
     <div class="account-user">
       <span class="image">
-        <img alt="" src="<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
+        <img alt=""
+          src="<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
           height="70" width="70">
       </span>
       <span class="user-name">

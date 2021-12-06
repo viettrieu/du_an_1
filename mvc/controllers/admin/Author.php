@@ -83,7 +83,7 @@ class Author extends Controller
       $fblink = HandleForm::rip_tags($_POST['fblink']);
       $youtubelink = HandleForm::rip_tags($_POST['youtubelink']);
       $twitterlink = HandleForm::rip_tags($_POST['twitterlink']);
-      $quote = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
+      $quote = $_POST['quote'] == '<p><br></p>' ? NULL : $_POST['summary'];
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
       $avatar = HandleForm::upload($_FILES["avatar"], ['jpeg', 'jpg', 'png'], 500000, "./public/img/");
       if (!$avatar[0]) {
