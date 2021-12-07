@@ -37,10 +37,8 @@ input[type="search"]{
     height: 100%;
 }
 .searchform [type="search"] {
-    min-width: 890px;
-    border-radius: 0;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    width: 100%;
+    max-width: 890px;
 }
 .forgett{
     display: flex;
