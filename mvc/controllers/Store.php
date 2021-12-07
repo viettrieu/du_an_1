@@ -149,7 +149,24 @@ class Store extends Controller
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
-
+    function LiveSearch()
+    {
+        $key = HandleForm::rip_tags($_GET["s"]);
+        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", 1, 5);
+        header('Content-Type: application/json');
+        $suggestions = array();
+        foreach ($ListProduct as $product) {
+            $suggestions[] = array(
+                'type'  => 'Page',
+                'id'    => $product['id'],
+                'value' => $product['title'],
+                'img'   => $product['thumbnail'],
+                'price' => $product['price'],
+            );
+        }
+        echo json_encode(array("suggestions" => $suggestions));
+        exit;
+    }
     function QuickView()
     {
         $id = isset($_POST['id']) ? $_POST['id'] : false;

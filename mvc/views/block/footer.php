@@ -71,10 +71,11 @@
     <form method="get" class="searchform" action="<?= SITE_URL ?>/store/search">
       <div class="flex-row relative">
         <div class="flex-col flex-grow">
-          <input type="search" name="s" value="<?= isset($data["Key"]) ? $data["Key"] : '' ?>" placeholder="Tìm kiếm…">
+          <input class="search-field" type="search" name="s" value="<?= isset($data["Key"]) ? $data["Key"] : '' ?>"
+            placeholder="Tìm kiếm…">
         </div>
         <div class="flex-col">
-          <button type="submit" class="button primary">
+          <button type="submit" class="button primary submit-button">
             <i class="fas fa-search"></i></button>
         </div>
       </div>
