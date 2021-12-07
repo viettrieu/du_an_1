@@ -440,36 +440,39 @@ $("#mailchimp").submit(function () {
   });
   return false;
 });
-let cc;
-$(document).on("click", "#newest .cat-item", function (e) {
-  e.preventDefault();
-  let id = $(this).data("id");
-  console.log(id);
-  $("#newest li").removeClass("active");
-  $(this).addClass("active");
-  $.ajax({
-    type: "GET",
-    url: SITE_URL + "/store/loadmore/category/" + id,
-    dataType: "HTML",
-    success: (data) => {
-      console.log(data);
-      $("#show_product").html(data);
-    },
+(function () {
+  let cache = {};
+  $(document).on("click", "#newest .cat-item", function (e) {
+    e.preventDefault();
+    const id = $(this).data("id");
+    $("#newest li").removeClass("active");
+    $(this).addClass("active");
+    if (Object.keys(cache).includes(String(id))) {
+      $("#show_product").html(cache[id][0] + cache[id][1]);
+      return;
+    }
+    $.ajax({
+      url: SITE_URL + "/store/loadmore/category/" + id,
+      dataType: "JSON",
+      success: (data) => {
+        cache[id] = [data[0], data[1]];
+        $("#show_product").html(data[0] + data[1]);
+      },
+    });
   });
-});
-$(document).on("click", "#newest .load-more", function (e) {
-  e.preventDefault();
-
-  let href = $(this).attr("href");
-  console.log(href);
-  $.ajax({
-    type: "GET",
-    url: href,
-    dataType: "HTML",
-    success: (data) => {
-      console.log(data);
-      $(this).closest("div")[0].remove();
-      $("#show_product").append(data);
-    },
+  $(document).on("click", "#newest .load-more", function (e) {
+    e.preventDefault();
+    const href = $(this).attr("href");
+    const id = $(this).data("id");
+    $.ajax({
+      url: href,
+      dataType: "JSON",
+      success: (data) => {
+        $(this).closest("div")[0].remove();
+        $("#show_product").append(data[0] + data[1]);
+        cache[id][0] += data[0];
+        cache[id][1] = data[1];
+      },
+    });
   });
-});
+})();
