@@ -127,7 +127,7 @@ class Store extends Controller
             "ListTag" => $this->ListTag->GetTagByProduct($id),
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
-            "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
+            "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 4),
             "ListAuthor" => $ListAuthor,
         ]);
@@ -162,6 +162,7 @@ class Store extends Controller
                 'value' => $product['title'],
                 'img'   => $product['thumbnail'],
                 'price' => $product['price'],
+                'url' => SITE_URL . "/store/product/" . $product['id'],
             );
         }
         echo json_encode(array("suggestions" => $suggestions));
