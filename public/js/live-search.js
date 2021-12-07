@@ -691,9 +691,9 @@ jQuery(document).ready(function ($) {
           $(".submit-button").addClass("loading");
         },
         onSelect: function (suggestion) {
-          // if (suggestion.id != -1) {
-          //   window.location.href = suggestion.url;
-          // }
+          if (suggestion.id != -1) {
+            window.location.href = suggestion.url;
+          }
         },
         onSearchComplete: function () {
           $(".submit-button").removeClass("loading");
