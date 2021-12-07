@@ -83,12 +83,12 @@ $("#recovery-form").submit(function (e) {
       if (data.error["status"] == "OK") {
         let method = data.method;
         let recoverMethod = `<form action="" method="post" id="send_token">
-      <input type="hidden" name="account" value="${data.account}" disabled>`;
+      <input type="hidden" name="account" value="${data.account}" disabled>`; 
         Object.keys(method).forEach((key) => {
           let title = key == "email" ? "Gửi mã qua email" : "Gửi mã qua SMS";
           recoverMethod += `
       <label>
-        <div class=""><input type="radio" id="send_${key}" name="recover_method" value="send_${key}" ${
+        <div class="forgett"><input type="radio" id="send_${key}" name="recover_method" value="send_${key}" ${
             data.check == key ? "checked" : ""
           } data-method="${method[key]}">
           <label for="send_${key}" class="">
@@ -100,7 +100,7 @@ $("#recovery-form").submit(function (e) {
             </div>
           </label>
         </div>
-      </label>`;
+      </label> <br>`;
         });
         recoverMethod += `
         <div class="text-center" style="margin-top: 1rem">

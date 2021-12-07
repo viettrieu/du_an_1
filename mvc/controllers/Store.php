@@ -127,8 +127,8 @@ class Store extends Controller
             "ListTag" => $this->ListTag->GetTagByProduct($id),
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
-            "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
-            "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
+            "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
+            "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 4),
             "ListAuthor" => $ListAuthor,
         ]);
     }

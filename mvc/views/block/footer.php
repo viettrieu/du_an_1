@@ -65,7 +65,7 @@
   <div class="md-content"></div>
 </div>
 <div class="md-modal md-effect-7" id="modal-7">
-  <button class="md-close">Close!</i></button>
+  <button class="md-close" hidden>Close!</button>
   <br>
   <div class="md-content">
     <form method="get" class="searchform" action="<?= SITE_URL ?>/store/search">
