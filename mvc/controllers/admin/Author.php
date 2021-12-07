@@ -90,6 +90,7 @@ class Author extends Controller
       if (!$avatar[0]) {
         $errors[] = ["status" => "ERROR", "message" => $avatar[1]];
       }
+      if ($avatar[1] !== NULL) $avatar[1] = str_replace('./', '/', $avatar[1]);
       $data = array(
         "title" => $title,
         "quote" => $quote,
