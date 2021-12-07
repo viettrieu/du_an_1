@@ -128,7 +128,7 @@ class Store extends Controller
             "ListReview" => $this->ListReview->GetReviewByProduct($id),
             "UserById" => $UserById,
             "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
-            "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 3),
+            "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 4),
             "ListAuthor" => $ListAuthor,
         ]);
     }
