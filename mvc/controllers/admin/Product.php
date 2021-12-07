@@ -51,6 +51,7 @@ class Product extends Controller
       if (!$thumbnail[0]) {
         $errors[] = ["status" => "ERROR", "message" => $thumbnail[1]];
       }
+      if ($thumbnail[1] !== NULL) $thumbnail[1] = str_replace('./', '/', $thumbnail[1]);
       $data = array(
         "title" => $title,
         "summary" => $summary,

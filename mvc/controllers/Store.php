@@ -95,7 +95,7 @@ class Store extends Controller
                 if ($result) {
                     $data["avatar"] = $_SESSION["user"]["avatar"];
                     $data["username"] = $_SESSION["user"]["fullName"] ? $_SESSION["user"]["fullName"] : $_SESSION["user"]["username"];
-                    $result = ["type" => "success", "message" => "Bình luận đã được gửi thành công"];
+                    $result = ["type" => "success", "message" => "Bình luận đã được gửi thành công", "data" => $data];
                 } else {
                     $result = ["type" => "error", "message" => "Đã có lỗi trong quá trình gửi bình luận"];
                 }
@@ -136,8 +136,6 @@ class Store extends Controller
     function Search()
     {
         $key = HandleForm::rip_tags($_GET["s"]);
-        $this->page = isset($_GET["page"]) ? HandleForm::rip_tags($_GET["page"]) : 1;
-        $this->offset = ($this->page - 1) * $this->perPage;
         $totalProduct = $this->ListProduct->GetByTaxonomy($key, "search");
         $base_url = SITE_URL . "/store/search?s=$key";
         $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", $this->offset, $this->perPage);
@@ -165,7 +163,32 @@ class Store extends Controller
             "Product" => $product,
             "ListCategory" => $this->ListCategory->GetCategoryByProduct($id),
             "ListTag" => $this->ListTag->GetTagByProduct($id),
-            "AVgitGReview" => $this->ListReview->AVGReviewByProduct($id),
+            "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
         ]);
+    }
+    function LoadMore($name, $id = 0, $perPage = 8)
+    {
+        $total = $this->ListProduct->GetByTaxonomy($id, $name);
+        $totalPages = ceil(count($total) / $perPage);
+        $page =  $this->page + 1;
+        $offset = ($this->page - 1) * $perPage;
+        $base_url = SITE_URL . "/store/loadmore/$name/$id";
+        $listProduct = $this->ListProduct->GetByTaxonomy($id, $name, $offset, $perPage);
+        foreach ($listProduct as $product) { ?>
+<div class="col medium-4 small-6 large-3">
+  <div class="col-inner">
+
+    <?php require "./mvc/views/block/product.php"; ?>
+
+  </div>
+</div>
+<?php
+        }
+        if ($this->page < $totalPages) {
+            echo  '<div class="col  small-12 large-12"><a href="' . $base_url . '&page=' . $page . '" class="button load-more">
+            EXPLORE NOW
+        </a></div>';
+        }
+        exit;
     }
 }

@@ -14,22 +14,33 @@ class ProductModel extends DB
     }
     public function GetSellProduct($limit = 6)
     {
-        $sql = "SELECT book.id,book.title, .thumbnail, product.price, SUM(orderi.quantity) AS 'quantity', X.rating FROM book INNER JOIN book_author ON book.id = book_author.productId INNER JOIN author ON book_author.authorId= author.id LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review  WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id JOIN order_item orderi  ON product.id = orderi.productId GROUP BY orderi.productId ORDER BY quantity DESC LIMIT $limit";
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', SUM(orderi.quantity) AS 'quantity'  FROM book
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id
+        INNER JOIN order_item orderi  ON book.id = orderi.productId GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
     public function GetHotProduct($limit = 6)
     {
-        $sql = "SELECT product.id,product.title, thumbnail,product.price, SUM(orderi.productId) AS 'quantity', X.rating FROM book product LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review  WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id  INNER JOIN order_item orderi ON product.id = orderi.productId GROUP BY orderi.productId  ORDER BY orderi.productId DESC LIMIT $limit";
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', COUNT(orderi.quantity) AS 'quantity'  FROM book
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id
+        INNER JOIN order_item orderi  ON book.id = orderi.productId GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
     public function GetViewProduct($limit = 6)
     {
-        $sql = "SELECT product.id,product.title, thumbnail,product.price, CAST(mt.content AS int) AS 'view',  X.rating FROM book product LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review  WHERE status = 1 GROUP BY productId) X  ON X.productId = product.id  INNER JOIN ps_product_meta mt ON product.id = mt.productId AND `key` = 'view' ORDER BY view DESC  LIMIT $limit";
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', COUNT(wl.productId) AS 'slwl'  FROM book
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id
+        INNER JOIN wishlist wl  ON book.id = wl.productId GROUP BY book.id ORDER BY slwl DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
     {
-        $sql = "SELECT book.*, X.rating, GROUP_CONCAT(author.title SEPARATOR ', ') AS 'author' FROM book LEFT JOIN book_author ON book.id = book_author.productId LEFT JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id";
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author'  FROM book
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id";
         if ($id != 0) {
             if ($name == 'tag') {
                 $sql .= " WHERE book.id IN (SELECT book_tag.productId FROM book_tag WHERE tagId = $id)";

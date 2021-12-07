@@ -25,7 +25,7 @@ class Forgot extends Controller
     {
         $this->view("page-full", [
             "Page" => "forgot_password",
-            "Title" => "Quen mat khau",
+            "Title" => "Quên mật khẩu",
         ]);
     }
     public function checkExistAccount()

@@ -20,7 +20,7 @@ class Dashboard extends Controller
     $this->view("admin/page-full", [
       "Page" => "dashboard",
       "Title" => "Dashboard",
-      "Count" => [$this->Statistical->count("ps_product"), $this->Statistical->count("ps_users"), $this->Statistical->count("ps_order"), $this->Statistical->count("ps_product_review"),],
+      "Count" => [$this->Statistical->count("book"), $this->Statistical->count("users"), $this->Statistical->count("order_item"), $this->Statistical->count("book_review"),],
       "ProductView" => $this->ListProduct->GetViewProduct(5),
     ]);
   }

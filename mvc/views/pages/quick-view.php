@@ -36,7 +36,7 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
   <div class="col medium-6 small-12 large-6">
     <h1 class="entry-title product-title"><?= $Cproduct['title']; ?></h1>
     <div class="product-rating view">
-      <!-- <?php if ($data["AVGReview"] != NULL) : ?> -->
+      <?php if ($data["AVGReview"] != NULL) : ?>
       <div class="star-rating" style=" margin-right: 10px; ">
         <div class="star-ratings-css" style=" font-size: 2rem; ">
           <div class="star-ratings-inner" style="width: <?= $data["AVGReview"] * 20 ?>%"></div>
