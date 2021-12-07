@@ -61,20 +61,21 @@
   </div>
 </div>
 <div class="md-modal md-effect-3" id="modal-quick_view">
-  <button class="md-close">Close!</i></button>
-  <div class="md-content"></div>
+  <div class="md-content">
+    <button class="md-close"><i class="fas fa-times-circle"></i></button>
+    <div class="show_quick_view"></div>
+  </div>
 </div>
 <div class="md-modal md-effect-7" id="modal-7">
   <button class="md-close" hidden>Close!</button>
-  <br>
   <div class="md-content">
     <form method="get" class="searchform" action="<?= SITE_URL ?>/store/search">
       <div class="flex-row relative">
         <div class="flex-col flex-grow" style="flex: 1;">
-          <input class="search-field" type="search" name="s" value="" placeholder="Tìm kiếm…">
+          <input class="search-field" type="search" name="s" value="" placeholder="Nhập ít nhất 3 ký tự để tìm kiếm">
         </div>
         <div class="flex-col">
-          <button type="submit" class="button primary submit-button">
+          <button type="submit" class="submit-button">
             <i class="fas fa-search"></i></button>
         </div>
       </div>

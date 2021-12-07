@@ -30,7 +30,7 @@
   left: 0;
   z-index: 1000;
   opacity: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
@@ -43,6 +43,7 @@
 
 /* Content styles */
 .md-content {
+  position: relative;
   background-color: #fff;
   position: relative;
   border-radius: 3px;
@@ -61,7 +62,7 @@
 }
  */
 .md-content > div {
-  padding: 15px 0;
+  padding: 30px 0;
   margin: 0;
   font-weight: 300;
   font-size: 1.15em;
@@ -81,10 +82,15 @@
   padding: 5px 0;
 }
 
-.md-content button {
+.md-content button.md-close {
+  position: absolute;
+  top: 1px;
+  right: 0px;
+  height: auto;
+  background-color: transparent;
   display: block;
-  margin: 0 auto;
-  font-size: 0.8em;
+  font-size: 1.5em;
+  color: var(--primary-color);
 }
 
 /* Individual modal styles with animations/transitions */

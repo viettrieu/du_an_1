@@ -152,17 +152,22 @@ class Store extends Controller
     function LiveSearch()
     {
         $key = HandleForm::rip_tags($_GET["s"]);
-        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", 1, 5);
-        header('Content-Type: application/json');
+        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", 0, 5);
         $suggestions = array();
-        foreach ($ListProduct as $product) {
+        if (count($ListProduct) > 0) {
+            foreach ($ListProduct as $product) {
+                $suggestions[] = array(
+                    'type'  => 'Page',
+                    'id'    => $product['id'],
+                    'value' => $product['title'],
+                    'img'   => $product['thumbnail'],
+                    'price' => $product['price'],
+                    'url' => SITE_URL . "/store/product/" . $product['id'],
+                );
+            }
+        } else {
             $suggestions[] = array(
-                'type'  => 'Page',
-                'id'    => $product['id'],
-                'value' => $product['title'],
-                'img'   => $product['thumbnail'],
-                'price' => $product['price'],
-                'url' => SITE_URL . "/store/product/" . $product['id'],
+                'value' => "Không có sản phẩm nào.",
             );
         }
         echo json_encode(array("suggestions" => $suggestions));

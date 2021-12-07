@@ -346,7 +346,7 @@ $(document).on("click", ".quick_view", function (e) {
     dataType: "HTML",
     success: (data) => {
       $(this).find("i").removeClass().addClass("fas fa-search");
-      $("#modal-quick_view .md-content").empty().append(data);
+      $("#modal-quick_view .show_quick_view").empty().append(data);
       $("#modal-quick_view").addClass("md-show");
     },
   });
