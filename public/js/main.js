@@ -207,9 +207,9 @@ $(document).ready(function () {
     $("html, body").animate({ scrollTop: 0 }, "300");
   });
 });
-window.addEventListener("load", function () {
-  document.querySelector("body").classList.add("loaded");
-});
+// window.addEventListener("load", function () {
+document.querySelector("body").classList.add("loaded");
+// });
 
 var url = new URL(window.location.href);
 var id = url.searchParams.get("id");
@@ -439,4 +439,37 @@ $("#mailchimp").submit(function () {
     },
   });
   return false;
+});
+let cc;
+$(document).on("click", "#newest .cat-item", function (e) {
+  e.preventDefault();
+  let id = $(this).data("id");
+  console.log(id);
+  $("#newest li").removeClass("active");
+  $(this).addClass("active");
+  $.ajax({
+    type: "GET",
+    url: SITE_URL + "/store/loadmore/category/" + id,
+    dataType: "HTML",
+    success: (data) => {
+      console.log(data);
+      $("#show_product").html(data);
+    },
+  });
+});
+$(document).on("click", "#newest .load-more", function (e) {
+  e.preventDefault();
+
+  let href = $(this).attr("href");
+  console.log(href);
+  $.ajax({
+    type: "GET",
+    url: href,
+    dataType: "HTML",
+    success: (data) => {
+      console.log(data);
+      $(this).closest("div")[0].remove();
+      $("#show_product").append(data);
+    },
+  });
 });

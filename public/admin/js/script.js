@@ -614,7 +614,7 @@ $("#author_list").on("click", ".delete", function (e) {
 $("#reviews_list").on("click", ".accept", function (e) {
   e.preventDefault();
   console.log(e);
-  let badge = $(this).closest("tr").find(".badge");
+  let badge = $(this).closest("tr").find(".status span");
   let idReview = $(this).closest("tr").find(".id").text();
   var postForm = {
     idReview,
@@ -638,7 +638,7 @@ $("#reviews_list").on("click", ".accept", function (e) {
         success: function (x) {
           badge.text("Đã duyệt");
           badge.removeClass();
-          badge.addClass("badge badge-pill bg-success-light");
+          badge.addClass("badge-pill bg-success-light");
           $(e.target).remove();
           Swal.fire({
             title: "Thành công",

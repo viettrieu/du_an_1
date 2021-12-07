@@ -23,9 +23,7 @@
                                 book<br>
                                 <span class="text-italic fs-24 fw-normal">of the month</span>
                             </h3>
-                            <p style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md"
-                                    href="https://auteur.g5plus.net/shop">PURCHASE <i
-                                        class="fal fa-chevron-double-right"></i></a></p>
+                            <p style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md" href="https://auteur.g5plus.net/shop">PURCHASE <i class="fal fa-chevron-double-right"></i></a></p>
                         </div>
                     </div>
                 </div>
@@ -39,9 +37,7 @@
                         <h2 class="mg-top-0 fw-bold" style="margin-bottom: 12px; line-height: 1.4;">Henry<br>
                             <span class="text-italic fw-normal">&amp; the good dog</span>
                         </h2>
-                        <p style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md"
-                                href="https://auteur.g5plus.net/shop">PURCHASE <i
-                                    class="fal fa-chevron-double-right"></i></a></p>
+                        <p style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md" href="https://auteur.g5plus.net/shop">PURCHASE <i class="fal fa-chevron-double-right"></i></a></p>
                     </div>
                 </div>
             </div>
@@ -53,9 +49,7 @@
                     <div style="position: absolute; bottom: 40px; left: 30px;">
                         <h3 class="mg-top-0 fw-bold" style="margin-bottom: 12px; line-height: 40px;">Best seller<br>
                             Books</h3>
-                        <p class="accent-color" style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md"
-                                href="https://auteur.g5plus.net/shop">PURCHASE <i
-                                    class="fal fa-chevron-double-right"></i></a></p>
+                        <p class="accent-color" style="letter-spacing: 1px;"><a class="btn btn-accent btn-link btn-md" href="https://auteur.g5plus.net/shop">PURCHASE <i class="fal fa-chevron-double-right"></i></a></p>
                     </div>
                 </div>
             </div>
@@ -80,17 +74,17 @@
         $sellList =  $data['sell'];
         if (count($sellList) > 0) {
             foreach ($sellList as $product) { ?>
-        <div class="col medium-4 small-6 large-3">
-            <div class="col-inner">
-                <?php require "./mvc/views/block/product.php" ?>
-            </div>
-        </div>
-        <?php }
+                <div class="col medium-4 small-6 large-3">
+                    <div class="col-inner">
+                        <?php require "./mvc/views/block/product.php" ?>
+                    </div>
+                </div>
+            <?php }
         } else { ?>
 
-        <div class="container">
-            Không có sản phẩm phù hợp
-        </div>
+            <div class="container">
+                Không có sản phẩm phù hợp
+            </div>
         <?php } ?>
     </div>
 </section>
@@ -98,8 +92,7 @@
     <div class="row-collapse" style="justify-content: center">
         <div class="col medium-8 small-12 large-10 text-center">
             <span class="heading-sub-title heading-color">WHAT'S HOT IN AUGUST</span>
-            <h2 class="mg-bottom-10 fs-48 sm-fs-34" style="margin-top: 30px;"><span
-                    style="border-bottom: 1px solid #fff; color: #fff;">Get <span class="fw-bold">-30%</span> purchase
+            <h2 class="mg-bottom-10 fs-48 sm-fs-34" style="margin-top: 30px;"><span style="border-bottom: 1px solid #fff; color: #fff;">Get <span class="fw-bold">-30%</span> purchase
                     on</span>
             </h2>
             <a href="https://ps17048.com/PHP_FPOLY/ASM_MVC/checkout" class="button">
@@ -153,14 +146,16 @@
 </section>
 <section id="newest">
     <div class="container">
-        <ul class="nav nav-tabs ">
+        <ul class="nav nav-tabs">
+            <li class="cat-item active" data-id="all">
+                <a class="btn-accent" href="#">ALL</a>
+            </li>
             <?php
             $resultCategory =  $data['ListCategory'];
-            foreach ($resultCategory as $category) { ?>
-            <li class="active">
-                <a class="btn-accent"
-                    href="<?= SITE_URL ?>/store/category/<?php echo $category["id"] ?>"><?= $category["title"] ?></a>
-            </li>
+            foreach ($resultCategory as $key => $category) { ?>
+                <li class="cat-item" data-id="<?= $category["id"] ?>">
+                    <a class="btn-accent" href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>"><?= $category["title"] ?></a>
+                </li>
             <?php } ?>
             <!-- <li>
                 <a href="#" class="btn-accent">COOKBOOKS</a>
@@ -186,21 +181,21 @@
         </div>
         <div class="col medium-12 small-12 large-8 col-nop">
             <div class="col-inner">
-                <div class="row">
+                <div class="row" id="show_product">
                     <?php
                     $sellList =  $data['sell'];
                     if (count($sellList) > 0) {
                         foreach ($sellList as $product) { ?>
-                    <div class="col medium-4 small-6 large-3">
-                        <div class="col-inner">
-                            <?php require "./mvc/views/block/product.php" ?>
-                        </div>
-                    </div>
-                    <?php }
+                            <div class="col medium-4 small-6 large-3">
+                                <div class="col-inner">
+                                    <?php require "./mvc/views/block/product.php" ?>
+                                </div>
+                            </div>
+                        <?php }
                     } else { ?>
-                    <div class="container">
-                        Không có sản phẩm phù hợp
-                    </div>
+                        <div class="container">
+                            Không có sản phẩm phù hợp
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -294,8 +289,7 @@
         <div class="post has-hover item">
             <div class="box-image image-zoom">
                 <a href="./index.php?action=bai-viet">
-                    <img src="<?= SITE_URL ?>/public/img/blog-1.jpg"
-                        alt="Những lý do nên bao gồm rau hữu cơ trong chế độ ăn">
+                    <img src="<?= SITE_URL ?>/public/img/blog-1.jpg" alt="Những lý do nên bao gồm rau hữu cơ trong chế độ ăn">
                 </a>
             </div>
             <div class="box-text">
@@ -315,8 +309,7 @@
         </div>
         <div class="post has-hover item">
             <div class="box-image image-zoom">
-                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-4.jpg"
-                        alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
+                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-4.jpg" alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
             </div>
             <div class="box-text">
                 <div class="post-meta flex-row">
@@ -335,8 +328,7 @@
         </div>
         <div class="post has-hover item">
             <div class="box-image image-zoom">
-                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-3.jpg"
-                        alt="Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất"></a>
+                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-3.jpg" alt="Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất"></a>
             </div>
             <div class="box-text">
                 <div class="post-meta flex-row">
@@ -354,8 +346,7 @@
         </div>
         <div class="post has-hover item">
             <div class="box-image image-zoom">
-                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
-                        alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
+                <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-2.jpg" alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
             </div>
             <div class="box-text">
                 <div class="post-meta flex-row">
