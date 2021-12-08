@@ -78,7 +78,7 @@ class Store extends Controller
                 $productId = (int)HandleForm::rip_tags($_POST["productId"]);
                 $products = $this->ListReview->check($userId);
                 if ($products === NULL) $products  = [];
-                $addReview = in_array($productId, $products);
+                $addReview = in_array($productId, array_column($products, "productId"));
                 if (!$addReview) {
                     echo json_encode(["type" => "error", "message" => "Bạn phải trải nghiệm sản phẩm trước khi đánh giá"]);
                     exit();

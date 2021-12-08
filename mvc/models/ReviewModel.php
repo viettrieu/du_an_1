@@ -37,8 +37,8 @@ class ReviewModel extends DB
 
     public function check($userId)
     {
-        $sql = "SELECT productId FROM order_item WHERE orderId IN (SELECT id FROM detailed_order WHERE userId = $userId)";
-        return $this->pdo_query_one($sql);
+        $sql = "SELECT productId FROM order_item INNER JOIN detailed_order ON detailed_order.id = orderId  WHERE status = 5 AND orderId IN (SELECT id FROM detailed_order WHERE userId = $userId)";
+        return $this->pdo_query($sql);
     }
 
     public function GetOrderId($id, $check)
