@@ -26,7 +26,7 @@ class Login extends Controller
       $password = $request->password;
       if (count($errors) == 0) {
         $result  = $this->User->CheckLogin($username, $password);
-        if (!$result) {
+        if ($result["id"] == NULL) {
           $errors[] = ["status" => "ERROR", "message" => "Sai xác thực tên người dùng / mật khẩu"];
         } elseif ($result["admin"] == 0) {
           $errors[] = ["status" => "ERROR", "message" => "Tài khoản bạn không đủ thẩm quyền"];
