@@ -840,3 +840,12 @@ function orderQuickView(element, action) {
     },
   });
 }
+function formatCash(str) {
+  str = String(str);
+  return str
+    .split("")
+    .reverse()
+    .reduce((prev, next, index) => {
+      return (index % 3 ? next : next + ".") + prev;
+    });
+}
