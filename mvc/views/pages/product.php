@@ -44,7 +44,6 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
         </div>
       </div>
       <?php endif ?>
-      <!-- <span style=" margin-bottom: 0; ">Lượt xem: <?= $data['SumView']; ?></span> -->
     </div>
     <span class="price product-price" data-price="<?= $Cproduct['price']; ?>">
       <span class="unit-price"><?= number_format($Cproduct['price'], 0, ',', '.'); ?></span>
