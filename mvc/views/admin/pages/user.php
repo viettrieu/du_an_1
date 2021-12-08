@@ -46,30 +46,34 @@
                   if (isset($ListUser)) {
                     foreach ($ListUser as $user) {
                   ?>
-                      <tr>
-                        <td class="id"><?= $user['id']; ?></td>
-                        <td>
-                          <h2 class="table-avatar">
-                            <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>" alt="User Image" /></a>
-                            <a href="#">
-                              <span class="title">
-                                <?= $user['fullName'] == null ? $user['username'] : $user['fullName']; ?></span>
-                              <span><?= $user['mobile']; ?></span>
-                            </a>
-                          </h2>
-                        </td>
-                        <td><?= $user['email']; ?></td>
-                        <td><?= $user['admin'] == 1 ? "Quản lý" : "Khách hàng"; ?></td>
-                        <td><?= $user['registeredAt']; ?></td>
-                        <td>
-                          <span class="badge badge-pill <?= $user['verify'] == 1 ? "bg-success-light" : "bg-danger-light"; ?>">
-                            <?= $user['verify'] == 1 ? "Đã xác minh" : "Chưa xác minh"; ?></span>
-                        </td>
-                        <td class="text-right">
-                          <a href="./index.php?action=sua-thanh-vien&id=<?= $user['id']; ?>" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Sửa</a>
-                          <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2 delete"><i class="far fa-trash-alt mr-1"></i>Xóa</a>
-                        </td>
-                      </tr>
+                  <tr>
+                    <td class="id"><?= $user['id']; ?></td>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
+                            src="<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
+                            alt="User Image" /></a>
+                        <a href="#">
+                          <span class="title">
+                            <?= $user['fullName'] == null ? $user['username'] : $user['fullName']; ?></span>
+                          <span><?= $user['mobile']; ?></span>
+                        </a>
+                      </h2>
+                    </td>
+                    <td><?= $user['email']; ?></td>
+                    <td><?= $user['admin'] == 1 ? "Quản lý" : "Khách hàng"; ?></td>
+                    <td><?= $user['registeredAt']; ?></td>
+                    <td class="status">
+                      <span class="badge-pill <?= $user['verify'] == 1 ? "bg-success-light" : "bg-danger-light"; ?>">
+                        <?= $user['verify'] == 1 ? "Đã xác minh" : "Chưa xác minh"; ?></span>
+                    </td>
+                    <td class="text-right">
+                      <a href="<?= ADMIN_URL ?>/user/edit/<?= $user['id']; ?>"
+                        class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Sửa</a>
+                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2 delete"><i
+                          class="far fa-trash-alt mr-1"></i>Xóa</a>
+                    </td>
+                  </tr>
                   <?php }
                   } ?>
                 </tbody>

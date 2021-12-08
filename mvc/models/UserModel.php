@@ -34,7 +34,7 @@ class UserModel extends DB
 
   public function GetUserByAccount($account)
   {
-    $sql = "select username, fullName, email, mobile from users WHERE (username='$account' OR username='$account' OR email='$account' OR mobile='$account')";
+    $sql = "select username, fullName, email, mobile from users WHERE (username='$account' OR email='$account' OR mobile='$account')";
     return $this->pdo_query_one($sql);
   }
 }
