@@ -8,11 +8,13 @@ class Product extends Controller
   public $ListCategory;
   public $ListTag;
   public $ListAuthor;
+  public $ListPublisher;
   function __construct()
   {
     $this->ListProduct = $this->model("ProductModel");
     $this->ListCategory = $this->model("CategoryModel");
     $this->ListTag = $this->model("TagModel");
+    $this->ListPublisher = $this->model("PublisherModel");
     $this->ListAuthor = $this->model("AuthorModel");
     if (!isset($_SESSION['user']) || isset($_SESSION['user']) && $_SESSION['user']["admin"] != true) {
       header("Location: " . ADMIN_URL . "/login");
@@ -33,12 +35,6 @@ class Product extends Controller
     $request = json_decode(json_encode($_POST));
 
     if (isset($request->create_product)) {
-      $errors = HandleForm::validations([
-        [$request->title, 'required', 'Vui lòng nhập tên sản phẩm'],
-        [$request->price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
-        // [$request->discount, 'numbers', 'Vui lòng nhập giá khuyến mãi'],
-        [$request->category, 'required', 'Vui lòng chọn danh mục'],
-      ]);
       $title = HandleForm::rip_tags($_POST['title']);
       $price = (float)HandleForm::rip_tags($_POST['price']);
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
@@ -47,7 +43,15 @@ class Product extends Controller
       $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 5000000,  "./public/img/");
       $category = (int)$request->category;
       $tags = isset($request->tag) ? $request->tag : [];
+      $publisher = (int)$request->publisher;
       $authors = isset($request->author) ? $request->author : [];
+      $errors = HandleForm::validations([
+        [$title, 'required', 'Vui lòng nhập tên sản phẩm'],
+        [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
+        // [$request->discount, 'numbers', 'Vui lòng nhập giá khuyến mãi'],
+        [$category, 'required', 'Vui lòng chọn danh mục'],
+        [$publisher, 'required', 'Vui lòng chọn NXB'],
+      ]);
       if (!$thumbnail[0]) {
         $errors[] = ["status" => "ERROR", "message" => $thumbnail[1]];
       }
@@ -57,6 +61,7 @@ class Product extends Controller
         "summary" => $summary,
         "content" => $content,
         "price" => $price,
+        "publisherId" => $publisher,
         "discount" => !empty($discount) ? $discount : NULL,
         "thumbnail" => $thumbnail[1],
       );
@@ -82,6 +87,7 @@ class Product extends Controller
       "Title" => "Tạo sản phẩm mới",
       "ListCategory" => $this->ListCategory->GetAllCategory(),
       "ListTag" => $this->ListTag->GetAllTag(),
+      "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
       "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
       "Errors" => $errors,
     ]);
@@ -96,12 +102,6 @@ class Product extends Controller
     $errors = array();
     $request = json_decode(json_encode($_POST));
     if (isset($request->edit_product)) {
-      $errors = HandleForm::validations([
-        [$request->title, 'required', 'Vui lòng nhập tên sản phẩm'],
-        [$request->price, 'numbers', 'Vui lòng nhập chỉ nhập số vào giá sản phẩm'],
-        // [$request->discount, 'numbers', 'Vui lòng nhập chỉ nhập số vào giá khuyến mãi'],
-        [$request->category, 'required', 'Vui lòng chọn danh mục'],
-      ]);
       $title = HandleForm::rip_tags($_POST['title']);
       $price = (float)HandleForm::rip_tags($_POST['price']);
       $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
@@ -110,7 +110,15 @@ class Product extends Controller
       $thumbnail = HandleForm::upload($_FILES["thumbnail"], ['jpeg', 'jpg', 'png'], 5000000,  "./public/img/");
       $category = (int)$request->category;
       $tags = isset($request->tag) ? $request->tag : [];
+      $publisher = (int)$request->publisher;
       $authors = isset($request->author) ? $request->author : [];
+      $errors = HandleForm::validations([
+        [$title, 'required', 'Vui lòng nhập tên sản phẩm'],
+        [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
+        // [$request->discount, 'numbers', 'Vui lòng nhập giá khuyến mãi'],
+        [$category, 'required', 'Vui lòng chọn danh mục'],
+        [$publisher, 'required', 'Vui lòng chọn NXB'],
+      ]);
       if (!$thumbnail[0]) {
         $errors[] = ["status" => "ERROR", "message" => $thumbnail[1]];
       }
@@ -120,6 +128,7 @@ class Product extends Controller
         "summary" => $summary,
         "content" => $content,
         "price" => $price,
+        "publisherId" => $publisher,
         "discount" => !empty($discount) ? $discount : NULL,
         "thumbnail" => $thumbnail[1] == NULL ? $product["thumbnail"] : $thumbnail[1],
       );
@@ -143,6 +152,7 @@ class Product extends Controller
     }
     $categorys = $this->ListCategory->GetCategoryByProduct($id);
     $tags = $this->ListTag->GetTagByProduct($id);
+    // $publisher = $this->ListPublisher->GetPublisherByProduct($id);
     $author = $this->ListAuthor->GetAuthorByProduct($id);
     $this->view("admin/page-full", [
       "Page" => "edit-product",
@@ -153,6 +163,7 @@ class Product extends Controller
       "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
       "Categorys" => array_column($categorys, "title"),
       "Tags" => array_column($tags, "title"),
+      "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
       "Author" => array_column($author, "title"),
       "Errors" => $errors,
     ]);

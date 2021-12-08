@@ -583,6 +583,8 @@ $("#create_category").submit(GetQLeditor);
 $("#edit_category").submit(GetQLeditor);
 $("#create_tag").submit(GetQLeditor);
 $("#edit_tag").submit(GetQLeditor);
+$("#create_publisher").submit(GetQLeditor);
+$("#edit_publisher").submit(GetQLeditor);
 $("#create_tag").submit(GetQLeditor);
 $("#create_product").submit(GetQLeditor);
 $("#edit_product").submit(GetQLeditor);
@@ -601,6 +603,9 @@ $("#user_list").on("click", ".delete", function (e) {
 });
 $("#tag_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/tag/delete", "từ khóa");
+});
+$("#publisher_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/publisher/delete", "NXB");
 });
 $("#reviews_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/review/delete", "Đánh giá");

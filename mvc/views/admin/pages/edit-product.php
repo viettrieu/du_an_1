@@ -80,6 +80,17 @@ $product = $data["Product"];
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>NXB sản phẩm:</label>
+                                <select name="publisher" class="select custom-select">
+                                    <?php foreach ($data["ListPublisher"] as $publisher) : ?>
+                                    <option value="<?php echo $publisher['id']; ?>"
+                                        <?=  $product['publisherId'] == $publisher['id'] ? 'selected' : '' ?>>
+                                        <?php echo $publisher['title']; ?>
+                                    </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Tác giả:</label>
                                 <select name="author[]" class="select2tag" multiple="multiple">
                                     <?php foreach ($data["ListAuthor"] as $author) : ?>
