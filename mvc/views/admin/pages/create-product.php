@@ -69,6 +69,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>NXB sản phẩm:</label>
+                                <select name="publisher" class="select custom-select">
+                                    <?php foreach ($data["ListPublisher"] as $publisher) : ?>
+                                    <option value="<?= $publisher['id'] ?>"><?= $publisher['title'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Tác giả:</label>
                                 <select name="author[]" class="select2tag" multiple="multiple">
                                     <?php foreach ($data["ListAuthor"] as $author) : ?>
