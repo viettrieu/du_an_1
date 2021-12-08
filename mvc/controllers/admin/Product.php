@@ -25,7 +25,7 @@ class Product extends Controller
   {
     $this->view("admin/page-full", [
       "Page" => "product",
-      "ListProduct" => $this->ListProduct->GetByTaxonomy(),
+      "ListProduct" => $this->ListProduct->GetAllProduct(),
       "Title" => "Sản phẩm",
     ]);
   }

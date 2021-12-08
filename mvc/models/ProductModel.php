@@ -4,7 +4,10 @@ class ProductModel extends DB
     public $table = "book";
     public function GetAllProduct()
     {
-        $sql = "SELECT book.*, X.rating, author  FROM book INNER JOIN book_author ON book.id = book_author.productId INNER JOIN author ON book_author.authorId= author.id  LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id ";
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', quantity,publisher.title AS 'publisher' FROM book
+        INNER JOIN publisher ON publisher.id = publisherId
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id  GROUP BY book.id DESC";
         return $this->pdo_query($sql);
     }
     public function GetAllProducts()
@@ -28,12 +31,12 @@ class ProductModel extends DB
         INNER JOIN order_item orderi  ON book.id = orderi.productId GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
-    public function GetViewProduct($limit = 6)
+    public function GetWishlistProduct($limit = 6)
     {
-        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', COUNT(wl.productId) AS 'slwl'  FROM book
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, X.rating , A.author AS 'author', COUNT(wl.productId) AS 'quantity'  FROM book
         INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT author.title SEPARATOR ', ') AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
         LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id
-        INNER JOIN wishlist wl  ON book.id = wl.productId GROUP BY book.id ORDER BY slwl DESC LIMIT $limit";
+        INNER JOIN wishlist wl  ON book.id = wl.productId GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
@@ -63,7 +66,7 @@ class ProductModel extends DB
     }
     public function GetProductById($id)
     {
-        $sql = "SELECT * FROM book WHERE id = $id";
+        $sql = "SELECT book.*, publisher.title AS 'publisher' FROM book INNER JOIN publisher ON publisher.id = publisherId WHERE book.id = $id";
         return $this->pdo_query_one($sql);
     }
     // //

@@ -82,7 +82,8 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
       </div>
     </div>
     <div class="product-meta">
-      <span class="sku-wrapper">SKU: <span class="sku"><?= $Cproduct['sku']; ?></span> </span>
+      <span class="nxb-wrapper">NXB: <a href="<?= SITE_URL ?>/store/publisher/<?= $Cproduct['publisherId'] ?>"
+          rel="tag"><?= $Cproduct['publisher'] ?></a> </span> <br>
       <?php
       $resultCategory =  $data['ListCategory'];
       if ($resultCategory) {

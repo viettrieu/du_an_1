@@ -34,10 +34,10 @@
                   <tr>
                     <th>ID</th>
                     <th>Tên</th>
-                    <th>SKU</th>
+                    <th>Tác giả</th>
+                    <th>NXB</th>
                     <th>Kho</th>
                     <th>Giá</th>
-                    <th>Ngày tạo</th>
                     <th class="text-right">Action</th>
                   </tr>
                 </thead>
@@ -58,7 +58,8 @@
                         </a>
                       </h2>
                     </td>
-                    <td><?= $product['sku']; ?></td>
+                    <td><?= $product['author']; ?></td>
+                    <td><?= $product['publisher']; ?></td>
                     <td class="status">
                       <span
                         class="badge-pill bg-<?= $product['quantity'] == null || $product['quantity']  > 10 ? 'success' : ($product['quantity'] == 0 ? 'danger' : 'warning'); ?>-light">
@@ -66,7 +67,6 @@
                       </span>
                     </td>
                     <td><?= number_format($product['price'], 0, ',', '.'); ?><sup>đ</sup></td>
-                    <td><?= $product['published']; ?></td>
                     <td class="text-right">
                       <a href="<?= ADMIN_URL ?>/product/edit/<?= $product['id']; ?>"
                         class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>

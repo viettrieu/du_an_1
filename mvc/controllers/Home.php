@@ -16,10 +16,9 @@ class Home extends Controller
             "Title" => "Trang chủ",
             "sell" => $this->ListProduct->GetSellProduct(8),
             "hot"  => $this->ListProduct->GetHotProduct(),
-            "view" => $this->ListProduct->GetViewProduct(),
+            "view" => $this->ListProduct->GetWishlistProduct(),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListAuthor" => $this->ListAuthor->GetOneAuthor()
-
 
         ]);
     }
