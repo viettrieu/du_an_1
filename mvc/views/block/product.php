@@ -53,6 +53,12 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
     <h4 class="product-title">
       <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>"><?= $product["title"] ?></a>
     </h4>
-    <div class="product-author"><span>By</span><a href="#" rel="tag"><?= $product["author"] ?></a></div>
+    <div class="product-author"><span>By</span>
+      <?php
+      $author = json_decode('[' . $product["author"] . ']', true);
+      foreach ($author as $a) : ?>
+      <a href="<?= SITE_URL ?>/store/author/<?= $a["id"] ?>" rel="tag"><?= $a["title"] ?></a>
+      <?php endforeach ?>
+    </div>
   </div>
 </div>
