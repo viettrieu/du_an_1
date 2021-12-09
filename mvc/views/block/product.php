@@ -41,9 +41,14 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
     </a>
   </div>
   <div class="box-textx text-center">
-    <span class="price" data-price="<?= $product["price"] ?>">
-      <span class="unit-price"><?= number_format($product["price"], 0, ',', '.') ?></span>
-      <sup>đ</sup>
+    <span class="price">
+      <?php if (isset($product["discount"])) : ?>
+      <del aria-hidden="true">
+        <span><?= number_format($product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+      </del>
+      <?php endif ?>
+      <ins>
+        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span></ins>
     </span>
     <h4 class="product-title">
       <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>"><?= $product["title"] ?></a>

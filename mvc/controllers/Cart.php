@@ -33,7 +33,7 @@ class Cart extends Controller
         'id' =>  $cartItem['id'],
         'thumbnail' => $cartItem['thumbnail'],
         'title' => $cartItem['title'],
-        'price' => $cartItem['price'],
+        'price' => !empty($cartItem['discount']) ? $cartItem['discount'] : $cartItem['price'],
         'quantity' => $quantity,
       );
       array_push($_SESSION['cart']['item'], $cartItem);

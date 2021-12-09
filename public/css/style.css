@@ -23,7 +23,9 @@ p {
   margin-top: 0;
   margin-bottom: 1.5rem;
 }
-
+ins {
+  text-decoration: none;
+}
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -1368,6 +1370,7 @@ aside.widget {
 .sidebar .widget ul li a {
   display: flex;
   position: relative;
+  align-items: center;
 }
 .sidebar .widget-categories ul li a {
   padding-left: 20px;
@@ -1388,7 +1391,7 @@ aside.widget {
 .sidebar aside ul li.active a::before {
   color: var(--primary-color);
 }
-.sidebar span.count {
+.sidebar span {
   margin-left: auto;
   margin-bottom: 0;
 }
