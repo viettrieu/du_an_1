@@ -70,3 +70,19 @@ input[type="search"] {
   border-radius: 10px;
   box-shadow: 10px 5px 5px;
 }
+.sizeprice{
+  font-size: 40px;
+}
+.sizeprice-1{
+  font-size: 24px;
+}
+.sizeprice-2{
+  font-size: 36px;
+}
+.author-name{
+  font-size: 40px;
+  text-transform: uppercase;
+}
+.ma-1{
+  margin-top: 10px!important;
+}
