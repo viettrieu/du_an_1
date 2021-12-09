@@ -13,7 +13,7 @@ class Store extends Controller
     public $page;
     public $offset;
     public $ListAuthor;
-    public $perPage = 9;
+    public $perPage = 12;
     function __construct()
     {
         $this->page = isset($_GET['page']) ?  $_GET['page'] : 1;
