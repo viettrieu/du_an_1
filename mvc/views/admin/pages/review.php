@@ -48,7 +48,7 @@
                         <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['id']; ?>"
                           class="avatar avatar-sm mr-2">
                           <img class="avatar-img rounded-circle"
-                            src="<?= SITE_URL ?><?= $review['avatar'] == null ? '/public/img/avatar-default.png' : $review['avatar']; ?>"
+                            src="<?= $review['avatar'] == null ? '/public/img/avatar-default.png' : $review['avatar']; ?>"
                             alt="User Image" />
                         </a>
                         <a href="./index.php?action=chi-tiet-don-hang&id=">

@@ -8,8 +8,7 @@ $listWard = $data['Ward'];
   <div class="large-3 col" style=" padding-right: 0;">
     <div class="account-user">
       <span class="image">
-        <img alt="" src="<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
-          height="70" width="70">
+        <img alt="" src="<?= $user['avatar'] ?>" height="70" width="70">
       </span>
       <span class="user-name">
         <?= $user['username']; ?>
@@ -50,8 +49,7 @@ $listWard = $data['Ward'];
           <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
         </div>
         <div class="avatar-preview">
-          <div id="imagePreview"
-            style="background-image: url(<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>);">
+          <div id="imagePreview" style="background-image: url(<?= $user['avatar'] ?>);">
           </div>
         </div>
       </div>
@@ -103,10 +101,10 @@ $listWard = $data['Ward'];
         </div>
         <div class="col small-12 large-12">
           <div class="form-group">
-              <input type="radio" id="male" name="gender" value="0" <?= $user['gender'] == false ? 'checked' : '' ?>>
-              <label for="male">Nam</label><br>
-              <input type="radio" id="female" name="gender" value="1" <?= $user['gender'] == true ? 'checked' : '' ?>>
-              <label for="female">Nữ</label>
+            <input type="radio" id="male" name="gender" value="0" <?= $user['gender'] == false ? 'checked' : '' ?>>
+            <label for="male">Nam</label><br>
+            <input type="radio" id="female" name="gender" value="1" <?= $user['gender'] == true ? 'checked' : '' ?>>
+            <label for="female">Nữ</label>
           </div>
         </div>
         <div class="col medium-6 small-12 large-6">

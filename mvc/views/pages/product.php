@@ -216,12 +216,16 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
                 <?php
                 $resultReview =  $data['ListReview'];
                 if ($resultReview) {
-                  foreach ($resultReview as $review) { ?>
+                  foreach ($resultReview as $review) {
+                    if (!preg_match('/http(s?)\:\/\//i', $review["avatar"])) {
+                      $review["avatar"] = SITE_URL . "" . ($review["avatar"] !== NULL ? $review["avatar"] : "/public/img/avatar-default.png");
+                    }
+                ?>
                 <li>
                   <div class="comment-main-level">
                     <div class="comment-avatar">
                       <img
-                        src="<?= SITE_URL ?><?= $review['avatar'] != NULL ?  $review['avatar'] : '/public/img/avatar-default.png' ?>"
+                        src="<?= $review['avatar'] != NULL ?  $review['avatar'] : '/public/img/avatar-default.png' ?>"
                         alt=" <?= $review['fullName'] ? $review['fullName'] : $review['username'] ?>" />
                     </div>
                     <div class="comment-box">

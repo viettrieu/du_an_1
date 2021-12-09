@@ -1,6 +1,7 @@
 <?php
 
 use Core\HandleForm;
+use Core\Helper;
 
 class Login extends Controller
 {
@@ -28,11 +29,11 @@ class Login extends Controller
       $password = $request->password;
       if (count($errors) == 0) {
         $result  = $this->User->CheckLogin($username, $password);
-        if (!$result) {
+        if ($result["id"] === NULL) {
           $errors[] = ["status" => "ERROR", "message" => "Sai xác thực tên người dùng / mật khẩu"];
         } else {
           $refurl = isset($_GET['refurl']) ? base64_decode($_GET['refurl']) :  SITE_URL . "/account";
-          $_SESSION['user'] = $result;
+          $_SESSION['user'] =  Helper::fixUrlImg($result, "avatar", true);
           $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
           header("Location: " . $refurl);
           exit();

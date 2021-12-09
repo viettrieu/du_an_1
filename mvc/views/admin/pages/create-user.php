@@ -26,7 +26,8 @@
                     <label for="thumbnail"><i class="fas fa-pencil-alt"></i></label>
                   </div>
                   <div class="thumbnail-preview">
-                    <div id="thumbnailPreview" style="background-image: url(../assets/img/avatar-default.png)">
+                    <div id="thumbnailPreview"
+                      style="background-image: url('<?= SITE_URL ?>/public/img/avatar-default.png')">
                     </div>
                   </div>
                 </div>

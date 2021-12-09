@@ -267,4 +267,28 @@ class Helper
     }
     return $string;
   }
+
+  public static function fixUrlImg($result, $column, $one = false)
+  {
+    if ($one) {
+      if ($result[$column] === NULL) {
+        $result[$column] = SITE_URL . "/public/img/avatar-default.png";
+      }
+      if (!preg_match('/http(s?)\:\/\//i', $result[$column])) {
+        $result[$column] = SITE_URL . "" . $result[$column];
+      }
+      return $result;
+      exit;
+    }
+    for ($i = 0; $i < count($result); $i++) {
+      if ($result[$i][$column] === NULL) {
+        $result[$i][$column] = SITE_URL . "/public/img/avatar-default.png";
+        continue;
+      }
+      if (!preg_match('/http(s?)\:\/\//i', $result[$i][$column])) {
+        $result[$i][$column] = SITE_URL . "" . $result[$i][$column];
+      }
+    }
+    return $result;
+  }
 }

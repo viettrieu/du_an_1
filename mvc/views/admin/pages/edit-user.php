@@ -30,8 +30,7 @@ $errors = $data["Errors"];
                     <label for="thumbnail"><i class="fas fa-pencil-alt"></i></label>
                   </div>
                   <div class="thumbnail-preview">
-                    <div id="thumbnailPreview"
-                      style="background-image: url(<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>);">
+                    <div id="thumbnailPreview" style="background-image: url(<?= $user['avatar'] ?>);">
                     </div>
                   </div>
                 </div>

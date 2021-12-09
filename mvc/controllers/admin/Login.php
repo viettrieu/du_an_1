@@ -1,6 +1,7 @@
 <?php
 
 use Core\HandleForm;
+use Core\Helper;
 
 class Login extends Controller
 {
@@ -31,7 +32,7 @@ class Login extends Controller
         } elseif ($result["admin"] == 0) {
           $errors[] = ["status" => "ERROR", "message" => "Tài khoản bạn không đủ thẩm quyền"];
         } else {
-          $_SESSION['user'] = $result;
+          $_SESSION['user'] =  Helper::fixUrlImg($result, "avatar", true);
           $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
           header("Location: " . ADMIN_URL . "/dashboard");
         }

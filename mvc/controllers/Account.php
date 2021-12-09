@@ -68,7 +68,7 @@ class Account extends Controller
         "district" => $district,
         "province" => $province,
         "gender" => $gender,
-        "avatar" => $avatar[1] == NULL ? $this->UserById["avatar"] : SITE_URL . '' . $avatar[1],
+        "avatar" => $avatar[1] == NULL ? $this->UserById["avatar"] : $avatar[1],
       );
       if (count($errors) == 0) {
         $cond = "id = " . (int) $_SESSION["user"]["id"];
@@ -82,7 +82,7 @@ class Account extends Controller
     $this->view("page-full", [
       "Page" => "account",
       "Title" => "Tài khoản",
-      "UserById" => $UserById,
+      "UserById" => Helper::fixUrlImg($UserById, "avatar", true),
       "Errors" => $errors,
       "Province" => Address::Province(),
       "District" =>  isset($UserById['province']) ? Address::District($UserById['province']) : [],
@@ -94,7 +94,7 @@ class Account extends Controller
     $this->view("page-full", [
       "Page" => "orders",
       "Title" => "Đơn Hàng",
-      "UserById" => $this->UserById,
+      "UserById" => Helper::fixUrlImg($this->UserById, "avatar", true),
       "Orders" => $this->Orders->GetOrderByUser($this->UserById["id"])
     ]);
   }
@@ -115,7 +115,7 @@ class Account extends Controller
     $this->view("page-full", [
       "Page" => "view-order",
       "Title" => "Chi tiết đơn hàng",
-      "UserById" => $this->UserById,
+      "UserById" => Helper::fixUrlImg($this->UserById, "avatar", true),
       "Order" => $order,
       "Items" => $this->Orders->GetOrderItemById($id),
       "Transport" => $this->Transport->GetId($id),
@@ -157,7 +157,7 @@ class Account extends Controller
     $this->view("page-full", [
       "Page" => "change-password",
       "Title" => "Đổi mật khẩu",
-      "UserById" => $this->UserById,
+      "UserById" => Helper::fixUrlImg($this->UserById, "avatar", true),
       "Errors" => $errors,
     ]);
   }

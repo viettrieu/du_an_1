@@ -1,6 +1,7 @@
 <?php
 
 use Core\HandleForm;
+use Core\Helper;
 
 class User extends Controller
 {
@@ -14,7 +15,7 @@ class User extends Controller
     $this->view("admin/page-full", [
       "Page" => "user",
       "Title" => "Thành viên",
-      "ListUser" => $this->User->GetAllUser(),
+      "ListUser" => Helper::fixUrlImg($this->User->GetAllUser(), "avatar"),
     ]);
   }
 
@@ -64,13 +65,17 @@ class User extends Controller
         "address" => $address,
         "gender" => $gender,
         "verify" => $verify,
-        "avatar" => $avatar[1],
       );
+      if ($avatar[1] !== NULL) {
+        $avatar[1] = str_replace('./', '/', $avatar[1]);
+        $data["avatar"] = $avatar[1];
+      }
       if (count($errors) == 0) {
         $md5password = md5($password);
         $data["passwordHash"] = $md5password;
         $result = $this->User->InsertUser($data);
         if ($result) {
+          unset($_POST);
           $errors[] = ["status" => "OK", "message" => " Bạn đã thêm thành công thành viên <strong>" . $request->username . "</strong>"];
         }
       }
@@ -141,6 +146,7 @@ class User extends Controller
         }
         $result = $this->User->UpdateUserBy($data, "id = " . (int)$id);
         if ($result) {
+          $_POST = [];
           $errors[] = ["status" => "OK", "message" => " Bạn đã thêm thành công thành viên <strong>" . $request->username . "</strong>"];
         }
       }
@@ -149,7 +155,7 @@ class User extends Controller
       "Page" => "edit-user",
       "Title" => "Tạo thành viên",
       "Errors" => $errors,
-      "User" => $this->User->GetUserById(0, 0, 0, "1 OR id = " . $id)
+      "User" => Helper::fixUrlImg($this->User->GetUserById(0, 0, 0, "1 OR id = " . $id), "avatar", true),
     ]);
   }
   function Delete($id = 0)

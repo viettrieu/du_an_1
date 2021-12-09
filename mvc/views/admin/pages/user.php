@@ -51,7 +51,7 @@
                     <td>
                       <h2 class="table-avatar">
                         <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                            src="<?= SITE_URL ?><?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
+                            src="<?= $user['avatar'] == null ? '/public/img/avatar-default.png' : $user['avatar']; ?>"
                             alt="User Image" /></a>
                         <a href="#">
                           <span class="title">

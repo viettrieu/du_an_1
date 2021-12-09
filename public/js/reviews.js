@@ -13,35 +13,35 @@ $("#reviews-form").submit(function (e) {
     data: formData,
     dataType: "JSON",
     success: function (data) {
+      console.log(data);
       if (data["type"] == "success") {
         $(".noreviews").remove();
         $(".spinner-border").remove();
         $("#reviews-form").trigger("reset");
-        data["avatar"] = data["avatar"]
-          ? data["avatar"]
-          : "/public/img/avatar-default.png";
+        // data["avatar"] = data["avatar"]
+        //   ? data["avatar"]
+        //   : "/public/img/avatar-default.png";
+        let review = data["data"];
         $("#reviews-list").prepend(`
         <li>
         <p class="note">Đánh giá của bạn đã gửi thành công và đang chờ kiểm duyệt</p>
           <div class="comment-main-level">
             <div class="comment-avatar">
-              <img src="${SITE_URL + data["avatar"]}" alt="${
-          data["username"]
-        }" />
+              <img src="${review["avatar"]}" alt="${review["username"]}" />
             </div>
             <div class="comment-box">
               <div class="comment-head">
                 <h6 class="comment-name by-customer">
-                 ${data["username"]}
+                 ${review["username"]}
                 </h6>
                 <div class="star-ratings-css">
                   <div class="star-ratings-inner" style="width: ${
-                    data["rating"] * 20
+                    review["rating"] * 20
                   }%"></div>
                 </div>
               </div>
               <div class="comment-content">
-              ${data["content"]}
+              ${review["content"]}
               </div>
             </div>
           </div>

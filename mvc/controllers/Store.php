@@ -125,7 +125,7 @@ class Store extends Controller
             "Product" => $product,
             "ListCategory" => $this->ListCategory->GetCategoryByProduct($id),
             "ListTag" => $this->ListTag->GetTagByProduct($id),
-            "ListReview" => $this->ListReview->GetReviewByProduct($id),
+            "ListReview" => Helper::fixUrlImg($this->ListReview->GetReviewByProduct($id), "avatar"),
             "UserById" => $UserById,
             "AVGReview" => $this->ListReview->AVGReviewByProduct($id),
             "RelatedProduct" => $this->ListProduct->GetRelatedProductById($id, 4),

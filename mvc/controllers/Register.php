@@ -25,15 +25,6 @@ class Register extends Controller
       $social_user['username'] = Helper::to_slug($social_user['name']);
     }
     if (isset($request->reg_user)) {
-      $errors = HandleForm::validations([
-        [$request->username, 'required', 'Vui lòng nhập vào username'],
-        [$request->mobile, 'mobile', 'Vui lòng điền đúng số điện thoại'],
-        [$request->email, 'email', 'Vui lòng điền đúng Email'],
-        [$request->password, 'required', 'Vui lòng nhập vào mật khẩu'],
-      ]);
-      if ($request->password != $request->re_password) {
-        $errors[] = ["status" => "ERROR", "message" => "Hai mật khẩu không khớp nhau"];
-      }
       $username = HandleForm::rip_tags($request->username);
       $mobile = HandleForm::rip_tags($request->mobile);
       $email = HandleForm::rip_tags($request->email);
@@ -42,6 +33,16 @@ class Register extends Controller
       $avatar = HandleForm::rip_tags($request->avatar);
       $social = HandleForm::rip_tags($request->social);
       $user = $this->User->GetUserById($username, $email, $mobile);
+      $errors = HandleForm::validations([
+        [$username, 'required', 'Vui lòng nhập vào username'],
+        [$mobile, 'mobile', 'Vui lòng điền đúng số điện thoại'],
+        [$request->email, 'email', 'Vui lòng điền đúng Email'],
+        [$password, 'required', 'Vui lòng nhập vào mật khẩu'],
+      ]);
+      if ($request->password != $request->re_password) {
+        $errors[] = ["status" => "ERROR", "message" => "Hai mật khẩu không khớp nhau"];
+      }
+
       if ($user) {
         if ($user['username'] == $username)
           $errors[] = ["status" => "ERROR", "message" => "Username đã tồn tại"];
@@ -54,8 +55,8 @@ class Register extends Controller
         "username" => $username,
         "mobile" => $mobile,
         "email" => $email,
-        "fullName" => $fullName,
-        "avatar" => $avatar,
+        "fullName" => !empty($fullName) ? $fullName : NULL,
+        "avatar" => !empty($avatar) ? $avatar : NULL,
       );
       if (count($errors) == 0) {
         $md5password = md5($password);
@@ -81,7 +82,7 @@ class Register extends Controller
           }
         }
         setcookie('social_user', '', time() - 3600, '/');
-        $_SESSION['user'] = $this->User->CheckLogin($username, $password);
+        $_SESSION['user'] = Helper::fixUrlImg($this->User->CheckLogin($username, $password), "avatar", true);
         $_SESSION['user']['wishlist'] = [];
         header("Location: " . SITE_URL . "/account");
         exit();

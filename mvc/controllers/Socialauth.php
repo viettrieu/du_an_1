@@ -1,5 +1,6 @@
 <?php
 
+use Core\Helper;
 use Core\loginfb;
 use Core\LoginMail;
 use Core\Zalologin;
@@ -52,8 +53,7 @@ class SocialAuth extends Controller
     if (count($user) > 0) {
       $IdUser = $this->SocialAuthModel->Get($column . '=' . $user['id']);
       if (isset($IdUser)) {
-        $result = $this->SocialAuthModel->Check($IdUser);
-        $_SESSION['user'] = $result;
+        $_SESSION['user'] = Helper::fixUrlImg($this->SocialAuthModel->Check((int)$IdUser), "avatar", true);
         $_SESSION['user']['wishlist'] = explode(",", $_SESSION['user']['wishlist']);
         setcookie("social_user", "", time() - 3600);
       } else {

@@ -1,4 +1,7 @@
 <?php
+
+use Core\Helper;
+
 class Review extends Controller
 {
   public $ListReview;
@@ -15,7 +18,7 @@ class Review extends Controller
     $this->view("admin/page-full", [
       "Page" => "review",
       "Title" => "Đánh giá",
-      "ListReview" => $this->ListReview->GetAllReview(),
+      "ListReview" => Helper::fixUrlImg($this->ListReview->GetAllReview(), "avatar"),
     ]);
   }
   function Delete($id = 0)
