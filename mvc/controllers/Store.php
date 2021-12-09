@@ -13,6 +13,7 @@ class Store extends Controller
     public $page;
     public $offset;
     public $ListAuthor;
+    public $ListPublisher;
     public $perPage = 12;
     function __construct()
     {
@@ -24,6 +25,7 @@ class Store extends Controller
         $this->ListReview = $this->model("ReviewModel");
         $this->User = $this->model("UserModel");
         $this->ListAuthor = $this->model("AuthorModel");
+        $this->ListPublisher = $this->model("PublisherModel");
     }
     function SayHi()
     {
@@ -35,7 +37,8 @@ class Store extends Controller
             "ListProduct" => $this->ListProduct->GetByTaxonomy(0, "all", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
-            "ListAuthor" => $this->ListAuthor->GetOneAuthor(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
@@ -51,6 +54,54 @@ class Store extends Controller
             "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "category", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
+            "id" => $id,
+            "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
+        ]);
+    }
+
+    function Author($id)
+    {
+        $totalProduct = $this->ListProduct->GetByTaxonomy($id, "author");
+        $base_url = SITE_URL . "/store/author/$id";
+        $this->view("page-full", [
+            "Page" => "author",
+            "Title" => "Tác giả",
+            "Author" => $this->ListAuthor->GetAuthorById($id),
+            "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "author", $this->offset, $this->perPage),
+            "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
+        ]);
+    }
+    function Rating($id)
+    {
+        $totalProduct = $this->ListProduct->GetByTaxonomy($id, "rating");
+        $base_url = SITE_URL . "/store/rating/$id";
+        $this->view("page-left", [
+            "Page" => "store",
+            "Title" => "Đánh giá từ " . $id . " sao",
+            "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "rating", $this->offset, $this->perPage),
+            "ListCategory" => $this->ListCategory->GetAllCategory(),
+            "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
+            "id" => $id,
+            "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
+        ]);
+    }
+    function Publisher($id)
+    {
+        $totalProduct = $this->ListProduct->GetByTaxonomy($id, "publisher");
+        $base_url = SITE_URL . "/store/publisher/$id";
+        $publisher = $this->ListPublisher->GetPublisherById($id);
+        $this->view("page-left", [
+            "Page" => "store",
+            "Title" => "Nhà xuất bản " . $publisher['title'],
+            "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "publisher", $this->offset, $this->perPage),
+            "ListCategory" => $this->ListCategory->GetAllCategory(),
+            "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
             "id" => $id,
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
@@ -66,6 +117,8 @@ class Store extends Controller
             "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "tag", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
             "id" => $id,
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
@@ -144,6 +197,8 @@ class Store extends Controller
             "Title" => "Từ khóa: " . $key,
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
+            "ListAuthor" => $this->ListAuthor->GetAllAuthor(),
+            "ListPublisher" => $this->ListPublisher->GetAllPublisher(),
             "ListProduct" => $ListProduct,
             "Key" => $key,
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),

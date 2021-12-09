@@ -9,7 +9,7 @@
     <div class="large-3 col sidebar">
       <?php include_once('./mvc/views/block/shop-sidebar.php') ?>
     </div>
-    <div class="large-9 col-nop">
+    <div class="large-9 col-nop  medium-col-first">
       <?php require_once "./mvc/views/pages/" . $data["Page"] . ".php" ?>
     </div>
   </div>
