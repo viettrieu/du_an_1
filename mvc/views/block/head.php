@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= $title ?> | Đặt Món & Giao ship tận nơi | 30 phút giao hàng | Đảm bảo chất lượng</title>
+  <title><?= $title ?> | Đặt Sách & Giao ship tận nơi | Đảm bảo chất lượng</title>
   <meta name="title" content="Foodo | Đặt Món & Giao ship tận nơi | 30 phút giao hàng | Đảm bảo chất lượng">
   <meta name="description"
     content="Hamburger bò là đồ ăn nhanh ngon, nhiều chất dinh dưỡng, được rất nhiều người ưa chuộng trên thế giới. Nhiều người thường ăn ở ngoài hàng do e ngại quy trình chế biến phức tạp">
