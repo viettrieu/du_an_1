@@ -195,7 +195,9 @@ $(document).ready(function () {
     },
   });
   var btn = $("#back-to-top");
+  let aosi = 0;
   $(window).scroll(function () {
+    aosi = 0;
     if ($(window).scrollTop() > 300) {
       btn.addClass("show");
     } else {
@@ -205,6 +207,16 @@ $(document).ready(function () {
   btn.on("click", function (e) {
     e.preventDefault();
     $("html, body").animate({ scrollTop: 0 }, "300");
+  });
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: -100,
+  });
+
+  document.addEventListener("aos:in", ({ detail }) => {
+    $(detail).attr("data-aos-delay", aosi * 200);
+    aosi++;
   });
 });
 // window.addEventListener("load", function () {
@@ -478,8 +490,3 @@ $("#mailchimp").submit(function () {
     });
   });
 })();
-AOS.init({
-  duration: 1000,
-  once: true,
-  offset: -80,
-});
