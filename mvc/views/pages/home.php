@@ -76,8 +76,8 @@
     <?php
         $sellList =  $data['sell'];
         if (count($sellList) > 0) {
-            foreach ($sellList as $product) { ?>
-    <div class="col medium-4 small-6 large-3">
+            foreach ($sellList as $key => $product) { ?>
+    <div class="col medium-4 small-6 large-3" data-aos="fade-up" data-aos-delay="<?= $key * 200 ?>">
       <div class="col-inner">
         <?php require "./mvc/views/block/product.php" ?>
       </div>
