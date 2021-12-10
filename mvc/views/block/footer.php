@@ -216,6 +216,7 @@ if (!isset($_SESSION['cart'])) {
   echo "let SITE_URL = '" . SITE_URL . "';"; ?>
 </script>
 <script src="<?= SITE_URL ?>/public/js/owl.carousel.js"></script>
+<script src="<?= SITE_URL ?>/public/js/aos.js"></script>
 <script src="<?= SITE_URL ?>/public/js/main.js"></script>
 <script src="<?= SITE_URL ?>/public/js/add-cart.js"></script>
 <script src="<?= SITE_URL ?>/public/js/mini-cart.js"></script>

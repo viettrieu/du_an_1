@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/style.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/home.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/modal.css" />
+  <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/aos.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/toastr/toastr.css">
   <script src="<?= SITE_URL ?>/public/js/jquery-3.5.1.min.js"></script>
@@ -32,9 +33,19 @@
   gtag('js', new Date());
   gtag('config', 'G-SKZBRYFQ9J');
   </script>
+  <?php if ($data["Page"] == "home") : ?>
   <style>
   body {
     background-color: #f4f3ec !important;
   }
+
+  #wrapper {
+    margin: 30px;
+    color: #696969;
+    background-color: #fff;
+    border-color: #ededed;
+  }
   </style>
+
+  <?php endif; ?>
 </head>

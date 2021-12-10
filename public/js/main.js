@@ -461,8 +461,10 @@ $("#mailchimp").submit(function () {
     });
   });
   $(document).on("click", "#newest .load-more", function (e) {
+    var spinner = '<span class="spinner"></span>';
+    $(this).addClass("loading").html(spinner);
     e.preventDefault();
-    const href = $(this).attr("href");
+    const href = $(this).data("href");
     const id = $(this).data("id");
     $.ajax({
       url: href,
@@ -476,3 +478,8 @@ $("#mailchimp").submit(function () {
     });
   });
 })();
+AOS.init({
+  duration: 1000,
+  once: true,
+  offset: -80,
+});

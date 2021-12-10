@@ -253,8 +253,9 @@ class Store extends Controller
         $base_url = SITE_URL . "/store/loadmore/$name/$id";
         $listProduct = $this->ListProduct->GetByTaxonomy($id, $name, $offset, $perPage);
         $gg = '';
-        foreach ($listProduct as $product) {
-            $gg .= '<div class="col medium-4 small-6 large-3">
+        foreach ($listProduct as $key => $product) {
+            $key = $key * 200;
+            $gg .= '<div class="col medium-4 small-6 large-3" data-aos="fade-up" data-aos-delay="' . $key . '">
             <div class="col-inner">';
             ob_start();
             require "./mvc/views/block/product.php";
@@ -263,10 +264,10 @@ class Store extends Controller
         }
         $loadMore = "";
         if ($this->page < $totalPages) {
-            $loadMore = '<div class="col small-12 large-12"><a href="' . $base_url . '&page=' . $page
-                . '" class="button load-more" data-id="' . $id . '">
-            EXPLORE NOW
-        </a></div>';
+            $loadMore = '<div class="col small-12 large-12"><button data-href="' . $base_url . '&page=' . $page
+                . '" class="load-more" data-id="' . $id . '">
+            XEM THÊM
+        </button></div>';
         }
         echo json_encode([$gg, $loadMore]);
         exit;

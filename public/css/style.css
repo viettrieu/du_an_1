@@ -93,12 +93,6 @@ body {
   color: rgb(108, 108, 108);
   /* background-color: #f4f3ec !important; */
 }
-#wrapper {
-  margin: 30px;
-  color: #696969;
-  background-color: #fff;
-  border-color: #ededed;
-}
 h1,
 h2,
 h3,
@@ -2103,8 +2097,10 @@ ul.links li {
   background-repeat: no-repeat;
   background-position: center center;
   background: #f7f4ef;
-  background-image: url(../img/breadcrumb.jpg);
-  background-size: cover;
+  /* background-image: url(../img/breadcrumb.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center, right; */
   margin: 0 0 2.617924em;
   padding: 2.617924em 0;
   text-align: center;
@@ -3606,4 +3602,55 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
+}
+
+.load-more {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: none;
+  outline: none;
+  background-color: var(--primary-color);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  font-size: 1.6rem;
+  padding: 1rem 5rem;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.loading {
+  border-radius: 50px;
+  width: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.load-more.loading::after {
+  width: 40px;
+  left: 5px;
+  top: 12px;
+  border-radius: 100%;
+}
+.spinner {
+  display: block;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 8px;
+  left: calc(50% - 17px);
+  background: transparent;
+  box-sizing: border-box;
+  border-top: 4px solid white;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-radius: 100%;
+  animation: spin 0.6s ease-out infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
