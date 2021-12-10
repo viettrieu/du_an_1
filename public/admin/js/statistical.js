@@ -70,20 +70,28 @@ $(document).ready(function () {
         console.log(data);
         let products = ``;
         data.forEach((product) => {
+          let price = ``;
+          if (product.discount > 0) {
+            price += `<del aria-hidden="true">
+        <span>${formatCash(product.price)}<sup>đ</sup></span>
+      </del>`;
+          }
+          price += `<ins class="sizeprice-1">
+        <span>${formatCash(
+          product.discount > 0 ? product.discount : product.price
+        )}<sup>đ</sup></span>
+        </ins>`;
+
           products += `<tr>
           <td class="id">${product.id}</td>
           <td>
             <h2 class="table-avatar">
-              <a href="${SITE_URL}/store/product/${
-            product.id
-          }"><img class="avatar avatar-lg mr-2 avatar-img rounded" src="${SITE_URL}${
-            product.thumbnail
-          }" alt="${product.title}">
+              <a href="${SITE_URL}/store/product/${product.id}"><img class="avatar avatar-lg mr-2 avatar-img rounded" src="${SITE_URL}${product.thumbnail}" alt="${product.title}">
                 <span class="title">${product.title}</span>
               </a>
             </h2>
           </td>
-          <td>${formatCash(product.price)}<sup>đ</sup></td>
+          <td>${price}</td>
           <td class="text-right">${product.quantity}</td>
         </tr>`;
         });

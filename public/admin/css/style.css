@@ -1975,6 +1975,7 @@ html.menu-opened body {
   flex-direction: column;
   justify-content: flex-end;
   margin-left: 0;
+  margin-right: 20px;
 }
 .chat-window
   .chat-cont-right
@@ -4344,4 +4345,7 @@ input[type="number"] {
 }
 div.dataTables_wrapper div.dataTables_length select {
   width: 60px;
+}
+ins {
+  text-decoration: none;
 }

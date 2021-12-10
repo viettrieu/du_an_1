@@ -58,7 +58,12 @@
                         </a>
                       </h2>
                     </td>
-                    <td><?= $product['author']; ?></td>
+                    <td>
+                      <?php
+                          $author = json_decode('[' . $product["author"] . ']', true);
+                          echo implode(", ", array_column($author, "title"))
+                          ?>
+                    </td>
                     <td><?= $product['publisher']; ?></td>
                     <td class="status">
                       <span
@@ -66,7 +71,16 @@
                         <?= $product['quantity'] == null || $product['quantity']  > 10 ? 'Còn hàng' : ($product['quantity'] == 0 ? 'Hết hàng' : 'Sắp hết'); ?>
                       </span>
                     </td>
-                    <td><?= number_format($product['price'], 0, ',', '.'); ?><sup>đ</sup></td>
+                    <td>
+                      <?php if (isset($product["discount"])) : ?>
+                      <del aria-hidden="true">
+                        <span><?= number_format($product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </del>
+                      <?php endif ?>
+                      <ins class="sizeprice-1">
+                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </ins>
+                    </td>
                     <td class="text-right">
                       <a href="<?= ADMIN_URL ?>/product/edit/<?= $product['id']; ?>"
                         class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i>Sửa</a>

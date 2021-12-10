@@ -154,7 +154,16 @@ p.text-muted.mt-3.mb-0 {
                         </a>
                       </h2>
                     </td>
-                    <td><?= number_format($product['price'], 0, ',', '.'); ?><sup>đ</sup></td>
+                    <td>
+                      <?php if (isset($product["discount"])) : ?>
+                      <del aria-hidden="true">
+                        <span><?= number_format($product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </del>
+                      <?php endif ?>
+                      <ins class="sizeprice-1">
+                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </ins>
+                    </td>
                     <td class="text-right">
                       <?= $product['quantity']; ?>
                     </td>
@@ -207,7 +216,16 @@ p.text-muted.mt-3.mb-0 {
                         </a>
                       </h2>
                     </td>
-                    <td><?= number_format($product['price'], 0, ',', '.'); ?><sup>đ</sup></td>
+                    <td>
+                      <?php if (isset($product["discount"])) : ?>
+                      <del aria-hidden="true">
+                        <span><?= number_format($product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </del>
+                      <?php endif ?>
+                      <ins class="sizeprice-1">
+                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                      </ins>
+                    </td>
                     <td class="text-right">
                       <?= $product['quantity']; ?>
                     </td>
