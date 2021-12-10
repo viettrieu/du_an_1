@@ -7,11 +7,11 @@
   </div>
   <div class="col medium-6 small-12 large-5">
     <div class="author-info">
-      <h4 class="text-center" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">
+      <h4 class="author-name ma-1" href="https://auteur.g5plus.net/product-author/shia-ung/" title="Shia Ung">
         <?= $author['title'] ?></a>
       </h4>
-      <div class="author-quote">" <?= $author['quote'] ?>"</div>
-      <ul class="social-media">
+      <div class="author-quote"> "<?= $author['quote'] ?>"</div>
+      <ul class="social-media ma-2">
         <li>
           <a class="facebook" href="<?= $author['fblink'] ?>" target="blank">
             <i class="fab fa-facebook-f"></i>
@@ -31,6 +31,10 @@
     </div>
   </div>
 </div>
+<div class="title container text-center" style="margin-bottom: 70px;margin-top: 70px">
+    <h2>Sách của tác giả</h2>
+    <img src="<?= SITE_URL ?>/public/img/title.png" />
+  </div>
 <div class="row">
   <?php
   $ListProduct =  $data['ListProduct'];
