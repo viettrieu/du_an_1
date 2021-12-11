@@ -555,9 +555,13 @@ $("#order_list").on("click", ".dropdown-item.status", function (e) {
   }).then((result) => {
     if (result.isConfirmed) {
       if (result.value == "true") {
-        for (let i = 1; i <= idStatus; i++) {
-          $(this).closest("tr").find("[data-id=" + i + "]").remove();
-        }
+        if (idStatus < 5){
+          for (let i = 1; i <= idStatus; i++) {
+            $(this).closest("tr").find("[data-id=" + i + "]").remove();
+          }
+        }else{
+          $(this).closest("tr").find(".dropdown-action").remove();
+        }  
         status
           .empty()
           .append(`<span class="bg-status-${idStatus}">${textStatus}</span>`);

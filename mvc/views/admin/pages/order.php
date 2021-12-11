@@ -114,7 +114,8 @@
                         <td class="text-right">
                           <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i class="far fa-eye mr-1"></i>View
                           </a>
-                          <div class="dropdown dropdown-action" style=" display: inline-block; ">
+                          <?php if($order['status'] < 5 ){ ?>
+                            <div class="dropdown dropdown-action" style=" display: inline-block; ">
                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -126,6 +127,7 @@
                               <?php endforeach ?>
                             </div>
                           </div>
+                           <?php } ?>
                         </td>
                       </tr>
                   <?php }
