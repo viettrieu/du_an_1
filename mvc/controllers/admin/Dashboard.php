@@ -25,7 +25,7 @@ class Dashboard extends Controller
       "Page" => "dashboard",
       "Title" => "Dashboard",
       "Count" => [$this->Statistical->count("book"), $this->Statistical->count("users"), $this->Statistical->count("order_item"), $this->Statistical->count("book_review"),],
-      "WishlistProduct" => $this->Statistical->GetWishlistProduct(5),
+      "WishlistProduct" => $this->Statistical->GetWishlistProduct(1,5),
       "HotProduct" => $this->Statistical->GetHotProduct(1, $sd, $en, 5),
       "ListCategory" => $this->ListCategory->GetAllCategory(),
     ]);
