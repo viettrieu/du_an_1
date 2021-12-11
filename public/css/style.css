@@ -469,12 +469,12 @@ ul {
 }
 .header-top {
   position: relative;
-  background-color: var(--primary-color);
+  background-color: #fff ;
   min-height: 5rem;
 }
 .header-top .nav.social-icons a,
 .header-top .nav.top-bar-nav a {
-  color: #fff;
+  color: rgb(19, 18, 18);
 }
 .header-top .flex-right {
   flex: unset;
@@ -1901,7 +1901,7 @@ margin-left: auto;*/
   position: fixed;
   width: 100%;
   height: calc(100vh - 16rem);
-  background-color: var(--primary-color);
+  background-color: #fff;
   left: -100%;
   top: 16rem;
   z-index: 999;
@@ -1916,7 +1916,7 @@ margin-left: auto;*/
   margin: 2.35rem 0;
 }
 #header-bottom .nav > li a {
-  color: #fff;
+  color: rgb(8, 8, 8);
   font-size: 2rem;
 }
 #header-bottom.nav-active {
