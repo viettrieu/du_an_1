@@ -522,12 +522,12 @@ function deleteItem(element, action, item) {
   });
 }
 
-$("#order_list").on("click", ".status", function (e) {
+$("#order_list").on("click", ".dropdown-item.status", function (e) {
   $this = $(this);
   let idOrder = $(this).closest("tr").find(".id").text();
   let idStatus = $(this).data("id");
   let textStatus = $(this).text();
-  let status = $(this).closest("tr").find(".status");
+  let status = $(this).closest("tr").find("td.status");
   var postForm = {
     idOrder,
     idStatus,
@@ -555,6 +555,9 @@ $("#order_list").on("click", ".status", function (e) {
   }).then((result) => {
     if (result.isConfirmed) {
       if (result.value == "true") {
+        for (let i = 1; i <= idStatus; i++) {
+          $(this).closest("tr").find("[data-id=" + i + "]").remove();
+        }
         status
           .empty()
           .append(`<span class="bg-status-${idStatus}">${textStatus}</span>`);
