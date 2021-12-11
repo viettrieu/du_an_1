@@ -4,7 +4,6 @@ function removeItemFromWishlist(e) {
   let postForm = {
     productId,
   };
-  console.log(productId);
   $.ajax({
     type: "POST",
     url: SITE_URL + "/wishlist/remove",

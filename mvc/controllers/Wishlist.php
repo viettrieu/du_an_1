@@ -13,9 +13,7 @@ class Wishlist extends Controller
     $this->wishlist = $this->model("WishlistModel");
     $this->User = $this->model("UserModel");
     $this->product = $this->model("ProductModel");
-    if (!isset($_SESSION["user"])) {
-      header("Location: " . SITE_URL . "/login");
-    } else {
+    if (isset($_SESSION["user"])) {
       $userlg = $_SESSION["user"];
       $this->UserById = $this->User->GetUserById($userlg["username"]);
     }
@@ -23,6 +21,9 @@ class Wishlist extends Controller
 
   function SayHi()
   {
+    if (!isset($_SESSION["user"])) {
+      header("Location: " . SITE_URL . "/login");
+    }
     $this->view("page-full", [
       "Page" => "wishlist",
       "Title" => "Wishlist",
