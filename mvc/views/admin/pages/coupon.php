@@ -53,10 +53,10 @@
                     <td><?= $coupon['code']; ?></td>
                     <td><?= $coupon['type'] == 0 ? "Phần trăm" : "Cố định"; ?></td>
                     <td>
-                      <?= $coupon['type'] == 0 ? $coupon['discount'] . "%" : number_format($coupon['discount'], 0, ',', '.') . " <sup>đ</sup>"; ?>
+                      <?= $coupon['type'] == 0 ? $coupon['discount'] . "%" : number_format($coupon['discount'], 0, ',', '.') . "₫"; ?>
                     </td>
                     <td>
-                      <?= $coupon['minOrder'] == NULL ? "∞" :  number_format($coupon['minOrder'], 0, ',', '.') . " <sup>đ</sup>"; ?>
+                      <?= $coupon['minOrder'] == NULL ? "∞" :  number_format($coupon['minOrder'], 0, ',', '.') . "₫"; ?>
                     </td>
                     <td><?= $coupon['usages']; ?>/<?= $coupon['usageLimit'] == NULL ? "∞" : $coupon['usageLimit']; ?>
                     </td>

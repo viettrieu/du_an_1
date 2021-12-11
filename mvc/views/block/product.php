@@ -28,7 +28,9 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
       </ul>
     </div>
     <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>">
-      <span class="on-sale product-flash">Sale</span>
+      <?php if (isset($product["discount"])) : ?>
+      <span class="on-sale product-flash"><?= round(($product["discount"] / $product["price"]) * 100 - 100) ?>% </span>
+      <?php endif ?>
       <span class="on-featured product-flash">Hot</span>
       <img src="<?= SITE_URL ?>/<?= $product["thumbnail"] ?>" alt="<?= $product["title"] ?>">
       <?php if ($product["rating"] != NULL) : ?>
@@ -44,11 +46,11 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
     <span class="price">
       <?php if (isset($product["discount"])) : ?>
       <del aria-hidden="true">
-        <span><?= number_format($product["price"], 0, ',', '.') ?></span><sup>đ</sup>
+        <span><?= number_format($product["price"], 0, ',', '.') ?>₫</span>
       </del>
       <?php endif ?>
       <ins class="sizeprice-1">
-        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span></ins>
+        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?>₫</span></ins>
     </span>
     <h4 class="product-title">
       <a href="<?= SITE_URL ?>/store/product/<?= $product["id"] ?>"><?= $product["title"] ?></a>
@@ -56,7 +58,8 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
     <div class="product-author"><span>By</span>
       <?php
       $author = json_decode('[' . $product["author"] . ']', true);
-      foreach ($author as $a) : ?>
+      foreach ($author as $key => $a) : ?>
+      <?= $key > 0 ? ", " : "" ?>
       <a href="<?= SITE_URL ?>/store/author/<?= $a["id"] ?>" rel="tag"><?= $a["title"] ?></a>
       <?php endforeach ?>
     </div>

@@ -24,8 +24,7 @@
             <th>Tạm tính</th>
             <td>
               <strong>
-                <span class="subtotal"></span>
-                <sup>đ</sup>
+                <span class="subtotal"></span>₫
               </strong>
             </td>
           </tr>
@@ -33,8 +32,7 @@
             <th>Tổng</th>
             <td>
               <strong>
-                <span class="total"></span>
-                <sup>đ</sup>
+                <span class="total"></span>₫
               </strong>
             </td>
           </tr>

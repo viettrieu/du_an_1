@@ -401,7 +401,7 @@ function showCoupon(discount) {
     info = `<tr class="cart-discount">
     <th>Coupon: ${coupon["code"]}</th>
     <td>-<span class="discount">${formatCash(discount)}</span>
-      <sup>đ</sup> <a href="" id="remove-coupon">[xóa]</a>
+      ₫ <a href="" id="remove-coupon">[xóa]</a>
     </td>
   </tr>`;
   }

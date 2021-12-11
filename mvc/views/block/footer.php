@@ -37,7 +37,7 @@
         <span>Tạm tính:</span>
         <span class="price-total">
           <span class="total"></span>
-          <sup>đ</sup>
+          ₫
         </span>
       </strong>
       <a href="<?= SITE_URL ?>/checkout" class="button secondary">
@@ -157,10 +157,7 @@
     <div class="col medium-6 small-12 large-3">
       <div class="col-inner">
         <h5 class="text-center">MAP</h5>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.281541581405!2d108.11218031526086!3d10.942092459104883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317683143e7bae9d%3A0xaefd8984ce71af22!2zVHLGsOG7nW5nIFRIUFQgQ2h1ecOqbiBUcuG6p24gSMawbmcgxJDhuqFv!5e0!3m2!1svi!2s!4v1611763060560!5m2!1svi!2s"
-          width="100%" height="200" frameborder="0" style="border: 0" allowfullscreen="" aria-hidden="false"
-          tabindex="0"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.281541581405!2d108.11218031526086!3d10.942092459104883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317683143e7bae9d%3A0xaefd8984ce71af22!2zVHLGsOG7nW5nIFRIUFQgQ2h1ecOqbiBUcuG6p24gSMawbmcgxJDhuqFv!5e0!3m2!1svi!2s!4v1611763060560!5m2!1svi!2s" width="100%" height="200" frameborder="0" style="border: 0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
       </div>
     </div>
   </div>
@@ -177,8 +174,7 @@
 <div class="support-nav">
   <ul>
     <li>
-      <a href="https://www.google.com/maps?ll=10.942087,108.114369&z=15&t=m&hl=vi&gl=US&mapclient=embed&cid=12609385735199502114"
-        rel="nofollow" target="_blank"><i class="ticon-heart"></i>Tìm đường</a>
+      <a href="https://www.google.com/maps?ll=10.942087,108.114369&z=15&t=m&hl=vi&gl=US&mapclient=embed&cid=12609385735199502114" rel="nofollow" target="_blank"><i class="ticon-heart"></i>Tìm đường</a>
     </li>
     <li>
       <a href="https://zalo.me/0961174894" rel="nofollow" target="_blank"><i class="ticon-zalo-circle2"></i>Chat
@@ -193,8 +189,7 @@
       </a>
     </li>
     <li>
-      <a href="https://www.messenger.com/t/nghia.l.t" rel="nofollow" target="_blank"><i
-          class="ticon-messenger"></i>Messenger</a>
+      <a href="https://www.messenger.com/t/nghia.l.t" rel="nofollow" target="_blank"><i class="ticon-messenger"></i>Messenger</a>
     </li>
     <li>
       <a href="sms:0961174894" class="chat_animation">
@@ -208,7 +203,7 @@ if (!isset($_SESSION['cart'])) {
   $_SESSION['cart'] = ['item' => []];
 } ?>
 <script>
-<?php
+  <?php
   $listCart = $_SESSION['cart']['item'];
   $coupon = isset($_SESSION['cart']['coupon']) ? $_SESSION['cart']['coupon'] : [];
   echo "let cart = " . json_encode($listCart) . ";";
@@ -224,72 +219,72 @@ if (!isset($_SESSION['cart'])) {
 <script src="<?= SITE_URL ?>/public/plugins/select2/js/select2.min.js"></script>
 <script src="<?= SITE_URL ?>/public/plugins/toastr/toastr.js"></script>
 <?php if ($data["Page"] == "faq") : ?>
-<script>
-(function($) {
-  $(".accordion > li:eq(0) a").addClass("active").next().slideDown();
-  $(".accordion a").click(function(j) {
-    var dropDown = $(this).closest("li").find("p");
+  <script>
+    (function($) {
+      $(".accordion > li:eq(0) a").addClass("active").next().slideDown();
+      $(".accordion a").click(function(j) {
+        var dropDown = $(this).closest("li").find("p");
 
-    $(this).closest(".accordion").find("p").not(dropDown).slideUp();
+        $(this).closest(".accordion").find("p").not(dropDown).slideUp();
 
-    if ($(this).hasClass("active")) {
-      $(this).removeClass("active");
-    } else {
-      $(this)
-        .closest(".accordion")
-        .find("a.active")
-        .removeClass("active");
-      $(this).addClass("active");
-    }
-    dropDown.stop(false, true).slideToggle();
-    j.preventDefault();
-  });
-})(jQuery);
-</script>
+        if ($(this).hasClass("active")) {
+          $(this).removeClass("active");
+        } else {
+          $(this)
+            .closest(".accordion")
+            .find("a.active")
+            .removeClass("active");
+          $(this).addClass("active");
+        }
+        dropDown.stop(false, true).slideToggle();
+        j.preventDefault();
+      });
+    })(jQuery);
+  </script>
 <?php endif; ?>
 
 <?php if ($data["Page"] == "account") : ?>
-<script>
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-      $('#imagePreview').hide();
-      $('#imagePreview').fadeIn(650);
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+          $('#imagePreview').hide();
+          $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-$("#imageUpload").change(function() {
-  readURL(this);
-});
-</script>
+    $("#imageUpload").change(function() {
+      readURL(this);
+    });
+  </script>
 <?php endif; ?>
 <?php if ($data["Page"] == "cart") : ?>
-<script src="<?= SITE_URL ?>/public/js/cart.js"></script>
+  <script src="<?= SITE_URL ?>/public/js/cart.js"></script>
 <?php endif; ?>
 <?php if ($data["Page"] == "wishlist") : ?>
-<script src="<?= SITE_URL ?>/public/js/wishlist.js"></script>
+  <script src="<?= SITE_URL ?>/public/js/wishlist.js"></script>
 <?php endif; ?>
 <?php if ($data["Page"] == "checkout") : ?>
-<script src="<?= SITE_URL ?>/public/js/checkout.js"></script>
+  <script src="<?= SITE_URL ?>/public/js/checkout.js"></script>
 <?php endif; ?>
 <?php if ($data["Page"] == "forgot_password") : ?>
-<script src="<?= SITE_URL ?>/public/js/sms.js"></script>
-<div id="rcccont"></div>
-<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCc2CNzGp-0MXOF7e3_rFB8jkJ0oXXkwfs",
-  authDomain: "myxit-8fa60.firebaseapp.com",
-  projectId: "myxit-8fa60",
-  storageBucket: "myxit-8fa60.appspot.com",
-  messagingSenderId: "48579088544",
-  appId: "1:48579088544:web:9aff3b8437922b310b79c5",
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-</script>
+  <script src="<?= SITE_URL ?>/public/js/sms.js"></script>
+  <div id="rcccont"></div>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCc2CNzGp-0MXOF7e3_rFB8jkJ0oXXkwfs",
+      authDomain: "myxit-8fa60.firebaseapp.com",
+      projectId: "myxit-8fa60",
+      storageBucket: "myxit-8fa60.appspot.com",
+      messagingSenderId: "48579088544",
+      appId: "1:48579088544:web:9aff3b8437922b310b79c5",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 <?php endif; ?>

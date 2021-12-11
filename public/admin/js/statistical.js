@@ -73,13 +73,13 @@ $(document).ready(function () {
           let price = ``;
           if (product.discount > 0) {
             price += `<del aria-hidden="true">
-        <span>${formatCash(product.price)}</span><sup>đ</sup>
+        <span>${formatCash(product.price)}₫</span>
       </del>`;
           }
           price += `<ins class="sizeprice-1">
         <span>${formatCash(
           product.discount > 0 ? product.discount : product.price
-        )}<sup>đ</sup></span>
+        )}₫</span>
         </ins>`;
 
           products += `<tr>

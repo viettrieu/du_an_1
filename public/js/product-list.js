@@ -120,7 +120,7 @@ let showProduct = (products, n) => {
             </div>
           <span class="price" data-price="${products[index].price}">
               <span class="unit-price"></span>
-              <sup>đ</sup>
+              ₫
           </span>
           <div class="add-the-cart">
               <a href="#" data-id="${products[index].id}">

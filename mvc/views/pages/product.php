@@ -27,7 +27,7 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
         <a href="#" class="bpfw-btn bpfw-action-flip">
           <span>Flip to Back</span>
         </a>
-        <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&amp;product_id=126&amp;acds_read_book_nonce=1606f631e6"
+        <a href="https://auteur.g5plus.net/wp-admin/admin-ajax.php?action=bpfw_read_book&product_id=126&acds_read_book_nonce=1606f631e6"
           class="bpfw-btn bpfw-action-read-book">
           <span>Look inside</span>
         </a>
@@ -36,23 +36,23 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
   </div>
   <div class="col medium-6 small-12 large-5">
     <h1 class="entry-title product-title"><?= $Cproduct['title']; ?></h1>
+    <?php if ($data["AVGReview"] != NULL) : ?>
     <div class="product-rating view">
-      <?php if ($data["AVGReview"] != NULL) : ?>
       <div class="star-rating" style=" margin-right: 10px; ">
         <div class="star-ratings-css" style=" font-size: 2rem; ">
           <div class="star-ratings-inner" style="width: <?= $data["AVGReview"] * 20 ?>%"></div>
         </div>
-      </div>
-      <?php endif ?>
+      </div><a href="#reviews" id="show_review">(Xem <?= count($data['ListReview']) ?> đánh giá)</a>
     </div>
+    <?php endif ?>
     <span class="price product-price">
       <?php if (isset($Cproduct["discount"])) : ?>
       <del aria-hidden="true">
-        <span><?= number_format($Cproduct["price"], 0, ',', '.') ?></span><sup>đ</sup>
+        <span><?= number_format($Cproduct["price"], 0, ',', '.') ?>₫</span>
       </del>
       <?php endif ?>
       <ins class="sizeprice">
-        <span><?= number_format(isset($Cproduct["discount"]) ? $Cproduct["discount"] : $Cproduct["price"], 0, ',', '.') ?><sup>đ</sup></span>
+        <span><?= number_format(isset($Cproduct["discount"]) ? $Cproduct["discount"] : $Cproduct["price"], 0, ',', '.') ?>₫</span>
       </ins>
     </span>
     <div class="product-short-description">
@@ -107,36 +107,38 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
       ?>
       </span>
     </div>
+
     <div class="social-share">
       <span class="social-share-title">Chia sẻ:</span>
       <ul class="social-media">
         <li>
-          <a class="facebook" href="#" target="blank">
+          <a class="facebook"
+            href="https://www.facebook.com/share.php?u=<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>&title=<?= $Cproduct['title']; ?>"
+            target="blank">
             <i class="fab fa-facebook-f"></i>
           </a>
         </li>
         <li>
-          <a class="twitter" href="#" target="blank">
+          <a class="twitter"
+            href="https://twitter.com/intent/tweet?status=<?= $Cproduct['title']; ?>+<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"
+            target="blank">
             <i class="fab fa-twitter"></i>
           </a>
         </li>
         <li>
-          <a class="linkedin" href="#" target="blank">
+          <a class="linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&url=<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>&title=<?= $Cproduct['title']; ?>&source={{source}}"
+            target="blank">
             <i class="fab fa-linkedin-in"></i>
           </a>
         </li>
         <li>
-          <a class="pinterest" href="#" target="blank">
+          <a class="pinterest"
+            href="https://pinterest.com/pin/create/bookmarklet/?media=<?= SITE_URL ?>/<?= $Cproduct["thumbnail"] ?>&url=<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>&is_video=false&description=<?= $Cproduct['title']; ?>"
+            target="blank">
             <i class="fab fa-pinterest"></i>
           </a>
         </li>
-      </ul>
-    </div>
-    <div class="product-extra-info">
-      <ul>
-        <li>Free global shipping on all orders</li>
-        <li>30 days easy returns if you change your mind</li>
-        <li>Order before noon for same day dispatch</li>
       </ul>
     </div>
   </div>
@@ -332,9 +334,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const tabs = document.querySelectorAll(".tab-item");
   const panes = document.querySelectorAll(".tab-pane");
   const tabActive = document.querySelector(".tab-item.active");
+  $("#show_review").click(showTabReview);
 
-  if (window.location.hash) {
-    var tab = window.location.hash.replace('#', '');
+  function showTabReview() {
+    var tab = "reviews";
     if (document.getElementById(tab)) {
       document
         .querySelector(".tab-item.active")
@@ -345,7 +348,9 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById(tab).classList.add("active");
       document.querySelector(".tab-pane.reviews").classList.add("active");
     }
-
+  }
+  if (window.location.hash) {
+    showTabReview()
   }
   tabs.forEach((tab, index) => {
     const pane = panes[index];

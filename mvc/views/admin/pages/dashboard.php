@@ -157,11 +157,11 @@ p.text-muted.mt-3.mb-0 {
                     <td>
                       <?php if (isset($product["discount"])) : ?>
                       <del aria-hidden="true">
-                        <span><?= number_format($product["price"], 0, ',', '.') ?></span><sup>đ</sup>
+                        <span><?= number_format($product["price"], 0, ',', '.') ?>₫</span>
                       </del>
                       <?php endif ?>
                       <ins class="sizeprice-1">
-                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?>₫</span>
                       </ins>
                     </td>
                     <td class="text-right">
@@ -219,11 +219,11 @@ p.text-muted.mt-3.mb-0 {
                     <td>
                       <?php if (isset($product["discount"])) : ?>
                       <del aria-hidden="true">
-                        <span><?= number_format($product["price"], 0, ',', '.') ?></span><sup>đ</sup>
+                        <span><?= number_format($product["price"], 0, ',', '.') ?>₫</span>
                       </del>
                       <?php endif ?>
                       <ins class="sizeprice-1">
-                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+                        <span><?= number_format(isset($product["discount"]) ? $product["discount"] : $product["price"], 0, ',', '.') ?>₫</span>
                       </ins>
                     </td>
                     <td class="text-right">

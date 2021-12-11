@@ -13,8 +13,7 @@ function displayCart() {
     </td>
     <td class="product-price" data-title="Giá" data-price="${cart[i].price}">
       <span class="price">
-        <span> ${formatCash(cart[i].price)}</span>
-        <sup>đ</sup>
+        <span> ${formatCash(cart[i].price)}</span>₫
       </span>
     </td>
     <td class="product-quantity" data-title="Số lượng">
@@ -32,8 +31,7 @@ function displayCart() {
     </td>
     <td class="product-subtotal" data-price="${cart[i].price}">
       <span class="price" style=" margin-left: auto; ">
-        <span>${formatCash(sum)}</span>
-        <sup>đ</sup>
+        <span>${formatCash(sum)}</span>₫
       </span>
     </td>
     <td class="product-remove">

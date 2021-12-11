@@ -11,7 +11,7 @@ function displayCheckout() {
               <td class="product-total">
               <span class="price">
                 <span class="unit-price">${formatCash(sum)}</span>
-                <sup>đ</sup>
+                ₫
               </span>
               </td>
             </tr>`;
@@ -350,7 +350,7 @@ $(document).ready(function () {
             index == 0 ? "checked" : ""
           }>
             <strong>
-            ${formatCash(data[key]["fee"])}<sup>đ</sup>
+            ${formatCash(data[key]["fee"])}₫
             </strong>(${data[key]["text"]})
             </label>`;
         });

@@ -20,8 +20,7 @@ function displayMiniCart() {
         <p>
           <strong class="product-quantity">${cart[i].quantity} ×</strong>
           <span class="price-mini-cart">
-            <span class="unit-price">${formatCash(cart[i].price)}</span>
-            <sup>đ</sup>
+            <span class="unit-price">${formatCash(cart[i].price)}</span>₫
           </span>
         </p>
       </div>

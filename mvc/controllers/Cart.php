@@ -110,7 +110,7 @@ class Cart extends Controller
         $errors[] = ["status" => "ERROR", "message" => "Coupon chưa đến ngày áp dụng"];
       }
       if ($coupon['minOrder'] > $_SESSION['cart']['subTotal'] && $coupon['minOrder'] !=  NULL) {
-        $errors[] = ["status" => "ERROR", "message" => "Đơn hản phải trên " . number_format($coupon['minOrder'], 0, ',', '.') . " <sup>đ</sup>"];
+        $errors[] = ["status" => "ERROR", "message" => "Đơn hản phải trên " . number_format($coupon['minOrder'], 0, ',', '.') . " ₫"];
       }
     }
     if (count($errors) == 0) {

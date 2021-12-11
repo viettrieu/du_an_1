@@ -21,8 +21,7 @@ $transport = $data["Transport"];
           </td>
           <td class="product-total">
             <span class="price">
-              <span class="unit-price"> <?= number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></span>
-              <sup>đ</sup>
+              <span class="unit-price"> <?= number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></span>₫
             </span>
           </td>
         </tr>
@@ -33,8 +32,7 @@ $transport = $data["Transport"];
           <th>Tạm tính</th>
           <td>
             <strong>
-              <span class="subtotal"><?= number_format($order['subTotal'], 0, ',', '.'); ?> </span>
-              <sup>đ</sup>
+              <span class="subtotal"><?= number_format($order['subTotal'], 0, ',', '.'); ?></span>₫
             </strong>
           </td>
         </tr>
@@ -42,8 +40,7 @@ $transport = $data["Transport"];
         <tr class="cart-discount">
           <th>Coupon: <?= $order['coupon']; ?></th>
           <td> <strong>
-              <span class="discount">-<?= number_format($order['discount'], 0, ',', '.'); ?></span>
-              <sup>đ</sup>
+              <span class="discount">-<?= number_format($order['discount'], 0, ',', '.'); ?></span>₫
               <strong>
           </td>
         </tr>
@@ -52,8 +49,7 @@ $transport = $data["Transport"];
           <th>Phí vận chuyển</th>
           <td data-title="Shipping">
             <strong>
-              <span><?= number_format($order['shipping'], 0, ',', '.'); ?></span>
-              <sup>đ</sup>
+              <span><?= number_format($order['shipping'], 0, ',', '.'); ?></span>₫
             </strong>
           </td>
         </tr>
@@ -61,8 +57,7 @@ $transport = $data["Transport"];
           <th>Tổng</th>
           <td>
             <strong>
-              <span class="total"><?= number_format($order['total'], 0, ',', '.'); ?></span>
-              <sup>đ</sup>
+              <span class="total"><?= number_format($order['total'], 0, ',', '.'); ?></span>₫
             </strong>
           </td>
         </tr>
@@ -90,8 +85,8 @@ $transport = $data["Transport"];
       <ul>
         <li>Mã đơn hàng: <strong><?= $order['id'] ?></strong></li>
         <li>Ngày: <strong><?= $order['published'] ?></strong></li>
-        <li>Tổng cộng: <strong><span class="total"><?= number_format($order['total'], 0, ',', '.'); ?></span>
-            <sup>đ</sup></strong></li>
+        <li>Tổng cộng: <strong><span class="total"><?= number_format($order['total'], 0, ',', '.'); ?></span>₫</strong>
+        </li>
         <li>Trạng thái: <strong><?= $order['status']; ?></strong></li>
       </ul>
     </div>

@@ -72,7 +72,7 @@
             <span class="price">
               <span class="unit-price">
                 <?php echo number_format($order['total'], 0, ',', '.'); ?>
-              </span> <sup>đ</sup>
+              </span>₫
             </span>
           </td>
           <td class="table__cell-order-actions" data-title="Các thao tác">

@@ -57,7 +57,7 @@
               <select id="categoryFilter" class="select">
                 <option value="">Tất cả</option>
                 <?php foreach ($data["Status"] as $status) : ?>
-                <option value="<?= $status["status"] ?>"> <?= $status["status"] ?></option>
+                  <option value="<?= $status["status"] ?>"> <?= $status["status"] ?></option>
                 <?php endforeach ?>
               </select>
             </div>
@@ -94,43 +94,40 @@
                   if (isset($ListOrder)) {
                     foreach ($ListOrder as $order) {
                   ?>
-                  <tr>
-                    <td class="id"><?= $order['id']; ?></td>
-                    <td>
-                      <strong><?= $order['fullName']; ?></strong>
-                      <p><?= $order['email']; ?></p>
-                    </td>
-                    <td><a href="tel:<?= $order['mobile']; ?>"><strong><?= $order['mobile']; ?></strong></a></td>
-                    <td><?= number_format($order['total'], 0, ',', '.'); ?><sup>đ</sup></td>
-                    <td><?= $order['published']; ?></td>
-                    <td class="status">
-                      <span class="bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
-                    </td>
-                    <td class="ghtk">
-                      <?php if (isset($order['tracking_id'])) : ?>
-                      <p>Mã vận đơn: <strong><?= $order['tracking_id']; ?></strong></p>
-                      <?php endif ?>
-                    </td>
-                    <td class="text-right">
-                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i
-                          class="far fa-eye mr-1"></i>View
-                      </a>
-                      <div class="dropdown dropdown-action" style=" display: inline-block; ">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                            class="fas fa-ellipsis-h"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <?php foreach ($data["Status"] as $status) : ?>
-                          <?php if ($status["id"] <= $order['status']) continue; ?>
-                          <a class="dropdown-item status" href="javascript:void(0);" data-id="<?= $status["id"] ?>"><i
-                              class="far fa-edit mr-2"></i>
-                            <?= $status["status"] ?>
+                      <tr>
+                        <td class="id"><?= $order['id']; ?></td>
+                        <td>
+                          <strong><?= $order['fullName']; ?></strong>
+                          <p><?= $order['email']; ?></p>
+                        </td>
+                        <td><a href="tel:<?= $order['mobile']; ?>"><strong><?= $order['mobile']; ?></strong></a></td>
+                        <td><?= number_format($order['total'], 0, ',', '.'); ?>₫</td>
+                        <td><?= $order['published']; ?></td>
+                        <td class="status">
+                          <span class="bg-status-<?= $order['status']; ?>"><?= $order['textStatus']; ?></span>
+                        </td>
+                        <td class="ghtk">
+                          <?php if (isset($order['tracking_id'])) : ?>
+                            <p>Mã vận đơn: <strong><?= $order['tracking_id']; ?></strong></p>
+                          <?php endif ?>
+                        </td>
+                        <td class="text-right">
+                          <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i class="far fa-eye mr-1"></i>View
                           </a>
-                          <?php endforeach ?>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                          <div class="dropdown dropdown-action" style=" display: inline-block; ">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <?php foreach ($data["Status"] as $status) : ?>
+                                <?php if ($status["id"] <= $order['status']) continue; ?>
+                                <a class="dropdown-item status" href="javascript:void(0);" data-id="<?= $status["id"] ?>"><i class="far fa-edit mr-2"></i>
+                                  <?= $status["status"] ?>
+                                </a>
+                              <?php endforeach ?>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
                   <?php }
                   } ?>
                 </tbody>

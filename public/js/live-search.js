@@ -722,7 +722,7 @@ jQuery(document).ready(function ($) {
             html +=
               '<span class="search-price">' +
               formatCash(suggestion.price) +
-              "<sup>đ</sup><span>";
+              "₫<span>";
 
           return html;
         },
