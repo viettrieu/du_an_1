@@ -253,9 +253,8 @@ class Store extends Controller
         $base_url = SITE_URL . "/store/loadmore/$name/$id";
         $listProduct = $this->ListProduct->GetByTaxonomy($id, $name, $offset, $perPage);
         $gg = '';
-        foreach ($listProduct as $key => $product) {
-            $key = $key * 200;
-            $gg .= '<div class="col medium-4 small-6 large-3" data-aos="fade-up" data-aos-delay="' . $key . '">
+        foreach ($listProduct as $product) {
+            $gg .= '<div class="col medium-4 small-6 large-3">
             <div class="col-inner">';
             ob_start();
             require "./mvc/views/block/product.php";

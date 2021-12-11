@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/style.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/home.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/modal.css" />
-  <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/aos.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/plugins/toastr/toastr.css">
   <script src="<?= SITE_URL ?>/public/js/jquery-3.5.1.min.js"></script>

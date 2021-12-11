@@ -2,8 +2,8 @@
   <?php
   $ListProduct =  $data['ListProduct'];
   if (count($ListProduct) > 0) {
-    foreach ($ListProduct as $key => $product) { ?>
-  <div class="col medium-6 small-12 large-4" data-aos="fade-up" data-aos-delay="<?= $key * 200 ?>">
+    foreach ($ListProduct as $product) { ?>
+  <div class="col medium-6 small-12 large-4">
     <div class="col-inner">
       <?php require "./mvc/views/block/product.php" ?>
     </div>
