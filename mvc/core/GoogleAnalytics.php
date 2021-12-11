@@ -16,7 +16,7 @@ class GoogleAnalytics
   private static $viewId = "253111439";
   public static function initializeAnalytics()
   {
-    $KEY_FILE_LOCATION = __DIR__ . './foodo.json';
+    $KEY_FILE_LOCATION = __DIR__ . '/foodo.json';
     $client = new Client();
     $client->setApplicationName("Hello Analytics Reporting");
     $client->setAuthConfig($KEY_FILE_LOCATION);
