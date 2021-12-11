@@ -98,7 +98,7 @@ class Author extends Controller
         "fblink" => $fblink,
         "youtubelink" => $youtubelink,
         "twitterlink" => $twitterlink,
-        "avatar" => $avatar[1],
+        "avatar" => $avatar[1] === NULL ? $author["avatar"] : $avatar[1],
       );
       if (count($errors) == 0) {
         $UpdateAuthor = $this->ListAuthor->UpdateAuthorBy($data, 'id = ' . $id);
