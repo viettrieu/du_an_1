@@ -1,8 +1,9 @@
 $(document).ready(function () {
-  $(".menu-mobi").click(function () {
-    $(this).toggleClass("active");
-    $("#header-bottom > *").toggleClass("nav-active");
-    if ($("#header-bottom > *").hasClass("nav-active")) {
+  $(".hamburger-menu").click(function (e) {
+    e.preventDefault();
+    $(".hamburger-menu").toggleClass("animate");
+    $("#header-bottom").toggleClass("nav-active");
+    if ($("#header-bottom").hasClass("nav-active")) {
       $("body").addClass("no-scroll");
     } else {
       $("body").removeClass("no-scroll");

@@ -1,5 +1,5 @@
 <aside class="widget widget-categories">
-  <h3 class="widget-title">Danh mục</h3>
+  <h3 class="widget-title"><span>Danh mục</span></h3>
   <ul>
     <?php
     $resultCategory =  $data['ListCategory'];
@@ -12,7 +12,7 @@
   </ul>
 </aside>
 <aside class="widget widget-author">
-  <h3 class="widget-title">Tác giả</h3>
+  <h3 class="widget-title"><span>Tác giả</span></h3>
   <ul>
     <?php
     $resultAuthor =  $data['ListAuthor'];
@@ -25,7 +25,7 @@
   </ul>
 </aside>
 <aside class="widget widget-star-rating">
-  <h3 class="widget-title">ĐÁNH GIÁ</h3>
+  <h3 class="widget-title"><span>ĐÁNH GIÁ</span></h3>
   <ul>
     <li class="cat-item">
       <a href="<?= SITE_URL ?>/store/rating/5">
@@ -60,7 +60,7 @@
   </ul>
 </aside>
 <aside class="widget widget-publisher">
-  <h3 class="widget-title">Nhà xuất bản</h3>
+  <h3 class="widget-title"><span>Nhà xuất bản</span></h3>
   <ul>
     <?php
     $resultPublisher =  $data['ListPublisher'];
@@ -72,7 +72,7 @@
   </ul>
 </aside>
 <aside class="widget widget-tagcloud">
-  <h3 class="widget-title">Từ khóa</h3>
+  <h3 class="widget-title"><span>Từ khóa</span></h3>
   <div class="tagcloud">
     <?php
     $resultTag =  $data['ListTag'];

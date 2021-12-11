@@ -24,6 +24,9 @@ $listWard = $data['Ward'];
         <a href="<?= SITE_URL ?>/account/orders">Đơn hàng</a>
       </li>
       <li class="mycccount-navigation-link">
+        <a href="<?= SITE_URL ?>/wishlist">Sản phẩm yêu thích</a>
+      </li>
+      <li class="mycccount-navigation-link">
         <a href="<?= SITE_URL ?>/account/changepassword">Đổi mật khẩu</a>
       </li>
       <li class="mycccount-navigation-link">

@@ -1,5 +1,5 @@
 function removeItemFromWishlist(e) {
-  let wrapProduct = e.closest("tr");
+  let wrapProduct = e.closest("tr.cart-item");
   let productId = wrapProduct.getAttribute("data-id");
   let postForm = {
     productId,
@@ -21,7 +21,7 @@ function removeItemFromWishlist(e) {
         setTimeout(() => {
           if ($(".cart-item").length == 0) {
             document.querySelector(".yproduct").style.display = "none";
-            document.querySelector(".nproduct").style.display = "flex";
+            document.querySelector(".nproduct").style.display = "block";
           }
         }, 500);
       }

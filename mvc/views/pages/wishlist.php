@@ -1,7 +1,37 @@
-<?php if (($number = count($data['Items'])) > 0) { ?>
-<div class="row page-wrapper row-divided yproduct">
-  <div class="col medium-12 small-12 large-12">
-    <table class="cart table-form shop_table" cellspacing="0">
+<?php $user = $data["UserById"]; ?>
+<div class="row vertical-tabs row-divided">
+  <div class="large-3 col" style=" padding-right: 0;">
+    <div class="account-user">
+      <span class="image">
+        <img alt="" src="<?= $user['avatar'] ?>" height="70" width="70">
+      </span>
+      <span class="user-name">
+        <?= $user['username']; ?>
+      </span>
+    </div>
+    <ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
+
+      <li class="mycccount-navigation-link">
+        <a href="<?= SITE_URL ?>/account">Trang tài khoản</a>
+      </li>
+      <li class="mycccount-navigation-link">
+        <a href="<?= SITE_URL ?>/account/orders">Đơn hàng</a>
+      </li>
+      <li class="mycccount-navigation-link active">
+        <a href="<?= SITE_URL ?>/wishlist">Sản phẩm yêu thích</a>
+      </li>
+      <li class="mycccount-navigation-link">
+        <a href="<?= SITE_URL ?>/account/changepassword">Đổi mật khẩu</a>
+      </li>
+      <li class="mycccount-navigation-link">
+        <a href="<?= SITE_URL ?>/account/userlogout">Đăng xuất</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="large-9 col">
+    <?php if (($number = count($data['Items'])) > 0) { ?>
+    <table class="cart table-form shop_table yproduct" cellspacing="0">
       <thead>
         <tr>
           <th class="product-remove"></th>
@@ -50,14 +80,14 @@
         <?php } ?>
       </tbody>
     </table>
-  </div>
-</div>
-<?php } ?>
-<div class="row nproduct" style="display: <?= $number > 0 ? "none" : "flex" ?>">
-  <div class="col medium-12 large-12 text-center">
-    <p>Chưa có sản phẩm yêu thích</p>
-    <a href="<?= SITE_URL ?>/store" class="button primary">
-      <span>Quay trở về của hàng</span>
-    </a>
+    <?php } ?>
+    <div class="nproduct" style="display: <?= $number > 0 ? "none" : "block" ?>">
+      <div class="text-center">
+        <p>Chưa có sản phẩm yêu thích</p>
+        <a href="<?= SITE_URL ?>/store" class="button primary">
+          <span>Quay trở về của hàng</span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

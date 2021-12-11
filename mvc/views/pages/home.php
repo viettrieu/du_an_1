@@ -13,7 +13,7 @@
 </section>
 <section id="banner">
   <div class="row-large">
-    <div class="col medium-6 small-12 large-3">
+    <div class="col medium-6 large-3  hide-for-small">
       <div class="col-inner">
         <div class="banner">
           <div class="banner-1 bg-fill bg"></div>
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="col medium-6 small-12 large-3">
+    <div class="col medium-6 large-3 hide-for-small">
       <div class="banner">
         <div class="banner-3 bg-fill bg"></div>
         <div class="banner-content">
@@ -74,16 +74,16 @@
   </div>
   <div class="row">
     <?php
-        $sellList =  $data['sell'];
-        if (count($sellList) > 0) {
-            foreach ($sellList as $key => $product) { ?>
+    $sellList =  $data['sell'];
+    if (count($sellList) > 0) {
+      foreach ($sellList as $key => $product) { ?>
     <div class="col medium-4 small-6 large-3" data-aos="fade-up" data-aos-delay="<?= $key * 200 ?>">
       <div class="col-inner">
         <?php require "./mvc/views/block/product.php" ?>
       </div>
     </div>
     <?php }
-        } else { ?>
+    } else { ?>
 
     <div class="container">
       Không có sản phẩm phù hợp
@@ -117,8 +117,8 @@
         EXPLORE NOW
       </a>
     </div><?php
-                $ListAuthor = $data["ListAuthor"];
-                ?>
+          $ListAuthor = $data["ListAuthor"];
+          ?>
     <div class="col medium-12 small-12 large-4">
       <img src="<?= SITE_URL ?><?= $ListAuthor['avatar'] ?>">
     </div>
@@ -155,8 +155,8 @@
         <a class="btn-accent" href="#">ALL</a>
       </li>
       <?php
-            $resultCategory =  $data['ListCategory'];
-            foreach ($resultCategory as $key => $category) { ?>
+      $resultCategory =  $data['ListCategory'];
+      foreach ($resultCategory as $key => $category) { ?>
       <li class="cat-item" data-id="<?= $category["id"] ?>">
         <a class="btn-accent" href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>"><?= $category["title"] ?></a>
       </li>
@@ -166,16 +166,16 @@
 
   <div class="row" id="show_product">
     <?php
-        $sellList =  $data['sell'];
-        if (count($sellList) > 0) {
-            foreach ($sellList as $key => $product) { ?>
+    $sellList =  $data['sell'];
+    if (count($sellList) > 0) {
+      foreach ($sellList as $key => $product) { ?>
     <div class="col medium-4 small-6 large-3" data-aos="fade-up" data-aos-delay="<?= $key * 200 ?>">
       <div class="col-inner">
         <?php require "./mvc/views/block/product.php" ?>
       </div>
     </div>
     <?php }
-        } else { ?>
+    } else { ?>
     <div class="container">
       Không có sản phẩm phù hợp
     </div>

@@ -4349,3 +4349,9 @@ div.dataTables_wrapper div.dataTables_length select {
 ins {
   text-decoration: none;
 }
+del {
+  text-decoration: none;
+}
+del span {
+  text-decoration: line-through;
+}

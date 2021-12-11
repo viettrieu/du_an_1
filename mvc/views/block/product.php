@@ -44,7 +44,7 @@ if (isset($_SESSION['user']['wishlist']) && in_array($product["id"], $_SESSION['
     <span class="price">
       <?php if (isset($product["discount"])) : ?>
       <del aria-hidden="true">
-        <span><?= number_format($product["price"], 0, ',', '.') ?><sup>đ</sup></span>
+        <span><?= number_format($product["price"], 0, ',', '.') ?></span><sup>đ</sup>
       </del>
       <?php endif ?>
       <ins class="sizeprice-1">

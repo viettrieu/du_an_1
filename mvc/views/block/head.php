@@ -33,19 +33,4 @@
   gtag('js', new Date());
   gtag('config', 'G-SKZBRYFQ9J');
   </script>
-  <?php if ($data["Page"] == "home") : ?>
-  <style>
-  body {
-    background-color: #f4f3ec !important;
-  }
-
-  #wrapper {
-    margin: 30px;
-    color: #696969;
-    background-color: #fff;
-    border-color: #ededed;
-  }
-  </style>
-
-  <?php endif; ?>
 </head>
