@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?= $title ?> | Đặt Sách & Giao ship tận nơi | Đảm bảo chất lượng</title>
-  <meta name="title" content="Foodo | Đặt Món & Giao ship tận nơi | 30 phút giao hàng | Đảm bảo chất lượng">
+  <meta name="title" content="<?= $title ?> | Đặt Sách & Giao ship tận nơi | Đảm bảo chất lượng">
   <meta name="description"
-    content="Hamburger bò là đồ ăn nhanh ngon, nhiều chất dinh dưỡng, được rất nhiều người ưa chuộng trên thế giới. Nhiều người thường ăn ở ngoài hàng do e ngại quy trình chế biến phức tạp">
-  <meta name="keywords" content="Thức ăn nhanh, Món ăn vặt, Đồ ăn vặt, Ăn vặt HCM, Hamburger, Burgers, Cupcake">
+    content="<?= $title ?> - Author and book  hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách">
+  <meta name="keywords" content="<?= $title ?> - Author and book hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách
+Author and book, Author and book , sách, nhà sách, bookstore, nhà sách trên mạng, mua sách online, văn phòng phẩm, đồ chơi">
   <link rel="shortcut icon" href="<?= SITE_URL ?>/public/img/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
   <link rel="stylesheet" href="<?= SITE_URL ?>/public/css/slick/slick-theme.css" />
