@@ -120,7 +120,7 @@ if (isset($_SESSION['user']['wishlist']) && in_array($Cproduct["id"], $_SESSION[
         </li>
         <li>
           <a class="twitter"
-            href="https://twitter.com/intent/tweet?status=<?= $Cproduct['title']; ?>+<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"
+            href="https://twitter.com/intent/tweet?text=<?= $Cproduct['title']; ?>&url=<?= "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>"
             target="blank">
             <i class="fab fa-twitter"></i>
           </a>
