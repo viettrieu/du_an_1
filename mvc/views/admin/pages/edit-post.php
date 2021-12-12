@@ -40,14 +40,13 @@ $post = $data["Post"];
                 </div>
               </div>
               <div class="form-group">
+                <label>Trích đoạn:</label>
+                <textarea class="form-control" name="excerpt" maxlength="160"><?= $post['excerpt']; ?></textarea>
+              </div>
+              <div class="form-group">
                 <label>Mô tả chi tiết:</label>
                 <div id="content"><?= $post['content']; ?></div>
                 <input type="hidden" name="content">
-              </div>
-              <div class="form-group">
-                <label>Mô tả ngắn:</label>
-                <div id="summary"><?= $post['summary']; ?></div>
-                <input type="hidden" name="summary">
               </div>
             </div>
           </div>
@@ -80,7 +79,7 @@ $post = $data["Post"];
                   </div>
                   <div class="thumbnail-preview">
                     <div id="thumbnailPreview"
-                      style="background-image: url(<?= SITE_URL ?><?= $post['thumbnail'] ? $post['thumbnail'] : "/public/img/default-post-image.png"; ?>)">
+                      style="background-image: url(<?= SITE_URL ?><?= $post['thumbnail'] ? $post['thumbnail'] : "/public/img/default-product-image.png"; ?>)">
                     </div>
                   </div>
                 </div>

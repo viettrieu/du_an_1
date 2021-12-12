@@ -29,7 +29,7 @@ class Post extends Controller
     $request = json_decode(json_encode($_POST));
     if (isset($request->create_post)) {
       $title = HandleForm::rip_tags($request->title);
-      $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
+      $excerpt = HandleForm::rip_tags($request->excerpt);
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
       $id_category = (int)$request->id_category;
       $errors = HandleForm::validations([
@@ -45,7 +45,7 @@ class Post extends Controller
         $data = array(
           "title" => $title,
           "content" => $content,
-          "summary" => $summary,
+          "excerpt" => $excerpt,
           "id_category" => $id_category,
           "id_user" => (int)$_SESSION['user']['id'],
           "thumbnail" => $thumbnail[1],
@@ -77,7 +77,7 @@ class Post extends Controller
     $request = json_decode(json_encode($_POST));
     if (isset($request->edit_post)) {
       $title = HandleForm::rip_tags($request->title);
-      $summary = $_POST['summary'] == '<p><br></p>' ? NULL : $_POST['summary'];
+      $excerpt = HandleForm::rip_tags($request->excerpt);
       $content =  $_POST['content'] == '<p><br></p>' ? NULL : $_POST['content'];
       $id_category = (int)$request->id_category;
       $errors = HandleForm::validations([
@@ -93,7 +93,7 @@ class Post extends Controller
         $data = array(
           "title" => $title,
           "content" => $content,
-          "summary" => $summary,
+          "excerpt" => $excerpt,
           "id_category" => $id_category,
           "id_user" => (int)$_SESSION['user']['id'],
           "thumbnail" => $thumbnail[1] == NULL ? $post["thumbnail"] : $thumbnail[1],

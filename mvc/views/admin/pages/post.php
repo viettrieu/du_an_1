@@ -48,7 +48,7 @@
                     <td class="id"><?= $post['id']; ?></td>
                     <td>
                       <h2 class="table-avatar">
-                        <a href="<?= SITE_URL ?>/post/<?= $post['id']; ?>"><img
+                        <a href="<?= SITE_URL ?>/news/post/<?= $post['id']; ?>"><img
                             class="avatar avatar-lg mr-2 avatar-img rounded"
                             src="<?= SITE_URL ?><?= $post['thumbnail'] == null ? '/public/img/default-product-image.png' : $post['thumbnail']; ?>"
                             alt="<?= $post['title']; ?>">

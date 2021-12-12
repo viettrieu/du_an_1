@@ -1,6 +1,31 @@
 <?php $title = isset($data['Title']) ? $data['Title'] : "404" ?>
 <?php if ($data["Page"] != "home") {
-  if ($data["Page"] != "product") { ?>
+  if ($data["Page"] == "product") { ?>
+<div class="breadcrumbs single-product">
+  <div class="container">
+    <nav>
+      <a href="<?= SITE_URL ?>">Trang chủ</a>
+      <span class="divider">/</span>
+      <a href="<?= SITE_URL ?>/store">Của hàng</a>
+      <span class="divider">/</span>
+      <?= $title ?>
+    </nav>
+  </div>
+</div>
+<?php } elseif ($data["Page"] == "post") { ?>
+<div class="breadcrumbs single-product">
+  <div class="container">
+    <nav>
+      <a href="<?= SITE_URL ?>">Trang chủ</a>
+      <span class="divider">/</span>
+      <a href="<?= SITE_URL ?>/news">Tin tức</a>
+      <span class="divider">/</span>
+      <?= $title ?>
+    </nav>
+  </div>
+</div>
+<?php } else { ?>
+
 <div class="breadcrumbs">
   <div class="container flex-row">
     <div class="flex-col flex-left">
@@ -15,18 +40,5 @@
     </div>
   </div>
 </div>
-<?php } else { ?>
-<div class="breadcrumbs single-product">
-  <div class="container">
-    <nav>
-      <a href="<?= SITE_URL ?>">Trang chủ</a>
-      <span class="divider">/</span>
-      <a href="<?= SITE_URL ?>/store">Của hàng</a>
-      <span class="divider">/</span>
-      <?= $title ?>
-    </nav>
-  </div>
-</div>
-
 <?php }
 } ?>

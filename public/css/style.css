@@ -469,7 +469,7 @@ ul {
 }
 .header-top {
   position: relative;
-  background-color: #fff ;
+  background-color: #fff;
   min-height: 5rem;
 }
 .header-top .nav.social-icons a,
@@ -624,6 +624,9 @@ ul {
 .bg-zoom:hover .bg,
 .has-hover:hover .image-zoom img {
   transform: scale(1.1);
+}
+.box-image.image-zoom {
+  overflow: hidden;
 }
 .has-hover .bg,
 .has-hover [class*="image-"] img {

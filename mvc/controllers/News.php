@@ -1,20 +1,31 @@
 <?php
 class News extends Controller
 {
-  public $ListCategory;
+  public $ListPost;
   public $ListTag;
   function __construct()
   {
-    $this->ListCategory = $this->model("CategoryModel");
-    $this->ListTag = $this->model("TagModel");
+    $this->ListPost = $this->model("PostModel");
   }
   function SayHi()
   {
     $this->view("page-full", [
-      "Page" => "newss",
+      "Page" => "news",
       "Title" => "Tin tức",
-      "ListCategory" => $this->ListCategory->GetAllCategory(),
-      "ListTag" => $this->ListTag->GetAllTag(),
+      "ListPost" => $this->ListPost->GetAllPost(),
+    ]);
+  }
+  function Post($id = 0)
+  {
+    $post =  $this->ListPost->GetPostById($id);
+    if ($post == NULL) {
+      header("Location: " . SITE_URL . "/news");
+      exit();
+    }
+    $this->view("page-full", [
+      "Page" => "post",
+      "Title" => $post["title"],
+      "Post" => $post,
     ]);
   }
 }

@@ -20,8 +20,8 @@
           <div class="card">
             <div class="card-body">
               <?php foreach ($data["Errors"] as $error) :
-                                $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
-                            ?>
+                $class = $error["status"] == "ERROR" ? "alert-danger" : "alert-success";
+              ?>
               <div class="alert <?= $class ?> alert-dismissible fade show" role="alert">
                 <?= $error["message"] ?>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -36,14 +36,13 @@
                 </div>
               </div>
               <div class="form-group">
+                <label>Trích đoạn:</label>
+                <textarea class="form-control" name="excerpt" maxlength="160"></textarea>
+              </div>
+              <div class="form-group">
                 <label>Mô tả chi tiết:</label>
                 <div id="content"></div>
                 <input type="hidden" name="content">
-              </div>
-              <div class="form-group">
-                <label>Mô tả ngắn:</label>
-                <div id="summary"></div>
-                <input type="hidden" name="summary">
               </div>
             </div>
           </div>
