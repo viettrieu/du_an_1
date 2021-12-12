@@ -84,7 +84,7 @@ $product = $data["Product"];
                                 <select name="publisher" class="select custom-select">
                                     <?php foreach ($data["ListPublisher"] as $publisher) : ?>
                                     <option value="<?php echo $publisher['id']; ?>"
-                                        <?=  $product['publisherId'] == $publisher['id'] ? 'selected' : '' ?>>
+                                        <?= $product['publisherId'] == $publisher['id'] ? 'selected' : '' ?>>
                                         <?php echo $publisher['title']; ?>
                                     </option>
                                     <?php endforeach ?>

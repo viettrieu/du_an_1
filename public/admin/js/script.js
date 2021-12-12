@@ -472,6 +472,7 @@ $("#thumbnail").change(function () {
 // });
 function deleteItem(element, action, item) {
   let id = element.closest("tr").find(".id").text();
+  console.log(id);
   let title = element.closest("tr").find(".title").text();
   title = title ? title : "#" + id;
   var dtRow = element.parents("tr");
@@ -555,13 +556,16 @@ $("#order_list").on("click", ".dropdown-item.status", function (e) {
   }).then((result) => {
     if (result.isConfirmed) {
       if (result.value == "true") {
-        if (idStatus < 5){
+        if (idStatus < 5) {
           for (let i = 1; i <= idStatus; i++) {
-            $(this).closest("tr").find("[data-id=" + i + "]").remove();
+            $(this)
+              .closest("tr")
+              .find("[data-id=" + i + "]")
+              .remove();
           }
-        }else{
+        } else {
           $(this).closest("tr").find(".dropdown-action").remove();
-        }  
+        }
         status
           .empty()
           .append(`<span class="bg-status-${idStatus}">${textStatus}</span>`);
@@ -599,6 +603,10 @@ $("#create_coupon").submit(GetQLeditor);
 $("#edit_coupon").submit(GetQLeditor);
 $("#create_author").submit(GetQLeditor);
 $("#edit_author").submit(GetQLeditor);
+$("#create_post").submit(GetQLeditor);
+$("#edit_post").submit(GetQLeditor);
+$("#create_post_category").submit(GetQLeditor);
+$("#edit_post_category").submit(GetQLeditor);
 $("#product_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/product/delete", "sản phẩm");
 });
@@ -622,6 +630,12 @@ $("#coupon_list").on("click", ".delete", function (e) {
 });
 $("#author_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/author/delete", "Tác giả");
+});
+$("#post_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/post/delete", "Bài viết");
+});
+$("#post_category_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/postcategory/delete", "Danh mục");
 });
 $("#reviews_list").on("click", ".accept", function (e) {
   e.preventDefault();
@@ -861,3 +875,5 @@ function formatCash(str) {
       return (index % 3 ? next : next + ".") + prev;
     });
 }
+
+$(".submenu li a.active").closest(".submenu").addClass("active");
