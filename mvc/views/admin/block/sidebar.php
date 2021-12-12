@@ -7,43 +7,72 @@
           <li class="<?php if ($data["Page"] == "dashboard") echo "active"; ?>">
             <a href="<?= ADMIN_URL; ?>/dashboard"><i class="fas fa-home"></i><span>Bảng tin</span></a>
           </li>
-          <li class="menu-title"><span>Sản phẩm</span></li>
-          <li class="<?php if ($data["Page"] == "product") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/product"><i class="fas fa-boxes"></i><span>Danh sách sản
-                phẩm</span></a>
+          <li class="submenu">
+            <a href="#"><i class="fas fa-boxes"></i> <span>
+                Sản phẩm</span> <span class="menu-arrow"></span></a>
+            <ul>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/product" class="<?php if ($data["Page"] == "product") echo "active"; ?>">
+                  Danh sách sản phẩm
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/author" class="<?php if ($data["Page"] == "list_author") echo "active"; ?>">
+                  Tác giả
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/category" class="<?php if ($data["Page"] == "category") echo "active"; ?>">
+                  Danh mục
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/publisher" class="<?php if ($data["Page"] == "publisher") echo "active"; ?>">
+                  Nhà xuất bản
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/tag" class="<?php if ($data["Page"] == "tag") echo "active"; ?>">
+                  Từ khóa
+                </a>
+              </li>
+            </ul>
           </li>
-          <li class="<?php if ($data["Page"] == "create-product") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/product/create"><i class="fas fa-parachute-box"></i>
-              <span>Tạo sản phẩm mới</span>
-            </a>
+          <li class="submenu">
+            <a href="#"><i class="fas fa-store"></i> <span>Cửa hàng</span> <span class="menu-arrow"></span></a>
+            <ul>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/order" class="<?php if ($data["Page"] == "order") echo "active"; ?>">
+                  Đơn hàng
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/coupon" class="<?php if ($data["Page"] == "coupon") echo "active"; ?>">
+                  Coupon
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/review" class="<?php if ($data["Page"] == "review") echo "active"; ?>">
+                  Đánh giá
+                </a>
+              </li>
+            </ul>
           </li>
-          <li class="<?php if ($data["Page"] == "author") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/author"><i class="fas fa-boxes"></i><span>Danh sách tác giả</span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "create-author") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/author/create"><i class="fas fa-parachute-box"></i><span>Tạo tác giả
-              </span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "category") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/category"><i class="fas fa-folder-open"></i><span>Danh mục</span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "tag") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/tag"><i class="fas fa-tags"></i><span>Từ khóa</span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "coupon") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/coupon"><i class="fas fa-tags"></i><span>Coupon</span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "review") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/review"><i class="fas fa-star"></i><span>Đánh giá</span></a>
-          </li>
-          <li class="menu-title"><span>Đơn hàng</span></li>
-          <li class="<?php if ($data["Page"] == "order") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/order"><i class="fas fa-file-invoice-dollar"></i><span>Danh sách đơn
-                hàng</span></a>
-          </li>
-          <li class="<?php if ($data["Page"] == "tao-don-hang") echo "active"; ?>">
-            <a href="<?= ADMIN_URL; ?>/product"><i class="fas fa-file-signature"></i><span>Tạo đơn hàng
-                mới</span></a>
+          <li class="submenu">
+            <a href="#"><i class="far fa-address-book"></i><span>Bài viết</span> <span class="menu-arrow"></span></a>
+            <ul>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/post" class="<?php if ($data["Page"] == "post") echo "active"; ?>">
+                  Danh sách bài viết
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/postcategory"
+                  class="<?php if ($data["Page"] == "post-category") echo "active"; ?>">
+                  Danh mục
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="menu-title"><span>Thành viên</span></li>
           <li class="<?php if ($data["Page"] == "user") echo "active"; ?>">

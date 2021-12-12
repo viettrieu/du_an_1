@@ -2448,7 +2448,7 @@ html.menu-opened body {
   font-size: 15px;
   list-style-type: none;
   margin: 0;
-  padding: 15px 0;
+  padding: 5px 0;
   position: relative;
 }
 .sidebar-menu li a {
