@@ -3,7 +3,7 @@ class StatisticalModel extends DB
 {
   public function SumOrderByStatus($cond = 1)
   {
-    $sql = "SELECT order_status.id, order_status.status, SUM(total) AS 'total' FROM  detailed_order RIGHT JOIN order_status ON detailed_order.status = order_status.id WHERE $cond GROUP BY status ORDER BY order_status.id ASC";
+    $sql = "SELECT order_status.id, order_status.status, SUM(total) AS 'total', COUNT(order_status.id) AS 'sl' FROM  detailed_order RIGHT JOIN order_status ON detailed_order.status = order_status.id WHERE $cond GROUP BY status ORDER BY order_status.id ASC";
     return $this->pdo_query($sql);
   }
   public function GetHotProduct($cond, $sd, $ed, $limit = 6)

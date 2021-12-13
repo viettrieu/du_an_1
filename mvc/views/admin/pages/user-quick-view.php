@@ -19,13 +19,13 @@ $user = $data["User"];
               <img class="avatar-img rounded-circle" alt="User Image" src="<?= $user['avatar'] ?>">
             </div>
             <h3 class="text-warning"><?= $user['username'] ?></h3>
-            <strong>(<?= $user['admin'] == 1 ? "Quản lý" : "Khách hàng" ?>)</strong>
+            <strong><?= $user['admin'] == 1 ? "Quản lý" : "Khách hàng" ?></strong>
           </div>
           <div class="col-lg-6">
             <p><strong>Họ và tên:</strong> <?= $user['fullName'] ?></p>
             <p><strong>Số điện thoại:</strong> <?= $user['mobile'] ?></p>
             <p><strong>Email:</strong> <?= $user['email'] ?></p>
-            <p><strong>Giới tính:</strong><?= $user['gender'] == 0 ? "Nam" : "Nữ" ?></p>
+            <p><strong>Giới tính:</strong> <?= $user['gender'] == 0 ? "Nam" : "Nữ" ?></p>
           </div>
         </div>
         <div class="row border-top pt-3 mt-3">
@@ -71,19 +71,26 @@ $user = $data["User"];
         </div>
       </div>
       <div class="tab-pane" id="solid-justified-tab2">
+        <select name="loai" class="select custom-select" required style=" width: max-content; ">
+          <option value="tong" selected>Theo tổng đơn hàng</option>
+          <option value="sl">Theo số lượng đơn hàng</option>
+        </select>
         <div id="invoice_chart"></div>
         <div class=" row" id="invoice_statistic"></div>
       </div>
     </div>
   </div>
 </div>
+
 <script>
-var url = ADMIN_URL + "/user/statistical/<?= $user['id'] ?>";
-$.getJSON(url, buildChart);
+<?php echo "var order = '" . json_encode($data["Order"]) . "';"; ?>
+order = JSON.parse(order);
+
+var pieChart = buildChart(order);
 
 function buildChart(data) {
   var pieCtx = document.getElementById("invoice_chart");
-  if (data == false) {
+  if (data.length != 4) {
     pieCtx.innerHTML = "Chưa có đơn hàng";
     return false;
   }
@@ -96,7 +103,7 @@ function buildChart(data) {
     "#e63c3c",
   ];
   let color = [];
-  for (const c of data[2]) {
+  for (const c of data[3]) {
     color.push(colors[c - 1]);
   }
   for (let x in data[0]) {
@@ -106,12 +113,11 @@ function buildChart(data) {
     });
     $("#invoice_statistic").append(`<div class="col-4">
         <div class="mt-3">
-          <p class="mb-1 text-truncate"><i class="fas fa-circle mr-1" style=" color: ${color[x]}; "></i> ${data[0][x]}</p>
+          <p class="mb-1 text-truncate"><i class="fas fa-circle mr-1" style=" color: ${color[x]}; "></i> ${data[0][x]} (${data[2][x]})</p>
           <h6> ${total}</h6>
         </div>
       </div>`);
   }
-  // console.log(colors);
   var pieConfig = {
     colors: color,
     series: data[1],
@@ -128,7 +134,7 @@ function buildChart(data) {
           style: "currency",
           currency: "VND",
         });
-        return `<span style="background-color: ${color};  padding: 5px 10px; ">${label} - ${total}</span>`;
+        return `<span style="background-color: ${color};  padding: 5px 10px; ">${label}</span>`;
       },
     },
     legend: {
@@ -154,5 +160,18 @@ function buildChart(data) {
   };
   var pieChart = new ApexCharts(pieCtx, pieConfig);
   pieChart.render();
+  return pieChart
 }
+$(document).on("change", "[name=loai]", function(e) {
+  let value = $('[name=loai] option:selected').val();
+  if (value == "sl") {
+    pieChart.updateOptions({
+      series: order[2],
+    });
+  } else {
+    pieChart.updateOptions({
+      series: order[1],
+    });
+  }
+});
 </script>
