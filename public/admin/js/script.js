@@ -852,17 +852,21 @@ function ajaxFileStream(element, action) {
 // }
 
 $("#order_list").on("click", ".quick-view", function (e) {
-  return orderQuickView($(this), "/order/OrderQuickView");
+  return QuickView($(this), "#quickview", "/order/quickview");
 });
 
-function orderQuickView(element, action) {
+$("#user_list").on("click", ".quick-view", function (e) {
+  return QuickView($(this), "#quick_view_user", "/user/quickview");
+});
+
+function QuickView(element, modal, action) {
   let id = element.closest("tr").find(".id").text();
   $.ajax({
     url: ADMIN_URL + action + "/" + id,
     dataType: "HTML",
     success: (data) => {
-      $("#quickview .modal-body").html(data);
-      $("#quickview").modal("show");
+      $(modal + " .modal-body").html(data);
+      $(modal).modal("show");
     },
   });
 }
@@ -875,5 +879,3 @@ function formatCash(str) {
       return (index % 3 ? next : next + ".") + prev;
     });
 }
-
-$(".submenu li a.active").closest(".submenu").addClass("active");

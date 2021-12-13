@@ -68,6 +68,9 @@
                         <?= $user['verify'] == 1 ? "Đã xác minh" : "Chưa xác minh"; ?></span>
                     </td>
                     <td class="text-right">
+                      <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 quick-view"><i
+                          class="far fa-eye mr-1"></i>View
+                      </a>
                       <a href="<?= ADMIN_URL ?>/user/edit/<?= $user['id']; ?>"
                         class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Sửa</a>
                       <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2 delete"><i
@@ -85,3 +88,16 @@
     </div>
   </div>
 </div>
+<div id="quick_view_user" class="modal custom-modal fade bd-example-modal-lg" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal-body" style=" padding: 0; ">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Chart JS -->
+<script src="<?= SITE_URL ?>/public/admin/plugins/apexchart/apexcharts.min.js"></script>

@@ -39,4 +39,10 @@
 		<![endif]-->
   <!-- jQuery -->
   <script src="<?= SITE_URL ?>/public/admin/js/jquery-3.5.1.min.js"></script>
+  <script>
+  <?php
+    echo "let ADMIN_URL = '" . ADMIN_URL . "';";
+    echo "let SITE_URL = '" . SITE_URL . "';";
+    ?>
+  </script>
 </head>

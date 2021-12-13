@@ -6,9 +6,15 @@ use Core\Helper;
 class User extends Controller
 {
   public $User;
+  public $Statistical;
   function __construct()
   {
+    if (!isset($_SESSION['user']) || isset($_SESSION['user']) && $_SESSION['user']["admin"] != true) {
+      header("Location: " . ADMIN_URL . "/login");
+      exit();
+    }
     $this->User = $this->model("UserModel");
+    $this->Statistical = $this->model("StatisticalModel");
   }
   function SayHi()
   {
@@ -158,6 +164,41 @@ class User extends Controller
       "User" => Helper::fixUrlImg($this->User->GetUserById(0, 0, 0, "1 OR id = " . $id), "avatar", true),
     ]);
   }
+  public function QuickView($id = 0)
+  {
+    $id = (int)$id;
+    $user = $this->User->GetUserById(0, 0, 0, "1 OR id = " . $id);
+    if ($user == NULL) {
+      echo 'Không tìm thấy thành viên';
+      exit();
+    }
+    $this->view("admin/pages/user-quick-view", [
+      "User" => Helper::fixUrlImg($this->User->GetUserById(0, 0, 0, "1 OR id = " . $id), "avatar", true),
+      "Count" => [
+        $this->Statistical->count("book_review", "userId =" . $id),
+        $this->Statistical->count("wishlist", "userId =" . $id),
+        $this->Statistical->count("detailed_order", "userId =" . $id)
+      ]
+    ]);
+  }
+  public function Statistical($id = 0)
+  {
+    $user = $this->User->GetUserById(0, 0, 0, "1 OR id = " . $id);
+    if ($user == NULL) {
+      echo json_encode(false);
+      exit();
+    }
+    $cc = $this->Statistical->SumOrderByStatus("detailed_order.userId = " . (int)$id);
+    foreach ($cc  as $row) {
+      $row_title[]  = $row['status'];
+      $row_luot[]   = (int)$row['total'];
+      $row_id[]   = (int)$row['id'];
+    }
+    $stats = [$row_title, $row_luot, $row_id];
+    echo json_encode($stats);
+    exit();
+  }
+
   function Delete($id = 0)
   {
     $cond = "id = '$id'";

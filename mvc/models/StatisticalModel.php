@@ -21,9 +21,9 @@ class StatisticalModel extends DB
   {
     $sql = "SELECT title,  COUNT(O.productId) FROM order_item O INNER JOIN book_category BC ON BC.productId = O.productId INNER JOIN category C ON categoryId = C.id  GROUP BY categoryId";
   }
-  public function count($table)
+  public function count($table, $cond = 1)
   {
-    $sql = "SELECT count(*) FROM $table";
+    $sql = "SELECT count(*) FROM $table WHERE $cond";
     return $this->pdo_query_value($sql);
   }
 }

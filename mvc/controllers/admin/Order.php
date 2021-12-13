@@ -58,7 +58,7 @@ class Order extends Controller
       "Transport" => $this->Transport->GetId($id),
     ]);
   }
-  public function OrderQuickView($id = 0)
+  public function QuickView($id = 0)
   {
     $order = $this->Orders->GetOrderById($id);
     if ($order == NULL) {

@@ -1,11 +1,5 @@
 <!-- Bootstrap Core JS -->
 
-<script>
-<?php
-  echo "let ADMIN_URL = '" . ADMIN_URL . "';";
-  echo "let SITE_URL = '" . SITE_URL . "';";
-  ?>
-</script>
 <script src="<?= SITE_URL ?>/public/admin/js/popper.min.js"></script>
 <script src="<?= SITE_URL ?>/public/admin/js/bootstrap.min.js"></script>
 

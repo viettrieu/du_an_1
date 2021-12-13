@@ -3,7 +3,6 @@ $order = $data["Order"];
 $items = $data["Items"];
 $transport = $data["Transport"];
 ?>
-<?php if ($data["Order"] != false) : ?>
 <div class="row">
   <div class="col-12 errors">
   </div>
@@ -110,7 +109,3 @@ $transport = $data["Transport"];
     <?php endif ?>
   </div>
 </div>
-</div>
-<?php else : ?>
-<p>KHÔNG CÓ ĐƠN HÀNG</p>
-<?php endif ?>
