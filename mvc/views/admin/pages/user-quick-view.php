@@ -19,7 +19,7 @@ $user = $data["User"];
               <img class="avatar-img rounded-circle" alt="User Image" src="<?= $user['avatar'] ?>">
             </div>
             <h3 class="text-warning"><?= $user['username'] ?></h3>
-            <strong>(<?= $user['admin'] == 0 ? "Quản lý" : "Khách hàng" ?>)</strong>
+            <strong>(<?= $user['admin'] == 1 ? "Quản lý" : "Khách hàng" ?>)</strong>
           </div>
           <div class="col-lg-6">
             <p><strong>Họ và tên:</strong> <?= $user['fullName'] ?></p>
@@ -82,7 +82,11 @@ var url = ADMIN_URL + "/user/statistical/<?= $user['id'] ?>";
 $.getJSON(url, buildChart);
 
 function buildChart(data) {
-  console.log(data);
+  var pieCtx = document.getElementById("invoice_chart");
+  if (data == false) {
+    pieCtx.innerHTML = "Chưa có đơn hàng";
+    return false;
+  }
   let colors = [
     "#283447",
     "#f39c12",
@@ -108,47 +112,46 @@ function buildChart(data) {
       </div>`);
   }
   // console.log(colors);
-  var pieCtx = document.getElementById("invoice_chart"),
-    pieConfig = {
-      colors: color,
-      series: data[1],
-      tooltip: {
-        custom: function({
-          series,
-          seriesIndex,
-          dataPointIndex,
-          w
-        }) {
-          let color = w.config.colors[seriesIndex];
-          let label = w.config.labels[seriesIndex];
-          let total = series[seriesIndex].toLocaleString("it-IT", {
-            style: "currency",
-            currency: "VND",
-          });
-          return `<span style="background-color: ${color};  padding: 5px 10px; ">${label} - ${total}</span>`;
+  var pieConfig = {
+    colors: color,
+    series: data[1],
+    tooltip: {
+      custom: function({
+        series,
+        seriesIndex,
+        dataPointIndex,
+        w
+      }) {
+        let color = w.config.colors[seriesIndex];
+        let label = w.config.labels[seriesIndex];
+        let total = series[seriesIndex].toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        });
+        return `<span style="background-color: ${color};  padding: 5px 10px; ">${label} - ${total}</span>`;
+      },
+    },
+    legend: {
+      show: false,
+      position: "bottom",
+      horizontalAlign: "center",
+    },
+    chart: {
+      fontFamily: "Poppins, sans-serif",
+      height: 350,
+      type: "pie",
+    },
+    labels: data[0],
+    responsive: [{
+      breakpoint: 576,
+      options: {
+        legend: {
+          show: true,
+          position: "bottom",
         },
       },
-      legend: {
-        show: false,
-        position: "bottom",
-        horizontalAlign: "center",
-      },
-      chart: {
-        fontFamily: "Poppins, sans-serif",
-        height: 350,
-        type: "pie",
-      },
-      labels: data[0],
-      responsive: [{
-        breakpoint: 576,
-        options: {
-          legend: {
-            show: true,
-            position: "bottom",
-          },
-        },
-      }, ],
-    };
+    }, ],
+  };
   var pieChart = new ApexCharts(pieCtx, pieConfig);
   pieChart.render();
 }

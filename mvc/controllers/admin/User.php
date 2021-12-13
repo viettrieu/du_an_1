@@ -189,12 +189,15 @@ class User extends Controller
       exit();
     }
     $cc = $this->Statistical->SumOrderByStatus("detailed_order.userId = " . (int)$id);
-    foreach ($cc  as $row) {
-      $row_title[]  = $row['status'];
-      $row_luot[]   = (int)$row['total'];
-      $row_id[]   = (int)$row['id'];
+    $stats = false;
+    if (count($cc) > 0) {
+      foreach ($cc  as $row) {
+        $row_title[]  = $row['status'];
+        $row_luot[]   = (int)$row['total'];
+        $row_id[]   = (int)$row['id'];
+      }
+      $stats = [$row_title, $row_luot, $row_id];
     }
-    $stats = [$row_title, $row_luot, $row_id];
     echo json_encode($stats);
     exit();
   }
