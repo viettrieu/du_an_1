@@ -183,84 +183,6 @@
   </div>
 
 </section>
-<section id="our-team">
-  <div class="title container text-center">
-    <h2>TÁC GIẢ HÀNG ĐẦU</h2>
-    <img src="<?= SITE_URL ?>/public/img/title.png">
-  </div>
-  <div class="container our-team owl-carousel owl-theme">
-    <div class="person has-hover">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-4.jpg" alt="Gordon Ramsay">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-
-      <div class="box-text">
-        <span class="person-name">Gordon Ramsay</span><br>
-        <span class="person-title">J-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-3.jpg" alt="Mark Anthony">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">Mark Anthony</span><br>
-        <span class="person-title">F-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-2.jpg" alt="Jessica Lee">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">Jessica Lee</span><br>
-        <span class="person-title">R-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-1.jpg" alt="John Bennett">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">John Bennett</span><br>
-        <span class="person-title">French Kitchen Lead</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="list-posts">
   <div class="title container text-center">
     <h2>TIN TỨC</h2>
@@ -346,6 +268,49 @@
           Việt Nam....
         </p>
       </div>
+    </div>
+  </div>
+</section>
+<section id="our-awards">
+  <div class="container our-awards owl-carousel owl-theme">
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/cambridge.jpg" alt="cambridge">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/cengage.jpg" alt="cengage">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/Harper-Collins.jpg" alt="Harper-Collins">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/hachette.jpg" alt="hachette">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/macgrawhill.jpg" alt="macgrawhill">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/macmillan.jpg" alt="macmillan">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/oxford.jpg" alt="oxford">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/paragon.jpg" alt="paragon">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/PearsonLogo_Avatar.png" alt="PearsonLogo_Avatar">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/penguin.jpg" alt="penguin">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/sterling.jpg" alt="sterling">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/usborn.jpg" alt="usborn">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/Scholastic-bar-logo.png" alt="Scholastic-bar-logo">
     </div>
   </div>
 </section>
