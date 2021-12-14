@@ -687,8 +687,10 @@ jQuery(document).ready(function ($) {
         deferRequestBy: 0,
         paramName: "s",
         onSearchStart: function () {
-          $(".submit-button").removeClass("loading");
-          $(".submit-button").addClass("loading");
+          $(".submit-button i").removeClass().addClass("fas fa-search");
+          $(".submit-button i")
+            .removeClass()
+            .addClass("fas fa-spinner fa-spin");
         },
         onSelect: function (suggestion) {
           if (suggestion.id != -1) {
@@ -696,7 +698,7 @@ jQuery(document).ready(function ($) {
           }
         },
         onSearchComplete: function () {
-          $(".submit-button").removeClass("loading");
+          $(".submit-button i").removeClass().addClass("fas fa-search");
         },
         beforeRender: function (container) {
           $(container).removeAttr("style");
