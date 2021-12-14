@@ -37,6 +37,3 @@
 
 <!-- Custom JS -->
 <script src="<?= SITE_URL ?>/public/admin/js/script.js"></script>
-
-<!-- Custom JS -->
-<script src="<?= SITE_URL ?>/public/admin/js/statistical.js"></script>
