@@ -59,6 +59,7 @@ class News extends Controller
       "Page" => "post",
       "Title" => $post["title"],
       "Post" => $post,
+      "RelatedPost" => $this->ListPost->GetRelatedPostById((int)$post["id_category"], (int)$id, 4),
       "Comment" => Helper::fixUrlImg($this->ListComment->GetCommentByPost((int)$id), "avatar"),
     ]);
   }

@@ -147,110 +147,23 @@ $post = $data["Post"];
           } ?>
         </ul>
       </div>
+
+      <?php
+      $RelatedPost =  $data['RelatedPost'];
+      if ($RelatedPost) { ?>
       <div id="related-posts">
         <div class="title text-center">
           <h2>Bài viết liên quan</h2>
           <img src="<?= SITE_URL ?>/public/img/title.png">
         </div>
         <div class="related-posts owl-carousel owl-theme">
-          <div class="post has-hover item">
-            <div class="box-image image-zoom">
-              <a href=""><img src="<?= SITE_URL ?>/public/img/blog-1.jpg"
-                  alt="Những lý do nên bao gồm rau hữu cơ trong chế độ ăn" /></a>
-            </div>
-            <div class="box-text">
-              <div class="post-meta flex-row">
-                <p class="post-date">10/02/2021</p>
-                <p class="post-author">
-                  Posted by <a href="/author.html">Nghia.l.t</a>
-                </p>
-              </div>
-              <h5 class="post-title">
-                <a href="">
-                  Những lý do nên bao gồm rau hữu cơ trong chế độ ăn
-                </a>
-              </h5>
-              <p class="post-excerpt">
-                Ngay cả khi bạn không phải là một chuyên gia về da, không
-                khó để nhận ra rằng hầu hết phụ nữ Hàn Quốc có làn da như
-                sương, sáng và gần như mờ…
-              </p>
-            </div>
-          </div>
-          <div class="post has-hover item">
-            <div class="box-image image-zoom">
-              <a href=""><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
-                  alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại" /></a>
-            </div>
-            <div class="box-text">
-              <div class="post-meta flex-row">
-                <p class="post-date">10/02/2021</p>
-                <p class="post-author">
-                  Posted by <a href="/author.html">Nghia.l.t</a>
-                </p>
-              </div>
-              <h5 class="post-title">
-                <a href="">
-                  Chiếc bánh hamburger ngon nhất thế giới hiện tại
-                </a>
-              </h5>
-              <p class="post-excerpt">
-                Ai cũng biết McDonald’s – Cửa hàng bán bánh hamburger Big
-                Mac nổi tiếng nhất thế giới vừa mới mở cửa hàng đầu tiên ở
-                Việt Nam....
-              </p>
-            </div>
-          </div>
-          <div class="post has-hover item">
-            <div class="box-image image-zoom">
-              <a href=""><img src="<?= SITE_URL ?>/public/img/blog-3.jpg"
-                  alt="Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất" /></a>
-            </div>
-            <div class="box-text">
-              <div class="post-meta flex-row">
-                <p class="post-date">10/02/2021</p>
-                <p class="post-author">
-                  Posted by <a href="/author.html">Nghia.l.t</a>
-                </p>
-              </div>
-              <h5 class="post-title">
-                <a href="">
-                  Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất
-                </a>
-              </h5>
-              <p class="post-excerpt">
-                Nhắc đến xúc xích sẽ chẳng xa lạ gì với mọi thực khách từ
-                trẻ đến già. Hầu hết chúng ta thưởng thức xúc xích rán, ăn
-                lẩu hay nấu canh...
-              </p>
-            </div>
-          </div>
-          <div class="post has-hover item">
-            <div class="box-image image-zoom">
-              <a href=""><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
-                  alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại" /></a>
-            </div>
-            <div class="box-text">
-              <div class="post-meta flex-row">
-                <p class="post-date">10/02/2021</p>
-                <p class="post-author">
-                  Posted by <a href="/author.html">Nghia.l.t</a>
-                </p>
-              </div>
-              <h5 class="post-title">
-                <a href="">
-                  Chiếc bánh hamburger ngon nhất thế giới hiện tại
-                </a>
-              </h5>
-              <p class="post-excerpt">
-                Ai cũng biết McDonald’s – Cửa hàng bán bánh hamburger Big
-                Mac nổi tiếng nhất thế giới vừa mới mở cửa hàng đầu tiên ở
-                Việt Nam....
-              </p>
-            </div>
-          </div>
+          <?php foreach ($RelatedPost as $post) { ?>
+          <?php require "./mvc/views/block/post.php" ?>
+          <?php } ?>
         </div>
       </div>
+      <?php } ?>
+
     </article>
   </div>
   <div class="large-3 col sidebar">

@@ -9,7 +9,7 @@ class PostModel extends DB
     }
     public function GetPostById($id)
     {
-        $sql = "SELECT post.id, title, id_category, users.fullName, users.username, thumbnail, excerpt, content, DATE_FORMAT(published, '%e/%c/%Y') AS'published' FROM post INNER JOIN users ON users.id = id_user WHERE post.id = $id ";
+        $sql = "SELECT post.id, title, id_category, users.fullName, users.username, thumbnail, excerpt, content, DATE_FORMAT(published, '%e/%c/%Y') AS'published' FROM post INNER JOIN users ON users.id = id_user WHERE post.id = $id";
         return $this->pdo_query_one($sql);
     }
     public function GetPostByCategory($id)
@@ -21,6 +21,11 @@ class PostModel extends DB
     {
         $sql = "SELECT * FROM post WHERE id_user = $id";
         return $this->pdo_query_one($sql);
+    }
+    public function GetRelatedPostById($id_category, $id, $num = 6)
+    {
+        $sql = "SELECT post.id, title, id_category, users.fullName, users.username, thumbnail, excerpt, content, DATE_FORMAT(published, '%e/%c/%Y') AS'published' FROM post INNER JOIN users ON users.id = id_user WHERE id_category = $id_category AND NOT post.id = $id LIMIT $num";
+        return $this->pdo_query($sql);
     }
     public function InsertPost($data)
     {
