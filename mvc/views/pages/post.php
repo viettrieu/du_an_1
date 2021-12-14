@@ -68,6 +68,7 @@ $post = $data["Post"];
           <h2>Bình luận</h2>
           <img src="<?= SITE_URL ?>/public/img/title.png">
         </div>
+        <?php if (isset($_SESSION["user"])) : ?>
         <div id="comment_form_wrapper">
           <a href="javascript:void(0);" id="cancel-comment-reply-link">Cancel Reply</a>
           <form method="POST" id="comment-form" data-id="<?= $post['id']; ?>">
@@ -83,6 +84,13 @@ $post = $data["Post"];
             </div>
           </form>
         </div>
+        <?php else :
+          $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]#comments";
+        ?>
+        <p>Vui lòng <a href="<?= SITE_URL ?>/login&refurl=<?= base64_encode($actual_link) ?>"
+            style=" color: #cc3528; "><strong>đăng nhập</strong></a> để bình
+          luận</p>
+        <?php endif ?>
       </div>
       <?php $comments = $data["Comment"];
       $children = array();
