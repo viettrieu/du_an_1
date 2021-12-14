@@ -1147,6 +1147,21 @@ span.price ins {
   flex-direction: column;
   justify-content: center;
 }
+@media screen and (max-width: 549px) {
+  #newest .nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    justify-content: start;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  #newest .nav-tabs > li {
+    min-width: max-content;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
 #our-team .box-image img {
   height: 25rem;
   object-position: center top;

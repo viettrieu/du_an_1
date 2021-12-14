@@ -68,139 +68,75 @@ $post = $data["Post"];
           <h2>Bình luận</h2>
           <img src="<?= SITE_URL ?>/public/img/title.png">
         </div>
-        <form action="" method="get" id="comment-form">
-          <div class="row">
-            <div class="col small-12 large-12">
-              <p style="font-weight: 600">
-                Địa chỉ email của bạn sẽ không được công bố. Các trường bắt
-                buộc được đánh dấu <span class="required">*</span>
-              </p>
-              <div class="form-group comment-form-comment">
-                <textarea id="comment" name="comment" cols="45" rows="8" maxlength="1000" required
-                  placeholder="Nội dung  *"></textarea>
-              </div>
+        <div id="comment_form_wrapper">
+          <a href="javascript:void(0);" id="cancel-comment-reply-link">Cancel Reply</a>
+          <form method="POST" id="comment-form" data-id="<?= $post['id']; ?>">
+            <div class="form-group comment-form-comment">
+              <textarea id="comment" name="content" cols="45" rows="8" maxlength="1000" required
+                placeholder="Nội dung  *"></textarea>
             </div>
-            <div class="col medium-6 small-12 large-6">
-              <div class="form-group comment-form-author">
-                <input id="author" name="author" type="text" value="" size="30" required placeholder="Họ và tên *" />
-              </div>
-            </div>
-            <div class="col medium-6 small-12 large-6">
-              <div class="form-group comment-form-email">
-                <input id="email" name="email" type="email" value="" size="30" required placeholder="Email *" />
-              </div>
-            </div>
-          </div>
-          <div class="container">
-            <input id="cookies-consent" name="cookies-consent" type="checkbox" value="yes" />
-            <label for="cookies-consent">Lưu tên, email và trang web của tôi trong trình duyệt này cho
-              lần tôi nhận xét tiếp theo.</label>
+            <input type="hidden" name="parent_id" id="parent_id" value="">
             <div class="text-center" style="margin-top: 1rem">
               <button type="submit" form="comment-form" value="Submit" class="button primary">
                 Gửi bình luận
               </button>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
+      <?php $comments = $data["Comment"];
+      $children = array();
+      foreach ($comments as $comment) {
+        $children[$comment['parent_id']][] = $comment;
+      }
+      ?>
       <div class="comments-container">
         <ul id="comments-list" class="comments-list">
+          <?php
+          if (isset($children[0])) {
+            foreach ($children[0] as $c) { ?>
           <li>
             <div class="comment-main-level">
               <div class="comment-avatar">
-                <img src="./assets/img/author.jpg" alt="Nghia.l.t" />
+                <img src="<?= $c["avatar"] ?>" alt="<?= $c['fullName'] ? $c['fullName'] : $c['username'] ?>" />
               </div>
-
-              <div class="comment-box">
-                <div class="comment-head">
-                  <h6 class="comment-name by-author">
-                    <a href="./author.html">Nghia.l.t</a>
-                  </h6>
-                  <div class="reply-icon">
-                    <i class="fa fa-heart"></i>
-                    <i class="fa fa-reply"></i>
-                  </div>
-                </div>
-                <div class="comment-content">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Velit omnis animi et iure laudantium vitae, praesentium
-                  optio, sapiente distinctio illo?
-                </div>
-              </div>
-            </div>
-
-            <ul class="comments-list reply-list">
-              <li>
-                <div class="comment-avatar">
-                  <img src="./assets/img/member-1.jpg" alt="MyXit" />
-                </div>
-
-                <div class="comment-box">
-                  <div class="comment-head">
-                    <h6 class="comment-name">
-                      <a href="./author.html">MyXit</a>
-                    </h6>
-                    <div class="reply-icon">
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-reply"></i>
-                    </div>
-                  </div>
-                  <div class="comment-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Velit omnis animi et iure laudantium vitae,
-                    praesentium optio, sapiente distinctio illo?
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div class="comment-avatar">
-                  <img src="./assets/img/author.jpg" alt="Nghia.l.t" />
-                </div>
-                <div class="comment-box">
-                  <div class="comment-head">
-                    <h6 class="comment-name by-author">
-                      <a href="./author.html">Nghia.l.t</a>
-                    </h6>
-                    <div class="reply-icon">
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-reply"></i>
-                    </div>
-                  </div>
-                  <div class="comment-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Velit omnis animi et iure laudantium vitae,
-                    praesentium optio, sapiente distinctio illo?
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <div class="comment-main-level">
-              <div class="comment-avatar">
-                <img src="./assets/img/member-1.jpg" alt="MyXit" />
-              </div>
-              <!-- Contenedor del Comentario -->
               <div class="comment-box">
                 <div class="comment-head">
                   <h6 class="comment-name">
-                    <a href="./author.html">MyXit</a>
+                    <?= $c['fullName'] ? $c['fullName'] : $c['username'] ?></a>
                   </h6>
                   <div class="reply-icon">
                     <i class="fa fa-heart"></i>
-                    <i class="fa fa-reply"></i>
+                    <i class="fa fa-reply" data-id="<?= $c['id']; ?>"></i>
                   </div>
                 </div>
-                <div class="comment-content">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Velit omnis animi et iure laudantium vitae, praesentium
-                  optio, sapiente distinctio illo?
-                </div>
+                <div class=" comment-content"><?= $c["content"] ?></div>
               </div>
             </div>
+            <ul class="comments-list reply-list parent_id-<?= $c['id']; ?>">
+              <?php if (in_array($c["id"], array_keys($children))) { ?>
+              <?php foreach (array_reverse($children[$c["id"]]) as $x) { ?>
+              <li>
+                <div class="comment-avatar">
+                  <img src="<?= $x["avatar"] ?>" alt="<?= $x['fullName'] ? $x['fullName'] : $x['username'] ?>" />
+                </div>
+                <div class="comment-box">
+                  <div class="comment-head">
+                    <h6 class="comment-name"><?= $x['fullName'] ? $x['fullName'] : $x['username'] ?></a></h6>
+                    <div class="reply-icon">
+                      <i class="fa fa-heart"></i>
+                    </div>
+                  </div>
+                  <div class="comment-content"><?= $x["content"] ?></div>
+                </div>
+              </li>
+              <?php
+                    }
+                  } ?>
+            </ul>
           </li>
+          <?php }
+          } ?>
         </ul>
       </div>
       <div id="related-posts">
@@ -312,3 +248,4 @@ $post = $data["Post"];
   <div class="large-3 col sidebar">
   </div>
 </div>
+<script src="<?= SITE_URL ?>/public/js/comment.js"></script>

@@ -72,6 +72,12 @@
                   Danh mục
                 </a>
               </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/comment"
+                  class="<?php if ($data["Page"] == "post-category") echo "active"; ?>">
+                  Bình luận
+                </a>
+              </li>
             </ul>
           </li>
           <li class="menu-title"><span>Thành viên</span></li>

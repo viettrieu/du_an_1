@@ -637,17 +637,26 @@ $("#post_list").on("click", ".delete", function (e) {
 $("#post_category_list").on("click", ".delete", function (e) {
   return deleteItem($(this), "/postcategory/delete", "Danh mục");
 });
+$("#comment_list").on("click", ".delete", function (e) {
+  return deleteItem($(this), "/comment/delete", "Bình luận");
+});
+
+////
 $("#reviews_list").on("click", ".accept", function (e) {
-  e.preventDefault();
-  console.log(e);
-  let badge = $(this).closest("tr").find(".status span");
-  let idReview = $(this).closest("tr").find(".id").text();
+  return Approve($(this), "/review/approve", "Đánh giá");
+});
+$("#comment_list").on("click", ".accept", function (e) {
+  return Approve($(this), "/comment/approve", "Bình luận");
+});
+function Approve(element, action, item) {
+  let badge = element.closest("tr").find(".status span");
+  let idReview = element.closest("tr").find(".id").text();
   var postForm = {
     idReview,
   };
   Swal.fire({
-    title: "Phê duyệt đánh giá sản phẩm",
-    html: `Bạn muốn phê duyệt đánh giá <b>#${idReview}</b>`,
+    title: `Phê duyệt ${item}`,
+    html: `Bạn muốn phê duyệt ${item} <b>#${idReview}</b>`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -658,24 +667,25 @@ $("#reviews_list").on("click", ".accept", function (e) {
     if (result.isConfirmed) {
       $.ajax({
         type: "POST",
-        url: ADMIN_URL + "/review/approve",
+        url: ADMIN_URL + action,
         data: postForm,
         dataType: "JSON",
         success: function (x) {
           badge.text("Đã duyệt");
           badge.removeClass();
           badge.addClass("badge-pill bg-success-light");
-          $(e.target).remove();
+          element.remove();
           Swal.fire({
             title: "Thành công",
-            html: `Đánh giá <b>#${idReview}</b> đã được phê duyệt`,
+            html: `${item} <b>#${idReview}</b> đã được phê duyệt`,
             icon: "success",
           });
         },
       });
     }
   });
-});
+}
+
 window.setTimeout(function () {
   $(".alert.alert-success.fade")
     .fadeTo(500, 0)

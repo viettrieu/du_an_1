@@ -9,7 +9,7 @@ class PostModel extends DB
     }
     public function GetPostById($id)
     {
-        $sql = "SELECT title, id_category, users.fullName, users.username, thumbnail, excerpt, content, DATE_FORMAT(published, '%e/%c/%Y') AS'published' FROM post INNER JOIN users ON users.id = id_user WHERE post.id = $id ";
+        $sql = "SELECT post.id, title, id_category, users.fullName, users.username, thumbnail, excerpt, content, DATE_FORMAT(published, '%e/%c/%Y') AS'published' FROM post INNER JOIN users ON users.id = id_user WHERE post.id = $id ";
         return $this->pdo_query_one($sql);
     }
     public function GetPostByCategory($id)
