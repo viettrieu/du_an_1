@@ -2,10 +2,10 @@
   <!-- Logo -->
   <div class="header-left">
     <a href="<?= ADMIN_URL ?>/dashboard" class="logo">
-      <img src="<?= SITE_URL ?>/public/admin/img/logo.png" alt="Logo" />
+      <img src="https://auteur.g5plus.net/wp-content/uploads/2019/01/logo-black.png" alt="Logo" />
     </a>
     <a href="<?= ADMIN_URL ?>/dashboard" class="logo logo-small">
-      <img src="<?= SITE_URL ?>/public/admin/img/logo-small.png" alt="Logo" width="30" height="30" />
+      <img src="https://auteur.g5plus.net/wp-content/uploads/2019/01/logo-black.png" alt="Logo" width="30" height="30" />
     </a>
   </div>
   <!-- /Logo -->
