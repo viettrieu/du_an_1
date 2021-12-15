@@ -117,7 +117,7 @@ class Store extends Controller
         $base_url = SITE_URL . "/store/publisher/$id";
         $this->view("page-left", [
             "Page" => "store",
-            "Title" => "Nhà xuất bản " . $publisher['title'],
+            "Title" => $publisher['title'],
             "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "publisher", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),

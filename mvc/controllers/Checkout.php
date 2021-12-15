@@ -123,7 +123,7 @@ class Checkout extends Controller
         $this->view("pages/cc", $data);
         $body = ob_get_clean();
         $data = array(
-          "Subject" => "Cảm ơn bạn đã đặt hàng tại Foodo",
+          "Subject" => "Cảm ơn bạn đã đặt hàng tại AUTEUR",
           "Page" => $body,
           "Email" => $email,
           "FullName" => $fullName,
