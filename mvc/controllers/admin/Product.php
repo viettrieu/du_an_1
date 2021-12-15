@@ -48,9 +48,9 @@ class Product extends Controller
       $errors = HandleForm::validations([
         [$title, 'required', 'Vui lòng nhập tên sản phẩm'],
         [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
-        // [$request->discount, 'numbers', 'Vui lòng nhập giá khuyến mãi'],
         [$category, 'required', 'Vui lòng chọn danh mục'],
         [$publisher, 'required', 'Vui lòng chọn NXB'],
+        [$discount, 'Nmax:' . $price, 'Giá khuyến mãi phải nhỏ hơn giá thường'],
       ]);
       if (!$thumbnail[0]) {
         $errors[] = ["status" => "ERROR", "message" => $thumbnail[1]];
@@ -115,9 +115,9 @@ class Product extends Controller
       $errors = HandleForm::validations([
         [$title, 'required', 'Vui lòng nhập tên sản phẩm'],
         [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
-        // [$request->discount, 'numbers', 'Vui lòng nhập giá khuyến mãi'],
         [$category, 'required', 'Vui lòng chọn danh mục'],
         [$publisher, 'required', 'Vui lòng chọn NXB'],
+        [$discount, 'Nmax:' . $price, 'Giá khuyến mãi phải nhỏ hơn giá thường'],
       ]);
       if (!$thumbnail[0]) {
         $errors[] = ["status" => "ERROR", "message" => $thumbnail[1]];
