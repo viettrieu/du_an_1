@@ -51,6 +51,19 @@ class ProductModel extends DB
         INNER JOIN wishlist wl  ON book.id = wl.productId GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
         return $this->pdo_query($sql);
     }
+    public function GetRatingProduct($limit = 6)
+    {
+        $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, book.discount, X.rating , A.author AS 'author' FROM book
+        INNER JOIN (SELECT productId, GROUP_CONCAT( DISTINCT JSON_OBJECT(
+              'title', author.title,
+              'id', author.id
+            )) AS 'author' FROM `author` INNER JOIN book_author ON id = authorId  GROUP BY productId) A ON A.productId =  book.id
+        LEFT JOIN (SELECT productId, AVG(rating) AS 'rating' FROM book_review WHERE status = 1 GROUP BY productId) X  ON X.productId = book.id
+        GROUP BY book.id ORDER BY rating DESC LIMIT $limit";
+        return $this->pdo_query($sql);
+    }
+
+
     public function GetByTaxonomy($id = 0, $name = 0, $offset = 0, $perPage = 0)
     {
         $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, book.discount, X.rating , A.author AS 'author'  FROM book

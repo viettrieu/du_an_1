@@ -61,20 +61,20 @@
 <section id="list-products">
   <div class="container">
     <ul class="nav nav-tabs ">
-      <li class="active">
-        <a href="#" class="btn-accent">Bestseller Books</a>
+      <li class="active" data-act="Sell">
+        <a href="#" class="btn-accent">Bán chạy nhất</a>
       </li>
-      <li>
-        <a href="#" class="btn-accent">Sale</a>
+      <li data-act="Wishlist">
+        <a href="#" class="btn-accent">Yêu thích nhất</a>
       </li>
-      <li>
-        <a href="#" class="btn-accent">Featured Books</a>
+      <li data-act="Rating">
+        <a href="#" class="btn-accent">Đánh giá cao</a>
       </li>
     </ul>
   </div>
-  <div class="row">
+  <div class="row show_product Sell">
     <?php
-    $sellList =  $data['sell'];
+    $sellList =  $data['Sell'];
     if (count($sellList) > 0) {
       foreach ($sellList as $product) { ?>
     <div class="col medium-4 small-6 large-3">
@@ -90,6 +90,8 @@
     </div>
     <?php } ?>
   </div>
+  <div class="row show_product Wishlist" style=" display: none; "></div>
+  <div class="row show_product Rating" style=" display: none; "></div>
 </section>
 <section id="what-hot">
   <div class="row-collapse" style="justify-content: center">
@@ -148,40 +150,24 @@
   </div>
 
 </section>
-<section id="newest">
+<section id="newest" style=" padding-bottom: 0; ">
   <div class="container">
     <ul class="nav nav-tabs">
-      <li class="cat-item active" data-id="all">
-        <a class="btn-accent" href="#">ALL</a>
-      </li>
       <?php
       $resultCategory =  $data['ListCategory'];
-      foreach ($resultCategory as $key => $category) { ?>
+      foreach ($resultCategory as $category) { ?>
       <li class="cat-item" data-id="<?= $category["id"] ?>">
         <a class="btn-accent" href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>"><?= $category["title"] ?></a>
       </li>
       <?php } ?>
     </ul>
   </div>
-
-  <div class="row" id="show_product">
-    <?php
-    $sellList =  $data['sell'];
-    if (count($sellList) > 0) {
-      foreach ($sellList as $product) { ?>
-    <div class="col medium-4 small-6 large-3">
-      <div class="col-inner">
-        <?php require "./mvc/views/block/product.php" ?>
-      </div>
-    </div>
-    <?php }
-    } else { ?>
-    <div class="container">
-      Không có sản phẩm phù hợp
-    </div>
-    <?php } ?>
-  </div>
-
+  <?php
+  foreach ($resultCategory as $key => $category) {
+    $style = $key == 0 ? '' : 'style="display: none;"';
+  ?>
+  <div class="row show_product <?= $category["id"] ?>" <?= $style ?>></div>
+  <?php } ?>
 </section>
 <section id="list-posts">
   <div class="title container text-center">

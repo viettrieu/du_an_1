@@ -680,7 +680,7 @@ ul {
   margin-left: 5rem;
 }
 #list-products .nav-tabs > li a {
-  padding-bottom: 7px;
+  padding-bottom: 5px;
 }
 .title {
   margin-bottom: 1.5rem;
@@ -1149,7 +1149,11 @@ span.price ins {
   justify-content: center;
 }
 @media screen and (max-width: 549px) {
-  #newest .nav-tabs {
+  #list-products .nav-tabs {
+    font-size: 2rem;
+  }
+  #newest .nav-tabs,
+  #list-products .nav-tabs {
     flex-wrap: nowrap;
     overflow-x: scroll;
     justify-content: start;
@@ -1157,7 +1161,8 @@ span.price ins {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
-  #newest .nav-tabs > li {
+  #newest .nav-tabs > li,
+  #list-products .nav-tabs > li {
     min-width: max-content;
     scroll-snap-align: start;
     scroll-snap-stop: always;

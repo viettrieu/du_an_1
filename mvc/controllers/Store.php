@@ -43,11 +43,15 @@ class Store extends Controller
         ]);
     }
 
-    function Category($id)
+    function Category($id = 0)
     {
+        $category = $this->ListCategory->GetCategorById($id);
+        if ($category == NULL) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "category");
         $base_url = SITE_URL . "/store/category/$id";
-        $category = $this->ListCategory->GetCategorById($id);
         $this->view("page-left", [
             "Page" => "store",
             "Title" => $category['title'],
@@ -61,25 +65,38 @@ class Store extends Controller
         ]);
     }
 
-    function Author($id)
+    function Author($id = 0)
     {
+        $author = $this->ListAuthor->GetAuthorById($id);
+        if ($author == NULL) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "author");
         $base_url = SITE_URL . "/store/author/$id";
         $this->view("page-full", [
             "Page" => "author",
             "Title" => "Tác giả",
-            "Author" => $this->ListAuthor->GetAuthorById($id),
+            "Author" => $author,
             "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "author", $this->offset, $this->perPage),
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
-    function Rating($id)
+    function Rating($id = 0)
     {
+        if (!is_numeric($id)) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
+        if ($id < 3 || $id > 5) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "rating");
         $base_url = SITE_URL . "/store/rating/$id";
         $this->view("page-left", [
             "Page" => "store",
-            "Title" => "Đánh giá từ " . $id . " sao",
+            "Title" => "Theo đánh giá",
             "ListProduct" => $this->ListProduct->GetByTaxonomy($id, "rating", $this->offset, $this->perPage),
             "ListCategory" => $this->ListCategory->GetAllCategory(),
             "ListTag" => $this->ListTag->GetAllTag(),
@@ -89,11 +106,15 @@ class Store extends Controller
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
-    function Publisher($id)
+    function Publisher($id = 0)
     {
+        $publisher = $this->ListPublisher->GetPublisherById($id);
+        if ($publisher == NULL) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "publisher");
         $base_url = SITE_URL . "/store/publisher/$id";
-        $publisher = $this->ListPublisher->GetPublisherById($id);
         $this->view("page-left", [
             "Page" => "store",
             "Title" => "Nhà xuất bản " . $publisher['title'],
@@ -106,11 +127,15 @@ class Store extends Controller
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
-    function Tag($id)
+    function Tag($id = 0)
     {
+        $tag = $this->ListTag->GetTagById($id);
+        if ($tag == NULL) {
+            header("Location: " . SITE_URL . "/store");
+            exit();
+        }
         $totalProduct = $this->ListProduct->GetByTaxonomy($id, "tag");
         $base_url = SITE_URL . "/store/tag/$id";
-        $tag = $this->ListTag->GetTagById($id);
         $this->view("page-left", [
             "Page" => "store",
             "Title" => $tag['title'],
@@ -123,7 +148,7 @@ class Store extends Controller
             "Paging" => Helper::Pagination($base_url, count($totalProduct), $this->page, $this->perPage),
         ]);
     }
-    function Product($id = false)
+    function Product($id = 0)
     {
         if ($id == "addreview" && isset($_SESSION["user"])) {
             if (isset($_POST["productId"])) {
@@ -159,11 +184,11 @@ class Store extends Controller
             exit();
         }
 
-        if ($id == false || $this->ListProduct->Check($id) == false) {
+        $product =  $this->ListProduct->GetProductById($id);
+        if ($product == NULL) {
             header("Location: " . SITE_URL . "/store");
             exit();
         }
-        $product =  $this->ListProduct->GetProductById($id);
         $UserById = "";
         if (isset($_SESSION['user'])) {
             $UserById = $this->User->GetUserById($_SESSION['user']['username']);
