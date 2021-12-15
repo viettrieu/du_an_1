@@ -3,7 +3,7 @@
   <div class="login-wrapper">
     <div class="container">
 
-      <img class="img-fluid logo-dark mb-2" src="<?= SITE_URL ?>/public/admin//img/logo.png" alt="Logo">
+      <img class="img-fluid logo-dark mb-2" src="https://auteur.g5plus.net/wp-content/uploads/2019/01/logo-black.png" alt="Logo">
       <div class="loginbox">
 
         <div class="login-right">
