@@ -92,6 +92,14 @@ Version      : 1.0
   $("#startDate").on("dp.change", function (e) {
     $("#expiryDate").data("DateTimePicker").minDate(e.date.add(1, "days"));
   });
+
+  if ($(".datetimepicker-coupon").length > 0) {
+    $(".datetimepicker-coupon").datetimepicker({
+      format: "DD-MM-YYYY",
+      minDate: moment(),
+    });
+  }
+
   // $("#expiryDate").on("dp.change", function (e) {
   //   $("#startDate").data("DateTimePicker").maxDate(e.date);
   // });
