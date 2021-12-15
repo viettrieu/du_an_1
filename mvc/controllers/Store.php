@@ -214,9 +214,16 @@ class Store extends Controller
     function Search()
     {
         $key = HandleForm::rip_tags($_GET["s"]);
-        $totalProduct = $this->ListProduct->GetByTaxonomy($key, "search");
+        $conditions = "";
+        $key = HandleForm::rip_tags($_GET["s"]);
+        $keyword = explode(" ", $key);
+        foreach ($keyword as $word) {
+            $conditions .= "book.title LIKE '%" . $word . "%' OR ";
+        }
+        $conditions = substr($conditions, 0, -4);
+        $totalProduct = $this->ListProduct->GetByTaxonomy($conditions, "search");
         $base_url = SITE_URL . "/store/search?s=$key";
-        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", $this->offset, $this->perPage);
+        $ListProduct = $this->ListProduct->GetByTaxonomy($conditions, "search", $this->offset, $this->perPage);
         $this->view("page-left", [
             "Page" => "store",
             "Title" => "Từ khóa: " . $key,
@@ -231,8 +238,14 @@ class Store extends Controller
     }
     function LiveSearch()
     {
+        $conditions = "";
         $key = HandleForm::rip_tags($_GET["s"]);
-        $ListProduct = $this->ListProduct->GetByTaxonomy($key, "search", 0, 5);
+        $keyword = explode(" ", $key);
+        foreach ($keyword as $word) {
+            $conditions .= "book.title LIKE '%" . $word . "%' OR ";
+        }
+        $conditions = substr($conditions, 0, -4);
+        $ListProduct = $this->ListProduct->GetByTaxonomy($conditions, "search", 0, 5);
         $suggestions = array();
         if (count($ListProduct) > 0) {
             foreach ($ListProduct as $product) {

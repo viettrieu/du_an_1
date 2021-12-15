@@ -83,7 +83,7 @@ class ProductModel extends DB
                 $sql .= " WHERE book.id IN (SELECT book_author.productId FROM book_author WHERE authorId = $id)";
             }
             if ($name == 'search') {
-                $sql .= " WHERE book.title LIKE '%$id%'";
+                $sql .= " WHERE $id";
             }
             if ($name == 'rating') {
                 $sql .= " WHERE rating >= $id";
