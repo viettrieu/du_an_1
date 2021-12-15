@@ -486,10 +486,10 @@ $("#mailchimp").submit(function () {
 
 (function () {
   let cache = {};
-  $(document).on("click", "#list-products li", function (e) {
+  $(document).on("click", "#list-products li[data-act]", function (e) {
     e.preventDefault();
     const act = $(this).data("act");
-    $("#list-products li").removeClass("active");
+    $("#list-products li[data-act]").removeClass("active");
     $(this).addClass("active");
     $(this).addClass("active");
     if (Object.keys(cache).includes(String(act))) {
