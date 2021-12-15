@@ -469,8 +469,9 @@ ul {
 }
 .header-top {
   position: relative;
-  background-color: #fff;
   min-height: 5rem;
+  border-top: 1px solid rgb(230, 230, 230);
+  box-shadow: rgb(181 181 181 / 35%) 0px 4px 10px 0px;
 }
 .header-top .nav.social-icons a,
 .header-top .nav.top-bar-nav a {

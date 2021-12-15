@@ -66,26 +66,30 @@ input[type="search"] {
   display: flex;
   align-items: center;
   padding: 5px;
-  border: 1px solid;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  box-shadow: 10px 5px 5px;
+  box-shadow: 2px 1px 5px;
 }
-.sizeprice{
-  font-size: 40px;
+.forgett input {
+  transform: scale(1.5);
+  margin-right: 1rem;
 }
-.sizeprice-1{
-  font-size: 24px;
+.sizeprice {
+  font-size: 3.6rem;
 }
-.sizeprice-2{
-  font-size: 36px;
+.sizeprice-1 {
+  font-size: 2.4rem;
 }
-.author-name{
+.sizeprice-2 {
+  font-size: 3.4rem;
+}
+.author-name {
   font-size: 40px;
   text-transform: uppercase;
 }
-.ma-1{
-  margin-top: 10px!important;
+.ma-1 {
+  margin-top: 10px !important;
 }
-.ma-2{
+.ma-2 {
   text-align: center;
 }
