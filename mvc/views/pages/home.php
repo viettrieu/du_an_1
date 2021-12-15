@@ -61,20 +61,20 @@
 <section id="list-products">
   <div class="container">
     <ul class="nav nav-tabs ">
-      <li class="active">
-        <a href="#" class="btn-accent">Bestseller Books</a>
+      <li class="active" data-act="Sell">
+        <a href="#" class="btn-accent">Bán chạy nhất</a>
       </li>
-      <li>
-        <a href="#" class="btn-accent">Sale</a>
+      <li data-act="Wishlist">
+        <a href="#" class="btn-accent">Yêu thích nhất</a>
       </li>
-      <li>
-        <a href="#" class="btn-accent">Featured Books</a>
+      <li data-act="Rating">
+        <a href="#" class="btn-accent">Đánh giá cao</a>
       </li>
     </ul>
   </div>
-  <div class="row">
+  <div class="row show_product Sell">
     <?php
-    $sellList =  $data['sell'];
+    $sellList =  $data['Sell'];
     if (count($sellList) > 0) {
       foreach ($sellList as $product) { ?>
     <div class="col medium-4 small-6 large-3">
@@ -90,6 +90,8 @@
     </div>
     <?php } ?>
   </div>
+  <div class="row show_product Wishlist" style=" display: none; "></div>
+  <div class="row show_product Rating" style=" display: none; "></div>
 </section>
 <section id="what-hot">
   <div class="row-collapse" style="justify-content: center">
@@ -148,204 +150,80 @@
   </div>
 
 </section>
-<section id="newest">
+<section id="newest" style=" padding-bottom: 0; ">
   <div class="container">
     <ul class="nav nav-tabs">
-      <li class="cat-item active" data-id="all">
-        <a class="btn-accent" href="#">ALL</a>
-      </li>
       <?php
       $resultCategory =  $data['ListCategory'];
-      foreach ($resultCategory as $key => $category) { ?>
+      foreach ($resultCategory as $category) { ?>
       <li class="cat-item" data-id="<?= $category["id"] ?>">
         <a class="btn-accent" href="<?= SITE_URL ?>/store/category/<?= $category["id"] ?>"><?= $category["title"] ?></a>
       </li>
       <?php } ?>
     </ul>
   </div>
-
-  <div class="row" id="show_product">
-    <?php
-    $sellList =  $data['sell'];
-    if (count($sellList) > 0) {
-      foreach ($sellList as $product) { ?>
-    <div class="col medium-4 small-6 large-3">
-      <div class="col-inner">
-        <?php require "./mvc/views/block/product.php" ?>
-      </div>
-    </div>
-    <?php }
-    } else { ?>
-    <div class="container">
-      Không có sản phẩm phù hợp
-    </div>
-    <?php } ?>
-  </div>
-
+  <?php
+  foreach ($resultCategory as $key => $category) {
+    $style = $key == 0 ? '' : 'style="display: none;"';
+  ?>
+  <div class="row show_product <?= $category["id"] ?>" <?= $style ?>></div>
+  <?php } ?>
 </section>
-<section id="our-team">
-  <div class="title container text-center">
-    <h2>TÁC GIẢ HÀNG ĐẦU</h2>
-    <img src="<?= SITE_URL ?>/public/img/title.png">
-  </div>
-  <div class="container our-team owl-carousel owl-theme">
-    <div class="person has-hover">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-4.jpg" alt="Gordon Ramsay">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-
-      <div class="box-text">
-        <span class="person-name">Gordon Ramsay</span><br>
-        <span class="person-title">J-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-3.jpg" alt="Mark Anthony">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">Mark Anthony</span><br>
-        <span class="person-title">F-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-2.jpg" alt="Jessica Lee">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">Jessica Lee</span><br>
-        <span class="person-title">R-D</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <img src="<?= SITE_URL ?>/public/img/chef-1.jpg" alt="John Bennett">
-        <ul class="person-social">
-          <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#youtube"><i class="fab fa-youtube"></i></a></li>
-          <li><a href="#instagram"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-      <div class="box-text">
-        <span class="person-name">John Bennett</span><br>
-        <span class="person-title">French Kitchen Lead</span>
-        <p class="person-introduce">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-          ligula eget dolor sociis natoque</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="list-posts">
   <div class="title container text-center">
     <h2>TIN TỨC</h2>
     <img src="<?= SITE_URL ?>/public/img/title.png">
   </div>
   <div class="container list-posts owl-carousel owl-theme">
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <a href="./index.php?action=bai-viet">
-          <img src="<?= SITE_URL ?>/public/img/blog-1.jpg" alt="Những lý do nên bao gồm rau hữu cơ trong chế độ ăn">
-        </a>
-      </div>
-      <div class="box-text">
-        <div class="post-meta flex-row">
-          <p class="post-date">10/02/2021</p>
-          <p class="post-author">Posted by <a href="/author.html">Nghia.l.t</a></p>
-        </div>
-        <h5 class="post-title">
-          <a href="./index.php?action=bai-viet">Những lý do nên bao gồm rau hữu cơ trong chế độ ăn</a>
-        </h5>
-        <p class="post-excerpt">
-          Ngay cả khi bạn không phải là một chuyên gia về da, không khó để nhận ra rằng hầu hết
-          phụ nữ Hàn Quốc có làn da như
-          sương, sáng và gần như mờ…
-        </p>
-      </div>
+    <?php
+    $ListPost =  $data['ListPost'];
+    if (count($ListPost) > 0) {
+      foreach ($ListPost as $post) { ?>
+    <?php require "./mvc/views/block/post.php" ?>
+    <?php }
+    } ?>
+  </div>
+</section>
+<section id="our-awards">
+  <div class="container our-awards owl-carousel owl-theme">
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/cambridge.jpg" alt="cambridge">
     </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-4.jpg"
-            alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
-      </div>
-      <div class="box-text">
-        <div class="post-meta flex-row">
-          <p class="post-date">10/02/2021</p>
-          <p class="post-author">Posted by <a href="/author.html">Nghia.l.t</a></p>
-        </div>
-        <h5 class="post-title">
-          <a href="./index.php?action=bai-viet">Chiếc bánh hamburger ngon nhất thế giới hiện tại</a>
-        </h5>
-        <p class="post-excerpt">
-          Ai cũng biết McDonald’s – Cửa hàng bán bánh hamburger Big Mac nổi tiếng nhất thế giới
-          vừa mới mở cửa hàng đầu tiên ở
-          Việt Nam....
-        </p>
-      </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/cengage.jpg" alt="cengage">
     </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-3.jpg"
-            alt="Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất"></a>
-      </div>
-      <div class="box-text">
-        <div class="post-meta flex-row">
-          <p class="post-date">10/02/2021</p>
-          <p class="post-author">Posted by <a href="/author.html">Nghia.l.t</a></p>
-        </div>
-        <h5 class="post-title">
-          <a href="./index.php?action=bai-viet">Tổng hợp các chiếc bánh hamburger xúc xích ngon nhất</a>
-        </h5>
-        <p class="post-excerpt">
-          Nhắc đến xúc xích sẽ chẳng xa lạ gì với mọi thực khách từ trẻ đến già. Hầu hết chúng ta
-          thưởng thức xúc xích rán, ăn lẩu hay nấu canh...
-        </p>
-      </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/Harper-Collins.jpg" alt="Harper-Collins">
     </div>
-    <div class="post has-hover item">
-      <div class="box-image image-zoom">
-        <a href="./index.php?action=bai-viet"><img src="<?= SITE_URL ?>/public/img/blog-2.jpg"
-            alt="Chiếc bánh hamburger ngon nhất thế giới hiện tại"></a>
-      </div>
-      <div class="box-text">
-        <div class="post-meta flex-row">
-          <p class="post-date">10/02/2021</p>
-          <p class="post-author">Posted by <a href="/author.html">Nghia.l.t</a></p>
-        </div>
-        <h5 class="post-title">
-          <a href="./index.php?action=bai-viet">Chiếc bánh hamburger ngon nhất thế giới hiện tại</a>
-        </h5>
-        <p class="post-excerpt">
-          Ai cũng biết McDonald’s – Cửa hàng bán bánh hamburger Big Mac nổi tiếng nhất thế giới
-          vừa mới mở cửa hàng đầu tiên ở
-          Việt Nam....
-        </p>
-      </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/hachette.jpg" alt="hachette">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/macgrawhill.jpg" alt="macgrawhill">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/macmillan.jpg" alt="macmillan">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/oxford.jpg" alt="oxford">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/paragon.jpg" alt="paragon">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/PearsonLogo_Avatar.png" alt="PearsonLogo_Avatar">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/penguin.jpg" alt="penguin">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/sterling.jpg" alt="sterling">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/usborn.jpg" alt="usborn">
+    </div>
+    <div class="item">
+      <img src="<?= SITE_URL ?>/public/img/Scholastic-bar-logo.png" alt="Scholastic-bar-logo">
     </div>
   </div>
 </section>

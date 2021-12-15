@@ -25,32 +25,29 @@ class Dashboard extends Controller
       "Page" => "dashboard",
       "Title" => "Dashboard",
       "Count" => [$this->Statistical->count("book"), $this->Statistical->count("users"), $this->Statistical->count("order_item"), $this->Statistical->count("book_review"),],
-      "WishlistProduct" => $this->Statistical->GetWishlistProduct(1,5),
+      "WishlistProduct" => $this->Statistical->GetWishlistProduct(1, 5),
       "HotProduct" => $this->Statistical->GetHotProduct(1, $sd, $en, 5),
       "ListCategory" => $this->ListCategory->GetAllCategory(),
     ]);
   }
-  function cc()
+  function Invoice()
   {
-    $cc = $this->Statistical->SumOrderByStatus();
-    foreach ($cc  as $row) {
+    $invoice = $this->Statistical->SumOrderByStatus();
+    foreach ($invoice  as $row) {
       $row_title[]  = $row['status'];
       $row_luot[]   = (int)$row['total'];
+      $row_id[]   = (int)$row['id'];
     }
-    $stats = [$row_title, $row_luot];
-    echo json_encode($stats);
+    echo json_encode([$row_title, $row_luot, $row_id]);
   }
-  function getDaterangeSU()
+  function Category()
   {
-    if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
-      $startDate = $_POST['startDate'];
-      $endDate =  $_POST['endDate'];
-      $metric =  ['ga:Pageviews', 'ga:users', 'ga:Sessions'];
-      $dimension =  ['ga:date'];
-      GoogleAnalytics::printResults($startDate, $endDate, $metric, $dimension);
-    } else {
-      echo 'Lỗi';
+    $category = $this->Statistical->Category();
+    foreach ($category  as $row) {
+      $row_title[]  = $row['title'];
+      $row_luot[]   = (int)$row['quantily'];
     }
+    echo json_encode([$row_title, $row_luot]);
   }
   function getDataSQL()
   {
@@ -64,42 +61,5 @@ class Dashboard extends Controller
       $result = $this->Statistical->GetWishlistProduct($cond, 5);
     }
     echo json_encode($result);
-  }
-  function get()
-  {
-    if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
-      $startDate = $_POST['startDate'];
-      $endDate =  $_POST['endDate'];
-      $metric =  ['ga:users', 'ga:Sessions', 'ga:percentNewSessions', 'ga:bounceRate', 'ga:avgSessionDuration', 'ga:pageviewsPerSession', 'ga:Pageviews'];
-      $dimension =  [];
-      GoogleAnalytics::printResults($startDate, $endDate, $metric, $dimension);
-    } else {
-      echo 'Lỗi';
-    }
-  }
-  function DeviceCategory()
-  {
-    if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
-      $startDate = $_POST['startDate'];
-      $endDate =  $_POST['endDate'];
-      $metric =  ['ga:users'];
-      $dimension =  ['ga:DeviceCategory', 'ga:date'];
-      GoogleAnalytics::printResults($startDate, $endDate, $metric, $dimension);
-    } else {
-      echo 'Lỗi';
-    }
-  }
-  function listPageView()
-  {
-    if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
-      $startDate = $_POST['startDate'];
-      $endDate =  $_POST['endDate'];
-      $metric =  ['ga:sessions', 'ga:bounceRate', 'ga:Pageviews', 'ga:uniquePageviews', 'ga:avgTimeOnPage', 'ga:exitRate'];
-      $dimension =  ['ga:pagepath'];
-      $sort =  ['ga:pageviews'];
-      GoogleAnalytics::printResults($startDate, $endDate, $metric, $dimension, $sort);
-    } else {
-      echo 'Lỗi';
-    }
   }
 }

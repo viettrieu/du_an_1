@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="page-title">Sản phẩm</h3>
+          <h3 class="page-title">Bài viết</h3>
           <ul class="breadcrumb">
             <li class="breadcrumb-item active">Đánh giá</li>
           </ul>
@@ -22,15 +22,15 @@
         <div class="card card-table">
           <div class="card-body">
 
-            <div class="table-responsive" id="reviews_list">
+            <div class="table-responsive" id="comment_list">
               <table class="table table-stripped table-hover datatable">
                 <thead class="thead-light">
                   <tr>
                     <th>ID</th>
-                    <th>Khách hàng</th>
-                    <th>Đánh giá</th>
+                    <th>Người dùng</th>
+                    <th>Trả lời</th>
                     <th>Nội dung</th>
-                    <th>Sản phẩm</th>
+                    <th>Bài viết</th>
                     <th>Thời gian</th>
                     <th>Trạng thái</th>
                     <th class="text-right">Hành động</th>
@@ -38,38 +38,32 @@
                 </thead>
                 <tbody>
                   <?php
-                  $ListReview = $data["ListReview"];
-                  if (isset($ListReview)) {
-                    foreach ($ListReview as $review) { ?>
+                  $ListComment = $data["ListComment"];
+                  if (isset($ListComment)) {
+                    foreach ($ListComment as $comment) { ?>
                   <tr>
-                    <td class="id"><?= $review['id']; ?></td>
+                    <td class="id"><?= $comment['id']; ?></td>
                     <td>
                       <h2 class="table-avatar">
-                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $review['id']; ?>"
+                        <a href="./index.php?action=chi-tiet-don-hang&id=<?= $comment['id']; ?>"
                           class="avatar avatar-sm mr-2">
-                          <img class="avatar-img rounded-circle"
-                            src="<?= $review['avatar'] == null ? '/public/img/avatar-default.png' : $review['avatar']; ?>"
-                            alt="User Image" />
+                          <img class="avatar-img rounded-circle" src="<?= $comment['avatar'] ?>" alt="User Image" />
                         </a>
                         <a href="./index.php?action=chi-tiet-don-hang&id=">
-                          <?= $review['fullName'] ? $review['fullName'] : $review['username'] ?>
+                          <?= $comment['fullName'] ? $comment['fullName'] : $comment['username'] ?>
                         </a>
                       </h2>
                     </td>
-                    <td>
-                      <div class="star-ratings-css">
-                        <div class="star-ratings-inner" style="width: <?= $review['rating'] * 20; ?>%"></div>
-                      </div>
-                    </td>
-                    <td><?= $review['content']; ?></td>
-                    <td><?= $review['title']; ?></td>
-                    <td><?= $review['published']; ?></td>
+                    <td><?= $comment['parent_id'] == 0 ? "" : $comment['parent_id']; ?></td>
+                    <td><?= $comment['content']; ?></td>
+                    <td><?= $comment['title']; ?></td>
+                    <td><?= $comment['published']; ?></td>
                     <td class="status">
-                      <span class="badge-pill bg-<?= $review['status'] == 1 ? 'success' : 'warning'; ?>-light">
-                        <?= $review['status'] == 1 ? 'Đã duyệt' : 'Chờ phê duyệt'; ?>
+                      <span class="badge-pill bg-<?= $comment['status'] == 1 ? 'success' : 'warning'; ?>-light">
+                        <?= $comment['status'] == 1 ? 'Đã duyệt' : 'Chờ phê duyệt'; ?>
                     </td>
                     <td class="text-right">
-                      <?php if ($review['status'] == 0) : ?>
+                      <?php if ($comment['status'] == 0) : ?>
                       <a href="javascript:void(0);" class="btn btn-sm btn-white text-primary mr-2 accept"><i
                           class="fas fa-check-circle mr-1"></i>Duyệt</a>
                       <?php endif ?>

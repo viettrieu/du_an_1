@@ -7,6 +7,9 @@
           <li class="<?php if ($data["Page"] == "dashboard") echo "active"; ?>">
             <a href="<?= ADMIN_URL; ?>/dashboard"><i class="fas fa-home"></i><span>Bảng tin</span></a>
           </li>
+          <li class="<?php if ($data["Page"] == "statistical") echo "active"; ?>">
+            <a href="<?= ADMIN_URL; ?>/statistical"><i class="fas fa-chart-bar"></i><span>Thống kê</span></a>
+          </li>
           <li class="submenu">
             <a href="#"><i class="fas fa-boxes"></i> <span>
                 Sản phẩm</span> <span class="menu-arrow"></span></a>
@@ -70,6 +73,12 @@
                 <a href="<?= ADMIN_URL; ?>/postcategory"
                   class="<?php if ($data["Page"] == "post-category") echo "active"; ?>">
                   Danh mục
+                </a>
+              </li>
+              <li>
+                <a href="<?= ADMIN_URL; ?>/comment"
+                  class="<?php if ($data["Page"] == "post-category") echo "active"; ?>">
+                  Bình luận
                 </a>
               </li>
             </ul>

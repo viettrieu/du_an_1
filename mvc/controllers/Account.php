@@ -163,6 +163,7 @@ class Account extends Controller
   }
   public function UserLogout()
   {
+    setcookie('social_user', '', time() - 3600, '/');
     unset($_SESSION['user']);
     header("Location: " . SITE_URL . "/login");
   }

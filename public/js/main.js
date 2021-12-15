@@ -449,7 +449,8 @@ $("#mailchimp").submit(function () {
     $("#newest li").removeClass("active");
     $(this).addClass("active");
     if (Object.keys(cache).includes(String(id))) {
-      $("#show_product").html(cache[id][0] + cache[id][1]);
+      $("#newest .show_product").hide();
+      $("#newest ." + id).show();
       return;
     }
     $.ajax({
@@ -457,10 +458,13 @@ $("#mailchimp").submit(function () {
       dataType: "JSON",
       success: (data) => {
         cache[id] = [data[0], data[1]];
-        $("#show_product").html(data[0] + data[1]);
+        $("#newest ." + id).html(data[0] + data[1]);
+        $("#newest .show_product").hide();
+        $("#newest ." + id).show();
       },
     });
   });
+  $("#newest .cat-item:first-child").trigger("click");
   $(document).on("click", "#newest .load-more", function (e) {
     var spinner = '<span class="spinner"></span>';
     $(this).addClass("loading").html(spinner);
@@ -472,10 +476,62 @@ $("#mailchimp").submit(function () {
       dataType: "JSON",
       success: (data) => {
         $(this).closest("div")[0].remove();
-        $("#show_product").append(data[0] + data[1]);
+        $("#newest ." + id).append(data[0] + data[1]);
         cache[id][0] += data[0];
         cache[id][1] = data[1];
       },
     });
   });
 })();
+
+(function () {
+  let cache = {};
+  $(document).on("click", "#list-products li[data-act]", function (e) {
+    e.preventDefault();
+    const act = $(this).data("act");
+    $("#list-products li[data-act]").removeClass("active");
+    $(this).addClass("active");
+    $(this).addClass("active");
+    if (Object.keys(cache).includes(String(act))) {
+      $("#list-products .show_product").hide();
+      $("#list-products ." + act).show();
+      return;
+    }
+    $.ajax({
+      url: SITE_URL + "/home/ListProduct/" + act,
+      dataType: "JSON",
+      success: (data) => {
+        cache[act] = [data[0], data[1]];
+        $("#list-products ." + act).html(data[0]);
+        $("#list-products .show_product").hide();
+        $("#list-products ." + act).show();
+      },
+    });
+  });
+})();
+$(document).on("click", "#remove-coupon", function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: SITE_URL + "/cart/removecoupon",
+    type: "POST",
+    dataType: "JSON",
+    success: function (data) {
+      coupon = data["coupon"];
+      ship = getshipmentFee();
+      total = getTotal(subTotal, 0, ship);
+      let info = data["info"];
+      let status = info["status"] == "ERROR" ? "alert-danger" : "alert-success";
+      let alert = `<div class="alert ${status} alert-dismissible fade show" role="alert">
+      ${info["message"]}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">×</span>
+     </button>
+   </div>`;
+      $("#info").html(alert);
+      if (info["status"] == "OK") {
+        $(".cart-discount").remove();
+        document.querySelector(".total").innerHTML = formatCash(total);
+      }
+    },
+  });
+});

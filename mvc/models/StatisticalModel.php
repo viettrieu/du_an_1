@@ -3,7 +3,7 @@ class StatisticalModel extends DB
 {
   public function SumOrderByStatus($cond = 1)
   {
-    $sql = "SELECT order_status.id, order_status.status, SUM(total) AS 'total' FROM  detailed_order RIGHT JOIN order_status ON detailed_order.status = order_status.id WHERE $cond GROUP BY status ORDER BY order_status.id ASC";
+    $sql = "SELECT order_status.id, order_status.status, SUM(total) AS 'total', COUNT(order_status.id) AS 'sl' FROM  detailed_order INNER JOIN order_status ON detailed_order.status = order_status.id WHERE $cond GROUP BY status ORDER BY order_status.id ASC";
     return $this->pdo_query($sql);
   }
   public function GetHotProduct($cond, $sd, $ed, $limit = 6)
@@ -17,9 +17,10 @@ class StatisticalModel extends DB
     $sql = "SELECT DISTINCT book.id,book.title, thumbnail, book.price, book.discount, COUNT(wl.productId) AS 'quantity'  FROM book INNER JOIN wishlist wl  ON book.id = wl.productId WHERE book.id IN (SELECT book_category.productId FROM book_category WHERE $cond) GROUP BY book.id ORDER BY quantity DESC LIMIT $limit";
     return $this->pdo_query($sql);
   }
-  public function cc()
+  public function Category()
   {
-    $sql = "SELECT title,  COUNT(O.productId) FROM order_item O INNER JOIN book_category BC ON BC.productId = O.productId INNER JOIN category C ON categoryId = C.id  GROUP BY categoryId";
+    $sql = "SELECT title, COUNT(O.productId) AS 'quantily' FROM order_item O INNER JOIN book_category BC ON BC.productId = O.productId INNER JOIN category C ON categoryId = C.id  GROUP BY categoryId";
+    return $this->pdo_query($sql);
   }
   public function count($table, $cond = 1)
   {

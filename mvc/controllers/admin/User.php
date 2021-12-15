@@ -172,35 +172,28 @@ class User extends Controller
       echo 'Không tìm thấy thành viên';
       exit();
     }
+    $cc = $this->Statistical->SumOrderByStatus("detailed_order.userId = " . (int)$id);
+    $order = false;
+    if (count($cc) > 0) {
+      foreach ($cc  as $row) {
+        $title[]  = $row['status'];
+        $tong[]   = (int)$row['total'];
+        $ID[]  = (int)$row['id'];
+        $sl[]  = (int)$row['sl'];
+      }
+      $order = [$title, $tong, $sl, $ID];
+    }
     $this->view("admin/pages/user-quick-view", [
       "User" => Helper::fixUrlImg($this->User->GetUserById(0, 0, 0, "1 OR id = " . $id), "avatar", true),
       "Count" => [
         $this->Statistical->count("book_review", "userId =" . $id),
         $this->Statistical->count("wishlist", "userId =" . $id),
-        $this->Statistical->count("detailed_order", "userId =" . $id)
-      ]
+        $this->Statistical->count("detailed_order", "userId =" . $id),
+      ],
+      "Order" => $order,
     ]);
   }
-  public function Statistical($id = 0)
-  {
-    $user = $this->User->GetUserById(0, 0, 0, "1 OR id = " . $id);
-    if ($user == NULL) {
-      echo json_encode(false);
-      exit();
-    }
-    $cc = $this->Statistical->SumOrderByStatus("detailed_order.userId = " . (int)$id);
-    $stats = false;
-    if (count($cc) > 0) {
-      foreach ($cc  as $row) {
-        $row_title[]  = $row['status'];
-        $row_luot[]   = (int)$row['total'];
-        $row_id[]   = (int)$row['id'];
-      }
-      $stats = [$row_title, $row_luot, $row_id];
-    }
-    echo json_encode($stats);
-    exit();
-  }
+
 
   function Delete($id = 0)
   {
