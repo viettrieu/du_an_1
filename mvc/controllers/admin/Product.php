@@ -50,6 +50,7 @@ class Product extends Controller
         [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
         [$category, 'required', 'Vui lòng chọn danh mục'],
         [$publisher, 'required', 'Vui lòng chọn NXB'],
+        [$authors, 'required', 'Vui lòng chọn tác giả'],
         [$discount, 'Nmax:' . $price, 'Giá khuyến mãi phải nhỏ hơn giá thường'],
       ]);
       if (!$thumbnail[0]) {
@@ -117,6 +118,7 @@ class Product extends Controller
         [$price, 'numbers', 'Vui lòng nhập đúng giá sản phẩm'],
         [$category, 'required', 'Vui lòng chọn danh mục'],
         [$publisher, 'required', 'Vui lòng chọn NXB'],
+        [$authors, 'required', 'Vui lòng chọn tác giả'],
         [$discount, 'Nmax:' . $price, 'Giá khuyến mãi phải nhỏ hơn giá thường'],
       ]);
       if (!$thumbnail[0]) {
