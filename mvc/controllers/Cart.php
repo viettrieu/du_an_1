@@ -122,4 +122,9 @@ class Cart extends Controller
     }
     echo json_encode(['info' => $errors, 'coupon' => $_SESSION['cart']['coupon']]);
   }
+  function removeCoupon()
+  {
+    $_SESSION['cart']['coupon'] = [];
+    echo json_encode(['info' => ["status" => "OK", "message" => "Coupon đã được xóa thành công"], 'coupon' => $_SESSION['cart']['coupon']]);
+  }
 }

@@ -217,3 +217,30 @@ $("#add_coupon").submit(function (e) {
     processData: false,
   });
 });
+
+$(document).on("click", "#remove-coupon", function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: SITE_URL + "/cart/removecoupon",
+    type: "POST",
+    dataType: "JSON",
+    success: function (data) {
+      $("#add_coupon")[0].reset();
+      coupon = data["coupon"];
+      let subTotal = getSubTotal();
+      let info = data["info"];
+      let status = info["status"] == "ERROR" ? "alert-danger" : "alert-success";
+      let alert = `<div class="alert ${status} alert-dismissible fade show" role="alert">
+      ${info["message"]}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">×</span>
+     </button>
+   </div>`;
+      $("#info").html(alert);
+      if (info["status"] == "OK") {
+        $(".cart-discount").remove();
+        document.querySelector(".total").innerHTML = formatCash(subTotal);
+      }
+    },
+  });
+});
